@@ -1,0 +1,6 @@
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
+
+EIA930_BALANCE_2026_Jan_Jun.csv
+cleaned_california_grid_data.csv

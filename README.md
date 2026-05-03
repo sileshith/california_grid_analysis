@@ -57,7 +57,7 @@ The notebook shows the full analytical process, including data preparation, char
 
 ### 2. Tableau Public Dashboard
 The dashboard provides an interactive view of grid demand behavior, adequacy trends, and review-priority summaries.
-![Dashboard Preview](Dashboard_riskOverview.png)
+![Dashboard Preview](assets/Dashboard_riskOverview.png)
 
 **Dashboard link:**  
 [Interactive Tableau Dashboard](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CAGridOperationalRiskReliabilityDashboard/riskOverview#1) 

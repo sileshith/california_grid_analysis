@@ -24,5 +24,8 @@ data/processed/*
 # Output tables — kept local only
 outputs/*.csv
 
+# Notebook backups — large files kept local only
+notebooks/*_with_outputs_backup.ipynb
+
 # Environment
 .env

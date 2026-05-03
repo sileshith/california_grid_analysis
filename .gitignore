@@ -1,6 +1,28 @@
-.ipynb_checkpoints/
+# Python
 __pycache__/
+.ipynb_checkpoints/
+*.pyc
+*.pyo
+
+# macOS
 .DS_Store
 
-EIA930_BALANCE_2026_Jan_Jun.csv
-cleaned_california_grid_data.csv
+# Data files — large files kept local only
+*.csv
+*.zip
+*.xlsx
+*.pbix
+*.hyper
+*.twbx
+
+# Data directory contents — kept local only
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Output tables — kept local only
+outputs/*.csv
+
+# Environment
+.env

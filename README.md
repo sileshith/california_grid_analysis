@@ -1,15 +1,16 @@
-# California Grid Reliability Analysis: Dashboarding Operational Risk in Electricity Demand and Supply
+# California Grid Analysis
+**Dashboarding Operational Risk in Electricity Demand and Supply**
 
-**Author:** Sileshi Hirpa
-**Date:** April–May 2026
-**Tools:** Python · pandas · Plotly · Jupyter Notebook · Tableau Public · Power BI (planned)
-**Data:** EIA Form EIA-930, Balancing Authority Hourly Operations (public domain)
+**Author:** Sileshi Hirpa  
+**Date:** April-May 2026  
+**Tools:** Python, pandas, Plotly, Jupyter Notebook, Tableau Public, Power BI (planned)  
+**Data:** EIA Form EIA-930, Balancing Authority Hourly Operations
 
 ---
 
 ## 1. Executive Summary
 
-This project is a data analytics, business intelligence, and dashboard engineering portfolio project built around publicly available California electricity grid data. It demonstrates a complete analytical workflow — from raw data ingestion and cleaning through feature engineering, dashboard-ready data modeling, and interactive dashboard delivery.
+This project is a data analytics, business intelligence, and dashboard engineering portfolio project built around publicly available California electricity grid data. It demonstrates a complete analytical workflow - from raw data ingestion and cleaning through feature engineering, dashboard-ready data modeling, and interactive dashboard delivery.
 
 The project transforms hourly EIA-930 balancing authority data into a structured set of visual products that support grid reliability monitoring and operational risk review. The primary output is an interactive Tableau Public dashboard. A Power BI cross-platform version is planned as a beginner-level demonstration of transferable dashboard thinking.
 
@@ -25,8 +26,6 @@ Key skills demonstrated:
 
 This project sits alongside a fraud detection analysis as one of two flagship portfolio projects showcasing data analytics, business intelligence, and data visualization engineering skills.
 
----
-
 ## 2. Problem Statement
 
 California's electricity grid is managed across multiple balancing authorities responsible for matching supply and demand in real time. Understanding when and where demand approaches observed peak levels is a core operational review task.
@@ -35,17 +34,13 @@ California's electricity grid is managed across multiple balancing authorities r
 
 This project answers that question through a structured Python pipeline, a custom Stress Index, and an interactive Tableau dashboard with multiple complementary views.
 
----
-
 ## 3. Why Grid Reliability Matters
 
 Grid reliability failures carry significant consequences: service disruptions affect hospitals, emergency services, households, and businesses. Monitoring demand relative to observed peak capacity helps analysts identify periods of elevated stress before they become reliability events.
 
-This project does not model reliability events directly — it uses public EIA demand data and a custom review indicator to practice the analytical habits that support reliability monitoring: scope validation, time-aware data preparation, relative stress measurement, and priority-ranked summary tables.
+This project does not model reliability events directly - it uses public EIA demand data and a custom review indicator to practice the analytical habits that support reliability monitoring: scope validation, time-aware data preparation, relative stress measurement, and priority-ranked summary tables.
 
 The analytical approach is designed to be transferable to public-sector utility analytics, energy policy research, and operational risk roles in the energy sector.
-
----
 
 ## 4. Data Sources
 
@@ -60,8 +55,6 @@ The analytical approach is designed to be transferable to public-sector utility 
 | Rows after filtering | 13,020 hourly records |
 
 Raw and processed data files are excluded from this repository due to file size. See `data/README.md` for full download and reproduction instructions.
-
----
 
 ## 5. Project Workflow
 
@@ -84,8 +77,6 @@ EIA-930 raw download (~27 MB)
        Import summary tables -> interactive report visuals -> report page
 ```
 
----
-
 ## 6. Data Preparation
 
 The notebook performs the following preparation steps before any visualization is built:
@@ -96,12 +87,10 @@ The notebook performs the following preparation steps before any visualization i
 4. **Deduplicate** on the combination of balancing authority and UTC timestamp
 5. **Convert timestamps** from UTC to Pacific Time using `tz_convert("America/Los_Angeles")`, handling PST/PDT transitions correctly
 6. **Convert numeric columns** using `pd.to_numeric(errors="coerce")` to handle mixed-type fields in the source data
-7. **Validate scope** — the raw file contains balancing authorities from across the United States; the notebook explicitly investigates a misleading first chart, identifies the multi-region scope issue, and filters to California-only BAs
+7. **Validate scope** - the raw file contains balancing authorities from across the United States; the notebook explicitly investigates a misleading first chart, identifies the multi-region scope issue, and filters to California-only BAs
 8. **Export** the cleaned California-only dataset for downstream use
 
 The scope validation step (identifying and correcting a misleading chart caused by non-California data) is documented deliberately. It reflects a core principle: a chart can run without error and still be wrong if the data scope does not match the business question.
-
----
 
 ## 7. Feature Engineering
 
@@ -123,8 +112,6 @@ A categorical label derived from `stress_index`:
 
 These thresholds are documented in the notebook and in `docs/dashboard_data_dictionary.md`. Promoting them to named constants at the top of the notebook is a planned improvement.
 
----
-
 ## 8. Grid Stress Index
 
 The Stress Index is the central analytical metric of this project.
@@ -145,30 +132,26 @@ The peak demand denominator is derived from the January–April 2026 dataset win
 
 This limitation is documented in the notebook, the data dictionary, and the dashboard build plan.
 
----
-
 ## 9. Dashboard Data Model
 
 The pipeline produces four dashboard-ready files, each serving a distinct role in the visualization layer:
 
 | File | Rows | Size | Role |
 | --- | --- | --- | --- |
-| `california_grid_dashboard_ready.csv` | 13,020 | 1.1 MB | Hourly detail — primary Tableau data source |
+| `california_grid_dashboard_ready.csv` | 13,020 | 1.1 MB | Hourly detail - primary Tableau data source |
 | `california_grid_monthly_summary.csv` | 20 | 1.3 KB | Month-level trend charts |
 | `california_grid_hourly_risk_summary.csv` | 120 | 5.5 KB | Hour-of-day stress profile and heatmap |
-| `california_grid_kpi_summary.csv` | 5 | 724 B | KPI cards — one row per balancing authority |
+| `california_grid_kpi_summary.csv` | 5 | 724 B | KPI cards - one row per balancing authority |
 
 Separating detail and summary layers keeps dashboard queries fast, simplifies calculated fields in Tableau and Power BI, and prepares the architecture for future expansion to multi-year datasets.
 
 All four files are generated by the Phase 4 data model build step and are excluded from version control. The data model is documented in full in `docs/dashboard_data_model.md` and `docs/dashboard_data_dictionary.md`.
 
----
-
 ## 10. Tableau Dashboard
 
 **Tableau is the primary dashboard layer for this project.**
 
-The dashboard is built as a real interactive Tableau workbook: individual worksheets are created for each analytical view, then assembled into a dashboard layout with shared filters and cross-sheet interactions. The workflow is:
+The dashboard is built as a real interactive Tableau workbook: individual worksheets are created for each analytical view and assembled into a dashboard layout. The workflow is:
 
 ```
 Data source (california_grid_dashboard_ready.csv)
@@ -177,12 +160,14 @@ Data source (california_grid_dashboard_ready.csv)
       -> Published to Tableau Public
 ```
 
-The dashboard includes four main views:
+The current Tableau Public version includes four core dashboard worksheets:
 
-- **Hourly Demand Pulse** — time-series line chart tracking hourly demand for each California balancing authority over the dataset window
-- **Adequacy View** — comparison of demand against net generation, with interchange context available in tooltips
-- **Risk Leaderboard** — horizontal bar chart ranking balancing authorities by average Stress Index
-- **Review Queue** — ranked table of hours organized by review priority, filterable by authority and priority tier
+- **Hourly Demand Pulse** - time-series line chart tracking hourly demand for each California balancing authority over the dataset window
+- **Adequacy View** - comparison of demand against net generation, with interchange context available in tooltips
+- **Risk Leaderboard** - horizontal bar chart ranking balancing authorities by average Stress Index
+- **Review Queue** - ranked table of hours organized by review priority, filterable by authority and priority tier
+
+The current Tableau Public version includes the four core dashboard worksheets. Additional worksheet-level refinements and optional heatmap/KPI enhancements are documented in `docs/tableau_dashboard_build_plan.md`.
 
 **Interactive Tableau Public dashboard:**
 
@@ -195,8 +180,6 @@ The dashboard includes four main views:
 The screenshot above is a portfolio preview asset for GitHub, website, and LinkedIn embedding. The interactive version on Tableau Public is the primary deliverable.
 
 The full Tableau build specification is documented in `docs/tableau_dashboard_build_plan.md`.
-
----
 
 ## 11. Power BI Version
 
@@ -217,8 +200,6 @@ The `.pbix` file will be kept local and excluded from this repository via `.giti
 
 The full Power BI build plan is documented in `docs/power_bi_beginner_build_plan.md`.
 
----
-
 ## 12. Key Findings
 
 - **CISO dominates by scale.** The California ISO operates at demand levels far exceeding the other four balancing authorities. In a combined view, CISO's scale compresses all other series. A panel view is required to meaningfully review smaller authorities.
@@ -229,13 +210,11 @@ The full Power BI build plan is documented in `docs/power_bi_beginner_build_plan
 - **Demand follows clear daily cycles.** The hour-of-day profile shows consistent patterns of lower overnight demand and higher afternoon demand across all five authorities.
 - **Smaller authorities have distinct stress profiles.** IID and TIDC show different peak-hour patterns from CISO and BANC, which a combined view would obscure. Per-authority analysis is essential for fair comparison.
 
----
-
 ## 13. Data Visualization Engineering Considerations
 
 ### Performance and scalability
 
-The dashboard data model separates hourly detail (13,020 rows) from pre-aggregated summary tables (5–120 rows). Summary tables support overview and trend views without requiring the dashboard tool to aggregate the full detail file at render time. This architecture scales to multi-year datasets without requiring changes to the dashboard layer — only the upstream pipeline and summary tables need to be updated.
+The dashboard data model separates hourly detail (13,020 rows) from pre-aggregated summary tables (5–120 rows). Summary tables support overview and trend views without requiring the dashboard tool to aggregate the full detail file at render time. This architecture scales to multi-year datasets without requiring changes to the dashboard layer - only the upstream pipeline and summary tables need to be updated.
 
 ### Use of processed and summary datasets
 
@@ -243,7 +222,7 @@ No raw data enters the dashboard layer. The 27 MB raw EIA file and the 3.6 MB wi
 
 ### Dashboard interactivity
 
-The Tableau dashboard is built as an interactive workbook with cross-sheet filters responding to balancing authority, review priority, and date range selections. The Stress Index and review priority fields are designed to support drill-down from the Risk Leaderboard into the Review Queue. The planned Power BI version will mirror this interaction model using the same field structure and slicer-driven navigation.
+The Tableau dashboard is built as an interactive workbook. The Stress Index and review priority fields are structured to support filter interaction and drill-down from the Risk Leaderboard into the Review Queue. The intended cross-sheet filter model - responding to balancing authority, review priority, and date range selections - is specified in full in `docs/tableau_dashboard_build_plan.md`. The planned Power BI version will mirror this interaction model using the same field structure and slicer-driven navigation.
 
 ### Accessibility and readable design
 
@@ -261,14 +240,12 @@ All chart titles use plain-language descriptions. Tooltips expose additional con
 
 The following extensions are documented as possible future enhancements and are not currently implemented:
 
-- **Geographic choropleth** — mapping Stress Index by balancing authority service territory using Mapbox or an equivalent tool
-- **Custom web dashboard** — a prototype built with React and D3.js demonstrating custom interactive time-series visualization beyond BI tools
-- **Real-time or near-real-time data pipeline** — extending the EIA data connection to refresh automatically as new hourly data becomes available
-- **Forecast error overlay** — comparing actual demand against the EIA forecast field to surface systematic over- or under-prediction patterns
+- **Geographic choropleth** - mapping Stress Index by balancing authority service territory using Mapbox or an equivalent tool
+- **Custom web dashboard** - a prototype built with React and D3.js demonstrating custom interactive time-series visualization beyond BI tools
+- **Real-time or near-real-time data pipeline** - extending the EIA data connection to refresh automatically as new hourly data becomes available
+- **Forecast error overlay** - comparing actual demand against the EIA forecast field to surface systematic over- or under-prediction patterns
 
 None of these extensions are claimed as current capabilities.
-
----
 
 ## 14. Repository Structure
 
@@ -301,8 +278,6 @@ california-grid-reliability-dashboard/
 
 Data files in `data/raw/`, `data/processed/`, and `outputs/` are excluded from version control. See `data/README.md` for download and reproduction instructions.
 
----
-
 ## 15. How to Run
 
 ### Requirements
@@ -320,11 +295,11 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-### Step 1 — Download the raw data
+### Step 1 - Download the raw data
 
 Follow the instructions in `data/README.md` to download `EIA930_BALANCE_2026_Jan_Jun.csv` from the EIA Grid Monitor and place it at `data/raw/EIA930_BALANCE_2026_Jan_Jun.csv`.
 
-### Step 2 — Run the analysis notebook
+### Step 2 - Run the analysis notebook
 
 ```bash
 jupyter notebook notebooks/california_grid_analysis.ipynb
@@ -338,19 +313,17 @@ Run all cells from top to bottom. The notebook will:
 - Export `data/processed/cleaned_california_grid_data.csv`
 - Export `outputs/top_review_hours_california.csv`
 
-### Step 3 — Build the dashboard-ready files
+### Step 3 - Build the dashboard-ready files
 
 Run the Phase 4 data model build step to generate the four dashboard-ready CSV files in `data/processed/`.
 
-### Step 4 — Open the Tableau dashboard
+### Step 4 - Open the Tableau dashboard
 
 The interactive dashboard is published on Tableau Public and does not require a local Tableau installation to view:
 
 [Explore the California Grid Reliability Monitor](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CAGridOperationalRiskReliabilityDashboard/riskOverview#1)
 
 To build or modify the dashboard locally, open Tableau Desktop and connect to `data/processed/california_grid_dashboard_ready.csv`.
-
----
 
 ## 16. Dashboard Screenshots and Links
 
@@ -361,8 +334,6 @@ To build or modify the dashboard locally, open Tableau Desktop and connect to `d
 
 ![Tableau Dashboard Preview](assets/Dashboard_riskOverview.png)
 
----
-
 ## 17. Limitations
 
 - **Dataset window:** The analysis covers January–April 2026 only. The Stress Index denominator is derived from observed peak demand within this window, not from a full historical record. Values reflect relative demand behavior during this period and should not be interpreted as comparisons against all-time peaks.
@@ -372,19 +343,17 @@ To build or modify the dashboard locally, open Tableau Desktop and connect to `d
 - **No consequence or impact modeling:** This project identifies periods of elevated demand relative to observed peak. It does not model the probability or consequence of reliability events.
 - **Power BI version is not yet built:** The Power BI cross-platform version is planned and documented in `docs/power_bi_beginner_build_plan.md`. It will be added to the portfolio when complete.
 
----
-
 ## 18. Future Improvements
 
-- **Forecast error analysis** — compare `demand_mw` against `demand_forecast_mw` to surface systematic prediction gaps by authority and hour of day
-- **Extended date range** — expand the pipeline to cover a full calendar year or multiple years for seasonality analysis
-- **Power BI interactive report** — build the planned beginner cross-platform version using the existing data model
-- **WCAG accessibility audit** — apply contrast checks to all dashboard color choices and update the palette where needed
-- **Geographic choropleth** — map Stress Index by balancing authority service territory
-- **Anomaly detection** — apply a statistical threshold (e.g. z-score or rolling percentile) as an alternative or complement to the fixed Stress Index tiers
-- **Refined Stress Index methodology** — replace the dataset-window peak with a rolling historical peak or a seasonally adjusted baseline
-- **Named constants for review thresholds** — promote the High and Medium priority cutoff values to named constants at the top of the notebook for clarity and maintainability
-- **Custom web dashboard prototype** — explore a React and D3.js implementation for a future portfolio extension demonstrating custom visualization engineering beyond BI tools
+- **Forecast error analysis** - compare `demand_mw` against `demand_forecast_mw` to surface systematic prediction gaps by authority and hour of day
+- **Extended date range** - expand the pipeline to cover a full calendar year or multiple years for seasonality analysis
+- **Power BI interactive report** - build the planned beginner cross-platform version using the existing data model
+- **WCAG accessibility audit** - apply contrast checks to all dashboard color choices and update the palette where needed
+- **Geographic choropleth** - map Stress Index by balancing authority service territory
+- **Anomaly detection** - apply a statistical threshold (e.g. z-score or rolling percentile) as an alternative or complement to the fixed Stress Index tiers
+- **Refined Stress Index methodology** - replace the dataset-window peak with a rolling historical peak or a seasonally adjusted baseline
+- **Named constants for review thresholds** - promote the High and Medium priority cutoff values to named constants at the top of the notebook for clarity and maintainability
+- **Custom web dashboard prototype** - explore a React and D3.js implementation for a future portfolio extension demonstrating custom visualization engineering beyond BI tools
 
 ---
 

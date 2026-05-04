@@ -359,8 +359,8 @@ To build or modify the dashboard locally, open Tableau Desktop and connect to `d
 
 ## 19. Author
 
-**Sileshi Hirpa**
-Data Science and Analytics Student
+**Sileshi Hirpa**  
+Data Science (with Business Analytics Track) Student  
 Arizona State University
 
 Portfolio: [GitHub](https://github.com/sileshith) · [Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285)

@@ -33,5 +33,8 @@ tableau/.~*
 tableau/*copy*.twb
 tableau/CA_Grid_WB1_Executive_Dashboard.twb
 
+# Reports — exclude temporary preview PNGs; keep PDF and generator
+reports/previews/
+
 # Environment
 .env

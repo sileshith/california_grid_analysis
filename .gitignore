@@ -27,5 +27,11 @@ outputs/*.csv
 # Notebook backups — large files kept local only
 notebooks/*_with_outputs_backup.ipynb
 
+# Tableau — temporary, recovery, and duplicate workbook files
+tableau/*.twbr
+tableau/.~*
+tableau/*copy*.twb
+tableau/CA_Grid_WB1_Executive_Dashboard.twb
+
 # Environment
 .env

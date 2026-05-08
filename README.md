@@ -1,7 +1,7 @@
 # California Grid Stress Monitoring Dashboard
 
 **Author:** Sileshi Hirpa  
-**Date:** April–May 2026  
+**Publication Date:** May 2026  
 **Tools:** Python, pandas, Plotly, Jupyter Notebook, Tableau Public  
 **Data:** EIA Form EIA-930, Balancing Authority Hourly Operations
 

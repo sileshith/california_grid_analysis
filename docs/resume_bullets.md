@@ -2,7 +2,7 @@
 
 **Project:** California Grid Operations Intelligence Pipeline  
 **Target role:** Tesla Energy Services Transformation & Analytics Internship  
-**Skills demonstrated:** Python, Apache Airflow, PostgreSQL, SQL, Tableau, ELT pipeline design, data validation, operational monitoring
+**Skills demonstrated:** Python, Apache Airflow, PostgreSQL, SQL, Tableau, REST API ingestion, ELT pipeline design, data validation, operational monitoring
 
 ---
 
@@ -36,19 +36,25 @@ Use these to fill in additional detail or adapt for specific job descriptions.
 
 ---
 
-**4. Feature engineering**
+**4. EIA API ingestion**
+
+> Added EIA Open Data API ingestion option with environment-based API key handling, pagination, date-window parameters, schema normalization, and local CSV fallback for reproducible execution; API response is normalized to the same schema as the existing pipeline so all downstream validation, transformation, and PostgreSQL loading steps run identically in both modes.
+
+---
+
+**5. Feature engineering**
 
 > Engineered operational grid metrics — forecast error, generation-demand gap, and import pressure — from EIA-930 balancing authority data and built a normalized Grid Stress Index enabling fair comparison across California authorities operating at scales ranging from ~500 MW (IID/TIDC) to ~35,000 MW (CISO).
 
 ---
 
-**5. Data validation and testing**
+**6. Data validation and testing**
 
 > Implemented a data validation layer and pytest test suite for the California grid pipeline, checking required column presence, California authority scope, stress index bounds, review priority classification, and output file generation before any downstream consumer receives data.
 
 ---
 
-**6. Dashboard and stakeholder output**
+**7. Dashboard and stakeholder output**
 
 > Designed and published a three-tab interactive Tableau dashboard on Tableau Public for California grid stress monitoring, including an executive KPI overview, high-priority triage queue, and authority comparison view; supported by a layered CSV data model (hourly detail, monthly summary, hourly risk profile, KPI snapshot).
 
@@ -57,14 +63,14 @@ Use these to fill in additional detail or adapt for specific job descriptions.
 ## LinkedIn Project Description
 
 > **California Grid Operations Intelligence Pipeline**  
-> An Airflow-orchestrated ELT pipeline analyzing California grid reliability using EIA-930 hourly balancing authority data. Built modular Python pipeline stages (fetch, validate, transform, score, load, export, monitor), PostgreSQL-based SQL reporting views for operational triage, and a three-tab Tableau dashboard. Demonstrates energy analytics skills in Python, Airflow, PostgreSQL, SQL, and Tableau aligned with grid operations support roles.  
-> Tools: Python · Apache Airflow · PostgreSQL · SQL · Tableau Public · pandas · pytest · EIA-930 public data
+> An Airflow-orchestrated ELT pipeline analyzing California grid reliability using EIA-930 hourly balancing authority data. Built modular Python pipeline stages (fetch, validate, transform, score, load, export, monitor), EIA Open Data API ingestion with pagination and schema normalization, PostgreSQL-based SQL reporting views for operational triage, and a three-tab Tableau dashboard. Demonstrates energy analytics skills in Python, Airflow, PostgreSQL, SQL, REST APIs, and Tableau aligned with grid operations support roles.  
+> Tools: Python · Apache Airflow · PostgreSQL · SQL · EIA Open Data API · Tableau Public · pandas · pytest · requests
 
 ---
 
 ## GitHub Repository Description (one line)
 
-> Airflow-orchestrated California grid operations analytics pipeline: Python ELT, PostgreSQL SQL reporting, and Tableau-ready exports from EIA-930 balancing authority data.
+> Airflow-orchestrated California grid operations analytics pipeline: Python ELT, EIA Open Data API ingestion, PostgreSQL SQL reporting, and Tableau-ready exports from EIA-930 balancing authority data.
 
 ---
 

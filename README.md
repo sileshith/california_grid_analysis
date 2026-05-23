@@ -23,6 +23,7 @@
 | Domain | California grid operations analytics |
 | Data | EIA-930 hourly balancing authority data |
 | Records processed | 158,182 raw rows; 13,020 California authority-hours |
+| Data ingestion | EIA Open Data API option with local CSV fallback |
 | Pipeline | Python ELT pipeline orchestrated with Apache Airflow |
 | Database layer | PostgreSQL-ready SQL reporting with SQLite fallback |
 | Dashboard | Tableau Public executive dashboard with review queue |
@@ -69,6 +70,45 @@ Balancing authorities must match supply and demand in real time, every hour, eve
 | Hourly records after filtering | 13,020 |
 
 Raw data is excluded from this repository. See `data/README.md` for download and reproduction instructions.
+
+## EIA API Ingestion
+
+The pipeline supports two data ingestion modes selected by environment variable.
+
+**Local CSV fallback (default):**
+
+No API key required. Reproducible for portfolio demonstrations and offline use. Default for all pipeline runs unless `USE_EIA_API` is explicitly set.
+
+```bash
+unset USE_EIA_API
+/opt/anaconda3/bin/python3.8 dags/california_grid_daily_pipeline.py
+```
+
+**EIA Open Data API mode:**
+
+Fetches hourly balancing authority data directly from the EIA Open Data API v2. Requires a free API key registered at `https://www.eia.gov/opendata/register.php`. Supports date-window filtering and automatic pagination. The API response is normalized to the same six-column schema used by the CSV path, so all downstream steps (validation, transformation, stress index, SQL load, Tableau export) run identically in both modes.
+
+```bash
+export USE_EIA_API="true"
+export EIA_API_KEY="your_api_key_here"
+export EIA_START_DATE="2026-01-01T00"
+export EIA_END_DATE="2026-01-02T23"
+/opt/anaconda3/bin/python3.8 dags/california_grid_daily_pipeline.py
+```
+
+**API route:** `https://api.eia.gov/v2/electricity/rto/region-sub-ba-data/data/`
+
+**Data fields requested:** D (Demand), DF (Demand Forecast), NG (Net Generation), TI (Total Interchange). Filtered by facet to California authorities: BANC, CISO, IID, LDWP, TIDC.
+
+**Optional environment variables:**
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `EIA_API_ROUTE` | Override the API route URL | region-sub-ba-data/data/ |
+| `EIA_API_PAGE_SIZE` | Rows per page (EIA max: 5000) | 5000 |
+| `SAVE_EIA_API_SNAPSHOT` | Save raw API response to `data/interim/` for debugging | false |
+
+> **Caution:** Do not commit API keys or `.env` files. `EIA_API_KEY` is read from the environment and never printed in logs or committed to the repository.
 
 ## California Balancing Authorities
 
@@ -241,7 +281,8 @@ california-grid-analysis/
 ├── dags/
 │   └── california_grid_daily_pipeline.py     # Airflow DAG (7 tasks, @daily)
 ├── src/
-│   ├── fetch_or_load_eia_data.py             # Step 1: Load raw EIA-930 CSV
+│   ├── fetch_or_load_eia_data.py             # Step 1: Load raw EIA-930 CSV or fetch from API
+│   ├── fetch_eia_api_data.py                 # EIA Open Data API ingestion module
 │   ├── validate_grid_data.py                  # Step 2: Validate columns and scope
 │   ├── transform_energy_metrics.py            # Step 3: Clean, filter, engineer metrics
 │   ├── calculate_grid_stress_index.py         # Step 4: Stress index and priority
@@ -256,11 +297,13 @@ california-grid-analysis/
 │   └── authority_comparison.sql               # Cross-authority summary
 ├── tests/
 │   ├── test_required_columns.py               # Column and CA authority validation
-│   └── test_pipeline_outputs.py               # Output file existence and structure
+│   ├── test_pipeline_outputs.py               # Output file existence and structure
+│   └── test_eia_api_ingestion.py              # API config, pagination, schema (all mocked)
 ├── notebooks/
 │   └── california_grid_analysis.ipynb         # Research layer (138 cells, Steps 1-22)
 ├── data/
 │   ├── raw/                                   # EIA-930 source CSV (gitignored)
+│   ├── interim/                               # EIA API snapshots for debugging (gitignored)
 │   ├── processed/                             # Notebook-generated outputs (gitignored)
 │   └── README.md                              # Data download and reproduction instructions
 ├── outputs/
@@ -299,6 +342,7 @@ For pipeline-only use (no notebook visualization), the minimum requirements are:
 
 ```
 pandas>=1.5.0
+requests>=2.31.0
 pytz>=2021.1
 pyarrow>=12.0.0
 sqlalchemy>=1.4.0
@@ -399,7 +443,7 @@ A nine-slide LinkedIn PDF carousel summarizes this project for a professional au
 
 ## Future Improvements
 
-- Connect to EIA-930 API for automated daily data refresh
+- Schedule automated daily data refresh using the EIA API ingestion module with cron or Airflow @daily
 - Add a Great Expectations data quality layer before the transform step
 - Build a dbt model layer on top of the PostgreSQL reporting queries
 - Extend to multi-year historical data for more robust peak demand denominators

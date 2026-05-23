@@ -20,6 +20,8 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
 
 # Output tables — kept local only
 outputs/*.csv
@@ -50,6 +52,7 @@ logs/
 
 # Pipeline temp files
 /tmp/ca_grid_*.parquet
+outputs/temp/
 
 # pytest cache
 .pytest_cache/

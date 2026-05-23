@@ -48,12 +48,15 @@ if SRC_PATH not in sys.path:
 # file paths between tasks so each task loads its own data from disk.
 
 def run_fetch_or_load_eia_data(**context):
-    from fetch_or_load_eia_data import fetch_or_load_eia_data
+    # API mode is controlled by USE_EIA_API and EIA_API_KEY environment variables.
+    # Local CSV fallback remains the default for reproducible portfolio runs.
+    from fetch_or_load_eia_data import fetch_or_load_eia_data, get_source_label
     df = fetch_or_load_eia_data()
     temp_path = "/tmp/ca_grid_raw.parquet"
     df.to_parquet(temp_path, index=False)
     context["ti"].xcom_push(key="raw_data_path", value=temp_path)
     context["ti"].xcom_push(key="raw_row_count", value=len(df))
+    context["ti"].xcom_push(key="source_label", value=get_source_label())
     return temp_path
 
 
@@ -121,8 +124,11 @@ def run_generate_monitoring_summary(**context):
     scored_path = context["ti"].xcom_pull(
         key="scored_data_path", task_ids="calculate_grid_stress_index"
     )
+    source_label = context["ti"].xcom_pull(
+        key="source_label", task_ids="fetch_or_load_eia_data"
+    )
     df = pd.read_parquet(scored_path)
-    summary = generate_monitoring_summary(df)
+    summary = generate_monitoring_summary(df, source_file=source_label)
     return summary
 
 

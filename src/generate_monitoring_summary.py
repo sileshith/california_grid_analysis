@@ -59,9 +59,9 @@ def generate_monitoring_summary(df, source_file=None, export_dir=None):
     else:
         largest_forecast_error = None
 
-    source_name = (
-        os.path.basename(source_file) if source_file else DEFAULT_SOURCE_FILE
-    )
+    # Accept the label as-is — callers supply either a filename (CSV mode) or
+    # a full "EIA Open Data API - ..." string (API mode).
+    source_name = source_file if source_file else DEFAULT_SOURCE_FILE
 
     summary = {
         "pipeline_run_date": datetime.date.today().isoformat(),
@@ -95,7 +95,7 @@ def generate_monitoring_summary(df, source_file=None, export_dir=None):
 if __name__ == "__main__":
     import sys
     sys.path.insert(0, os.path.dirname(__file__))
-    from fetch_or_load_eia_data import fetch_or_load_eia_data, RAW_DATA_PATH
+    from fetch_or_load_eia_data import fetch_or_load_eia_data, get_source_label
     from validate_grid_data import validate_grid_data
     from transform_energy_metrics import transform_energy_metrics
     from calculate_grid_stress_index import calculate_grid_stress_index
@@ -103,4 +103,4 @@ if __name__ == "__main__":
     df, _ = validate_grid_data(df)
     df = transform_energy_metrics(df)
     df = calculate_grid_stress_index(df)
-    generate_monitoring_summary(df, source_file=RAW_DATA_PATH)
+    generate_monitoring_summary(df, source_file=get_source_label())

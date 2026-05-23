@@ -9,41 +9,53 @@
 
 **[Explore the Tableau Dashboard on Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CaliforniaGridStressMonitoringDashboard/ExecutiveOverview)**
 
----
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Airflow](https://img.shields.io/badge/Apache%20Airflow-Orchestration-informational)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Reporting%20Layer-blue)
+![Tableau](https://img.shields.io/badge/Tableau-Dashboard-orange)
+![Tests](https://img.shields.io/badge/tests-20%20passing-brightgreen)
+![Status](https://img.shields.io/badge/status-Portfolio%20Ready-success)
+
+## Project Snapshot
+
+| Area | Result |
+|---|---|
+| Domain | California grid operations analytics |
+| Data | EIA-930 hourly balancing authority data |
+| Records processed | 158,182 raw rows; 13,020 California authority-hours |
+| Pipeline | Python ELT pipeline orchestrated with Apache Airflow |
+| Database layer | PostgreSQL-ready SQL reporting with SQLite fallback |
+| Dashboard | Tableau Public executive dashboard with review queue |
+| Validation | 20 pytest checks passing |
+| Key output | 75 high-priority grid review hours identified |
 
 ## Project Overview
 
-This project transforms raw EIA-930 hourly balancing authority data into a production-style California grid operations analytics pipeline. It demonstrates an end-to-end ELT workflow: data ingestion, validation, feature engineering, Grid Stress Index calculation, SQL database loading, Tableau-ready exports, and pipeline monitoring — all orchestrated by an Apache Airflow DAG.
+This project transforms raw EIA-930 hourly balancing authority data into a production-style California grid operations analytics pipeline. It demonstrates an end-to-end ELT workflow: data ingestion, validation, feature engineering, Grid Stress Index calculation, SQL database loading, Tableau-ready exports, and pipeline monitoring, all orchestrated by an Apache Airflow DAG.
 
 The project is structured in two complementary layers:
 
-- **Research layer:** `notebooks/california_grid_analysis.ipynb` — full analytical pipeline, exploratory data analysis, step-by-step methodology, and interactive Plotly visualizations
-- **Production pipeline layer:** `src/` modules, `dags/` Airflow DAG, `sql/` reporting views, and `tests/` validation — demonstrating how the notebook analysis translates into a repeatable, monitorable pipeline
-
----
+- **Research layer:** `notebooks/california_grid_analysis.ipynb` - full analytical pipeline, exploratory data analysis, step-by-step methodology, and interactive Plotly visualizations
+- **Production pipeline layer:** `src/` modules, `dags/` Airflow DAG, `sql/` reporting views, and `tests/` validation, demonstrating how the notebook analysis translates into a repeatable, monitorable pipeline
 
 ## Business Problem
 
-California's electricity grid is managed across five balancing authorities responsible for matching supply and demand in real time. Understanding when and where demand approaches observed peak levels — and how that relates to forecast accuracy, local generation capacity, and interchange — supports reliability-oriented grid analysis and operational review.
+California's electricity grid is managed across five balancing authorities responsible for matching supply and demand in real time. Understanding when and where demand approaches observed peak levels, and how that relates to forecast accuracy, local generation capacity, and interchange, supports reliability-oriented grid analysis and operational review.
 
 **Analytical question:** How can hourly EIA-930 balancing authority data be validated, transformed, and delivered so that an operations team can quickly identify periods that deserve additional review, track forecast accuracy, and compare authority-level performance?
 
 This project answers that question through a modular Python pipeline, a custom Grid Stress Index, a SQL reporting layer, and a three-tab Tableau dashboard.
 
----
-
 ## Why This Project Matters for Energy Operations
 
-Balancing authorities must match supply and demand in real time, every hour, every day. When demand approaches peak levels — or when forecasts miss by thousands of megawatts — operations teams need fast, reliable data to make decisions. A pipeline that:
+Balancing authorities must match supply and demand in real time, every hour, every day. When demand approaches peak levels, or when forecasts miss by thousands of megawatts, operations teams need fast, reliable data to make decisions. A pipeline that:
 
 - Automatically validates scope and data quality before any analysis runs
 - Produces consistent, normalized stress metrics across authorities of different scales
 - Loads results into SQL tables that support repeatable operational queries
 - Exports dashboard-ready files that stakeholders can use without waiting for a data engineer
 
-...is more valuable than a one-time notebook analysis. This project builds that pipeline using public EIA-930 data.
-
----
+...is more valuable than a one-time notebook analysis. This project builds that decision-support workflow using public EIA-930 data.
 
 ## Data Source
 
@@ -51,14 +63,12 @@ Balancing authorities must match supply and demand in real time, every hour, eve
 |---|---|
 | Source | EIA Form EIA-930, Balancing Authority Hourly Operations |
 | Publisher | U.S. Energy Information Administration (public domain) |
-| Time period | January–April 2026 |
+| Time period | January-April 2026 |
 | Raw file | `EIA930_BALANCE_2026_Jan_Jun.csv` (~27 MB, ~158,000 rows) |
 | Scope | California balancing authorities only: BANC, CISO, IID, LDWP, TIDC |
 | Hourly records after filtering | 13,020 |
 
 Raw data is excluded from this repository. See `data/README.md` for download and reproduction instructions.
-
----
 
 ## California Balancing Authorities
 
@@ -72,19 +82,17 @@ Raw data is excluded from this repository. See `data/README.md` for download and
 
 The Grid Stress Index normalizes each authority against its own observed peak demand, enabling fair cross-scale comparison.
 
----
-
 ## Pipeline Architecture
 
 The production pipeline runs as seven sequential steps, each implemented as a standalone Python module in `src/` and as a task in the Airflow DAG.
 
 ```
-fetch_or_load_eia_data          Load raw EIA-930 CSV from disk
-    >> validate_grid_data       Check required columns, CA authority presence, row count
+fetch_or_load_eia_data           Load raw EIA-930 CSV from disk
+    >> validate_grid_data        Check required columns, CA authority presence, row count
     >> transform_energy_metrics  Rename columns, filter to CA, convert timezone, engineer metrics
     >> calculate_grid_stress_index  Compute stress index and review priority per hour
-    >> load_results_to_sql      Write scored data to PostgreSQL (or SQLite fallback)
-    >> export_tableau_data      Write four Tableau-ready CSV files
+    >> load_results_to_sql       Write scored data to PostgreSQL (or SQLite fallback)
+    >> export_tableau_data       Write four Tableau-ready CSV files
     >> generate_monitoring_summary  Append a run record to the monitoring log
 ```
 
@@ -95,10 +103,8 @@ fetch_or_load_eia_data          Load raw EIA-930 CSV from disk
 | `forecast_error_mw` | `demand_mw - demand_forecast_mw` | Measure forecast accuracy |
 | `generation_demand_gap_mw` | `demand_mw - net_generation_mw` | Identify how much demand local generation covers |
 | `import_pressure_mw` | `generation_demand_gap_mw` clipped at 0 | Isolate hours where imports were required |
-| `stress_index` | `(demand_mw / peak_demand_mw) × 100` | Normalized demand pressure (0–100) |
-| `review_priority` | High ≥90, Medium ≥75, Low <75 | Operational triage label |
-
----
+| `stress_index` | `(demand_mw / peak_demand_mw) x 100` | Normalized demand pressure (0-100) |
+| `review_priority` | High >=90, Medium >=75, Low <75 | Operational triage label |
 
 ## Airflow DAG
 
@@ -114,26 +120,24 @@ fetch_or_load_eia_data          Load raw EIA-930 CSV from disk
 | `retry_delay` | 5 minutes |
 | Tags | `energy`, `airflow`, `elt`, `tableau`, `tesla-alignment`, `grid-analytics` |
 
-The DAG is import-safe. All execution code lives inside callable functions; no code runs at import time. The file also includes a standalone mode (`python dags/california_grid_daily_pipeline.py`) that runs the full pipeline without requiring Airflow to be installed.
+The DAG is import-safe. All execution code lives inside callable functions and nothing runs at import time. The file also includes a standalone mode (`python dags/california_grid_daily_pipeline.py`) that runs the full pipeline without requiring Airflow to be installed.
 
 To run via Airflow CLI:
 ```bash
 airflow dags trigger california_grid_operations_pipeline
 ```
 
----
-
 ## SQL Reporting Layer
 
 **Directory:** `sql/`
 
-Five SQL files support operational and dashboard reporting. All queries target PostgreSQL. The pipeline also supports a local SQLite fallback when `DATABASE_URL` is not set — see Database Configuration below.
+Five SQL files support operational and dashboard reporting. All queries target PostgreSQL. The pipeline also supports a local SQLite fallback when `DATABASE_URL` is not set. See Database Configuration below.
 
 | File | Purpose |
 |---|---|
 | `create_tables.sql` | PostgreSQL schema definitions for all four tables |
-| `daily_grid_stress_summary.sql` | Daily stress aggregates by authority — feeds Executive Overview |
-| `high_priority_review_queue.sql` | All High Review Priority hours, ranked by stress — feeds triage tab |
+| `daily_grid_stress_summary.sql` | Daily stress aggregates by authority - feeds Executive Overview |
+| `high_priority_review_queue.sql` | All High Review Priority hours, ranked by stress - feeds triage tab |
 | `forecast_error_ranking.sql` | Top 100 hours by absolute forecast error with `RANK()` window functions |
 | `authority_comparison.sql` | One-row-per-authority summary for cross-authority comparison |
 
@@ -141,7 +145,7 @@ Five SQL files support operational and dashboard reporting. All queries target P
 
 | Table | Rows | Description |
 |---|---|---|
-| `grid_hourly_metrics` | 13,020 | Full scored hourly dataset — primary operational table |
+| `grid_hourly_metrics` | 13,020 | Full scored hourly dataset - primary operational table |
 | `grid_stress_scores` | 13,020 | Stress index and priority only (lighter queries) |
 | `high_priority_review_queue` | 75 | High Review Priority hours only |
 | `daily_monitoring_summary` | 1 per run | Pipeline run records |
@@ -156,10 +160,10 @@ The database (PostgreSQL or SQLite fallback) is excluded from git. Run the pipel
 # Create the database
 createdb california_grid
 
-# Set connection string (example only — do not commit credentials)
+# Set connection string (example only - do not commit credentials)
 export DATABASE_URL="postgresql+psycopg2://username:password@localhost:5432/california_grid"
 
-# Run pipeline — loads data into PostgreSQL
+# Run pipeline - loads data into PostgreSQL
 python dags/california_grid_daily_pipeline.py
 ```
 
@@ -172,9 +176,19 @@ SELECT COUNT(*) FROM high_priority_review_queue;
 
 **SQLite fallback (no DATABASE_URL set):**
 
-If `DATABASE_URL` is not set, the pipeline automatically writes to `outputs/grid_operations.db`. This is useful for quick local verification without a PostgreSQL installation.
+If `DATABASE_URL` is not set, the pipeline automatically writes to `outputs/grid_operations.db`. This is a local demonstration fallback useful for quick verification without a PostgreSQL installation.
 
----
+#### PostgreSQL Verification Commands
+
+```bash
+createdb california_grid
+export DATABASE_URL="postgresql+psycopg2://username:password@localhost:5432/california_grid"
+python dags/california_grid_daily_pipeline.py
+psql california_grid -c "SELECT COUNT(*) FROM grid_hourly_metrics;"
+psql california_grid -c "SELECT * FROM authority_comparison ORDER BY avg_stress_index DESC;"
+```
+
+For portfolio evidence, capture a terminal screenshot showing the PostgreSQL `DATABASE_URL` run message and psql query results.
 
 ## Tableau Dashboard Layer
 
@@ -208,8 +222,6 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 #### Authority Comparison
 ![Authority Comparison](outputs/dashboard_screenshots/authority_comparison.png)
 
----
-
 ## Key Metrics
 
 | Metric | Value |
@@ -221,8 +233,6 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 | Peak Stress Index | 100.0 |
 | Largest Forecast Error (High Priority) | 9,555 MW |
 | California Balancing Authorities | 5 (BANC, CISO, IID, LDWP, TIDC) |
-
----
 
 ## Repository Structure
 
@@ -248,7 +258,7 @@ california-grid-analysis/
 │   ├── test_required_columns.py               # Column and CA authority validation
 │   └── test_pipeline_outputs.py               # Output file existence and structure
 ├── notebooks/
-│   └── california_grid_analysis.ipynb         # Research layer (138 cells, Steps 1–22)
+│   └── california_grid_analysis.ipynb         # Research layer (138 cells, Steps 1-22)
 ├── data/
 │   ├── raw/                                   # EIA-930 source CSV (gitignored)
 │   ├── processed/                             # Notebook-generated outputs (gitignored)
@@ -275,8 +285,6 @@ california-grid-analysis/
 └── requirements.txt
 ```
 
----
-
 ## How to Run Locally
 
 ### Requirements
@@ -294,6 +302,7 @@ pandas>=1.5.0
 pytz>=2021.1
 pyarrow>=12.0.0
 sqlalchemy>=1.4.0
+psycopg2-binary>=2.9.0
 pytest>=7.0.0
 ```
 
@@ -356,25 +365,19 @@ pytest tests/ -v
 
 Tests skip gracefully if pipeline output files do not yet exist.
 
----
-
 ## Data Prerequisites
 
 Before running the pipeline or notebook:
 
-1. Download `EIA930_BALANCE_2026_Jan_Jun.csv` from the [EIA Grid Monitor](https://www.eia.gov/electricity/gridmonitor/) (Balancing Authority Operations, Jan–Jun 2026 file)
+1. Download `EIA930_BALANCE_2026_Jan_Jun.csv` from the [EIA Grid Monitor](https://www.eia.gov/electricity/gridmonitor/) (Balancing Authority Operations, Jan-Jun 2026 file)
 2. Place the file at `data/raw/EIA930_BALANCE_2026_Jan_Jun.csv`
 3. The file is ~27 MB and is excluded from git by `.gitignore`
 
 See `data/README.md` for step-by-step download instructions.
 
----
-
 ## Tesla Energy Services Alignment
 
-This project was upgraded from a notebook-based grid analysis into a production-style energy analytics pipeline to align with the skills emphasized by Tesla's Energy Services Transformation & Analytics team. It demonstrates Python-based ELT development, Apache Airflow orchestration, PostgreSQL reporting, advanced SQL analytics, Tableau-ready data exports, operational monitoring, modular code organization, data validation, and technical documentation. The pipeline processes real public-domain EIA-930 grid operations data — the same data type used by grid operators and energy analytics teams — and delivers outputs in the formats that operations, analytics, and stakeholder teams actually use: PostgreSQL tables, dashboard-ready CSVs, and a pipeline monitoring log.
-
----
+This project was upgraded from a notebook-based grid analysis into a production-style energy analytics pipeline to align with the skills emphasized by Tesla's Energy Services Transformation & Analytics team. It demonstrates Python-based ELT development, Apache Airflow orchestration, PostgreSQL reporting, advanced SQL analytics, Tableau-ready data exports, operational monitoring, modular code organization, data validation, and technical documentation. The pipeline processes real public-domain EIA-930 grid operations data, the same type used by grid operators and energy analytics teams, and delivers outputs in the formats that operations, analytics, and stakeholder teams actually use: PostgreSQL tables, dashboard-ready CSVs, and a pipeline monitoring log.
 
 ## Project Presentation
 
@@ -385,18 +388,14 @@ A nine-slide LinkedIn PDF carousel summarizes this project for a professional au
 | `reports/california_grid_stress_monitoring_linkedin_carousel.pdf` | Nine-slide LinkedIn carousel |
 | `reports/generate_carousel.py` | Reproducible carousel generator (matplotlib, PdfPages) |
 
----
-
 ## Limitations and Disclaimer
 
-- **Dataset window:** Analysis covers January–April 2026. The Stress Index denominator is the observed peak within this window, not a multi-year historical record. Values reflect relative demand behavior in this period only.
+- **Dataset window:** Analysis covers January-April 2026. The Stress Index denominator is the observed peak within this window, not a multi-year historical record. Values reflect relative demand behavior in this period only.
 - **Grid Stress Index is a custom analytical indicator:** Built for this portfolio project. Not a formal operational risk score and does not replicate any utility or grid operator methodology.
 - **Public data only:** Uses public EIA-930 data. Does not represent any utility's internal operational systems, proprietary data pipelines, or enterprise risk models.
-- **SQLite fallback for convenience:** When `DATABASE_URL` is not set, the pipeline writes to a local SQLite file. PostgreSQL is the recommended database for the portfolio story and supports the full SQL schema including `BIGSERIAL`, `NUMERIC`, and `TIMESTAMPTZ` types.
+- **SQLite fallback for local demonstration:** When `DATABASE_URL` is not set, the pipeline writes to a local SQLite file. PostgreSQL is the recommended database and supports the full SQL schema including `BIGSERIAL`, `NUMERIC`, and `TIMESTAMPTZ` types.
 - **No real-time connection:** Dataset is static. The pipeline does not refresh automatically as new EIA data is published.
 - **No reliability event modeling:** Identifies periods of elevated demand relative to observed peak. Does not model the probability or consequence of actual reliability events.
-
----
 
 ## Future Improvements
 
@@ -408,15 +407,11 @@ A nine-slide LinkedIn PDF carousel summarizes this project for a professional au
 - Publish a live Streamlit dashboard as an alternative to Tableau Public
 - Add a `TIMESTAMPTZ` migration step after initial PostgreSQL load for full timestamp type support
 
----
-
 ## Author
 
 **Sileshi Hirpa**  
 Data Science (Business Analytics Track), Arizona State University
 
 [GitHub](https://github.com/sileshith) · [Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285)
-
----
 
 *Last updated: May 2026*

@@ -38,3 +38,18 @@ reports/previews/
 
 # Environment
 .env
+
+# Database files (SQLite — kept local only)
+*.db
+*.sqlite
+*.sqlite3
+
+# Airflow
+airflow_home/
+logs/
+
+# Pipeline temp files
+/tmp/ca_grid_*.parquet
+
+# pytest cache
+.pytest_cache/

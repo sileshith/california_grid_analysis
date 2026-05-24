@@ -27,6 +27,8 @@ This is step 5 in the California Grid Operations Intelligence Pipeline.
 """
 
 import os
+import sqlite3
+from contextlib import contextmanager
 import pandas as pd
 from sqlalchemy import create_engine
 
@@ -74,6 +76,31 @@ def _build_engine():
         return create_engine(f"sqlite:///{SQLITE_FALLBACK_PATH}"), "sqlite"
 
 
+@contextmanager
+def _write_connection(engine, db_label):
+    """
+    Yield a pandas-compatible connection for to_sql().
+
+    SQLite uses a native sqlite3.connect() because SQLAlchemy 2.0 removed the
+    Connectable ABC, which causes pandas 2.x to misroute a SQLAlchemy Connection
+    to the DBAPI code path and call .cursor() on it — raising AttributeError.
+    A raw sqlite3 connection is unambiguous to all pandas versions.
+
+    PostgreSQL uses engine.begin() (SQLAlchemy connection with auto-commit),
+    which works correctly with psycopg2 across pandas 1.x and 2.x.
+    """
+    if db_label == "sqlite":
+        conn = sqlite3.connect(SQLITE_FALLBACK_PATH)
+        try:
+            yield conn
+            conn.commit()
+        finally:
+            conn.close()
+    else:
+        with engine.begin() as conn:
+            yield conn
+
+
 def load_results_to_sql(df):
     """
     Load the scored grid DataFrame into the configured database.
@@ -101,25 +128,23 @@ def load_results_to_sql(df):
 
     hourly_available = [c for c in HOURLY_COLS if c in df_load.columns]
     stress_available = [c for c in STRESS_COLS if c in df_load.columns]
-
-    # Full hourly metrics table
-    df_load[hourly_available].to_sql(
-        "grid_hourly_metrics", engine, if_exists="replace", index=False
-    )
-    print(f"[sql] grid_hourly_metrics: {len(df_load):,} rows -> {db_label}")
-
-    # Lightweight stress scores table for fast dashboard queries
-    df_load[stress_available].to_sql(
-        "grid_stress_scores", engine, if_exists="replace", index=False
-    )
-    print(f"[sql] grid_stress_scores: {len(df_load):,} rows -> {db_label}")
-
-    # High-priority review queue (stress_index >= 90)
     hp = df_load[df_load["review_priority"] == "High Review Priority"]
-    hp[hourly_available].to_sql(
-        "high_priority_review_queue", engine, if_exists="replace", index=False
-    )
-    print(f"[sql] high_priority_review_queue: {len(hp):,} rows -> {db_label}")
+
+    with _write_connection(engine, db_label) as conn:
+        df_load[hourly_available].to_sql(
+            "grid_hourly_metrics", conn, if_exists="replace", index=False
+        )
+        print(f"[sql] grid_hourly_metrics: {len(df_load):,} rows -> {db_label}")
+
+        df_load[stress_available].to_sql(
+            "grid_stress_scores", conn, if_exists="replace", index=False
+        )
+        print(f"[sql] grid_stress_scores: {len(df_load):,} rows -> {db_label}")
+
+        hp[hourly_available].to_sql(
+            "high_priority_review_queue", conn, if_exists="replace", index=False
+        )
+        print(f"[sql] high_priority_review_queue: {len(hp):,} rows -> {db_label}")
 
     engine.dispose()
     print(f"[sql] Load complete ({db_label})")

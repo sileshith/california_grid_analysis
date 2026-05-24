@@ -167,6 +167,12 @@ To run via Airflow CLI:
 airflow dags trigger california_grid_operations_pipeline
 ```
 
+### Airflow Pipeline Orchestration
+
+![Airflow DAG Success](docs/screenshots/airflow_dag_success_graph.png)
+
+Successful Apache Airflow Graph view showing the seven-step California Grid Operations Intelligence Pipeline running end-to-end. The DAG orchestrates data ingestion, validation, transformation, grid stress scoring, SQL loading, Tableau export generation, and monitoring summary creation.
+
 ## SQL Reporting Layer
 
 **Directory:** `sql/`
@@ -311,6 +317,8 @@ california-grid-analysis/
 │   ├── tableau_exports/                       # Pipeline-generated Tableau CSVs (gitignored)
 │   └── monitoring/                            # Pipeline run log CSV (gitignored)
 ├── docs/
+│   ├── screenshots/
+│   │   └── airflow_dag_success_graph.png      # Airflow Graph view (all 7 tasks successful)
 │   ├── resume_bullets.md                      # Tesla-aligned resume bullets
 │   ├── dashboard_data_dictionary.md           # Field definitions for all dashboard files
 │   ├── dashboard_data_model.md                # Data model architecture

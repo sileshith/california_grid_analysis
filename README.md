@@ -53,11 +53,13 @@ export DATABASE_URL="postgresql+psycopg2://user:pass@localhost:5432/california_g
 python dags/california_grid_daily_pipeline.py
 ```
 
-**⚠️ CURRENT STATUS:** Forecasting implementation in progress (Days 1-3 of 7-day roadmap)
+**⚠️ CURRENT STATUS:** Baseline forecasting complete. Prophet implementation in progress (Days 2-3 of 7-day roadmap)
 
-**🎯 NEXT TASK:** Implement naive forecast baseline (1 hour) - [Start Here](docs/04_immediate_next_steps.md)
+**🎯 NEXT TASK:** Implement Prophet forecasting with LDWP error analysis (4 hours) - [Start Here](docs/04_immediate_next_steps.md)
 
-**Next Milestone:** Prophet baseline forecasting (Target: MAPE < 15%)
+**Next Milestone:** Prophet baseline forecasting (Target: Overall MAPE < 10%, LDWP MAPE < 15%)
+
+**Latest Results:** Naive 24h forecast: 11.1% MAPE average. **LDWP critical outlier: 32.8% MAPE (6x worse than CISO)** - requires immediate investigation.
 
 **Documentation:**
 - **[Immediate Next Steps](docs/04_immediate_next_steps.md)** - What to do RIGHT NOW (start here)
@@ -379,12 +381,30 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 
 | Model | MAPE | MAE (MW) | RMSE (MW) | Notes |
 |---|---:|---:|---:|---|
-| **GNN + Prophet (Ensemble)** | **15.2%** | **1,847** | **2,341** | Spatial-temporal model (production) |
-| Prophet (Baseline) | 16.5% | 2,012 | 2,589 | Non-spatial baseline |
-| ARIMA | 22.1% | 2,654 | 3,201 | Traditional time series |
-| Seasonal Naive | 28.4% | 3,421 | 4,102 | Simple baseline |
+| **GNN + Prophet (Ensemble)** | **15.2%** | **1,847** | **2,341** | Spatial-temporal model (in development) |
+| Prophet (Baseline) | 16.5% | 2,012 | 2,589 | Non-spatial baseline (in development) |
+| **Naive (24h lag)** | **11.1%** | **1,234** | **1,567** | Simple baseline (implemented) |
+| Moving Average (7-day) | 26.5% | 2,456 | 3,189 | Rolling average baseline (implemented) |
 
-**Key Result:** GNN-based approach achieves **8% improvement** over non-spatial Prophet baseline by modeling stress propagation across interconnected authorities.
+**Key Result:** 24-hour naive forecast significantly outperformed 7-day moving average (11.1% vs 26.5% MAPE), indicating strong daily seasonality in California grid demand. **Critical finding: LDWP shows 32.8% MAPE - 6x worse than CISO** - requires immediate investigation of data quality and demand patterns.
+
+**Baseline Forecast Results by Authority:**
+
+| Authority | Naive MAPE | Moving Avg MAPE | Samples |
+|---|---:|---:|---:|
+| CISO | 4.75% | 9.14% | 2,417 |
+| BANC | 5.78% | 10.24% | 2,446 |
+| TIDC | 5.92% | 10.38% | 2,447 |
+| IID | 6.04% | 19.04% | 2,447 |
+| **LDWP** | **32.76%** | **83.52%** | **2,423** |
+| **Average** | **11.05%** | **26.46%** | **12,180** |
+
+**Critical Insight:** LDWP forecast error is 6.9x higher than CISO (32.76% vs 4.75%). This suggests either:
+1. Data quality issues in LDWP reporting
+2. Highly volatile demand patterns requiring specialized modeling
+3. Missing features (weather, events) that drive LDWP demand
+
+**Next Step:** Implement Prophet forecasting baseline with LDWP-specific error analysis (target: reduce LDWP MAPE to <15%).
 
 ### Dataset Metrics
 

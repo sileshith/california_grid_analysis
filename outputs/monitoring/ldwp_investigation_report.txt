@@ -1,0 +1,56 @@
+======================================================================
+LDWP DATA QUALITY INVESTIGATION REPORT
+======================================================================
+
+Generated: 2026-06-09 08:10:56
+
+EXECUTIVE SUMMARY
+----------------------------------------------------------------------
+LDWP baseline forecast error is 32.76% MAPE, 6.9x worse than CISO (4.75%).
+This investigation analyzes data quality and demand patterns to identify root causes.
+
+KEY FINDINGS
+----------------------------------------------------------------------
+
+1. OUTLIER RATE:
+   LDWP: 7.53% outliers
+   CISO: 0.00% outliers
+   Ratio: infx higher
+
+2. DEMAND VOLATILITY:
+   LDWP Coefficient of Variation: 0.3101
+   CISO Coefficient of Variation: 0.1120
+   Ratio: 2.77x more volatile
+
+3. HOURLY CHANGES:
+   LDWP: 4.82% average hourly change
+   CISO: 3.19% average hourly change
+   Ratio: 1.51x more volatile
+
+RECOMMENDATIONS FOR PROPHET MODELING
+----------------------------------------------------------------------
+1. Enable robust outlier detection (outlier handling in Prophet)
+2. Increase changepoint flexibility (changepoint_prior_scale)
+3. Add custom seasonality if daily pattern is weak
+4. Consider separate model for LDWP with tuned hyperparameters
+5. Investigate external factors (weather, events) for LDWP
+
+DETAILED METRICS
+----------------------------------------------------------------------
+
+Outlier Analysis:
+authority  outlier_count  outlier_pct     min     max         mean         std
+     BANC              9     0.344300  1358.0  9770.0  1863.815226  420.745664
+     CISO              0     0.000000 18748.0 35596.0 24332.089749 2724.672597
+      IID             55     2.103250     0.0   839.0   348.149522  108.913116
+     LDWP            195     7.526052    94.0  4993.0  2550.594751  790.820232
+     TIDC              1     0.038241     0.0   444.0   281.156405   36.994990
+
+Volatility Analysis:
+authority       cv  hourly_change_mean  hourly_change_std  hourly_change_pct_mean  daily_change_mean  daily_change_std  daily_change_pct_mean
+     BANC 0.225744          106.774589         502.647255                4.900920         122.295367        513.073110               5.734879
+     CISO 0.111979          773.705882         960.721044                3.194089        1157.920734       1652.906971               4.748398
+      IID 0.312834           18.952181          24.767337                     inf          21.619066         31.664891                    inf
+     LDWP 0.310053           98.046332         152.379593                4.823543         243.337748        460.292108              30.320391
+     TIDC 0.131582            9.617062          13.084771                     inf          16.471633         24.013048                    inf
+

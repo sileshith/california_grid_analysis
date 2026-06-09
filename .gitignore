@@ -56,3 +56,5 @@ outputs/temp/
 
 # pytest cache
 .pytest_cache/
+.aider*
+airflow_env/

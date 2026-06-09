@@ -198,7 +198,7 @@ def analyze_volatility(df, col_map):
     return pd.DataFrame(results)
 
 
-def visualize_ldwp_patterns(df, output_dir=None):
+def visualize_ldwp_patterns(df, col_map, output_dir=None):
     """Create visualizations comparing LDWP to other authorities."""
     if output_dir is None:
         output_dir = Path("outputs/monitoring")
@@ -206,14 +206,18 @@ def visualize_ldwp_patterns(df, output_dir=None):
         output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
+    timestamp_col = col_map['timestamp']
+    authority_col = col_map['authority']
+    demand_col = col_map['demand']
+    
     # 1. Time series comparison
     fig, axes = plt.subplots(5, 1, figsize=(14, 12), sharex=True)
     
-    for idx, authority in enumerate(sorted(df['balancing_authority'].unique())):
-        auth_df = df[df['balancing_authority'] == authority].copy()
-        auth_df = auth_df.sort_values('timestamp_utc')
+    for idx, authority in enumerate(sorted(df[authority_col].unique())):
+        auth_df = df[df[authority_col] == authority].copy()
+        auth_df = auth_df.sort_values(timestamp_col)
         
-        axes[idx].plot(auth_df['timestamp_utc'], auth_df['demand_mw'], 
+        axes[idx].plot(auth_df[timestamp_col], auth_df[demand_col], 
                       linewidth=0.5, alpha=0.7)
         axes[idx].set_ylabel('Demand (MW)', fontsize=10)
         axes[idx].set_title(f'{authority}', fontsize=11, fontweight='bold')

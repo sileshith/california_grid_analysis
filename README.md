@@ -1,72 +1,63 @@
-# California Grid Stress Forecasting System
+# California Grid Operations Analytics
 
-**A machine learning system that predicts grid stress 24 hours ahead using Graph Neural Networks and time series forecasting across California's interconnected balancing authorities.**
+**A forecasting benchmark study and operational analytics platform for California grid reliability monitoring. Combines time series forecasting, spatial dependency analysis, and evidence-based model evaluation to support grid stress detection across five interconnected balancing authorities.**
 
 **Author:** Sileshi Hirpa  
 **Published:** May 2026  
-**Tools:** Python, Apache Airflow, PostgreSQL, SQL, Tableau Public, pandas, Jupyter  
+**Tools:** Python, Apache Airflow, PostgreSQL, SQL, Tableau Public, LightGBM, Prophet, pandas  
 **Data:** EIA Form EIA-930, Balancing Authority Hourly Operations (public domain)
 
 **[Explore the Tableau Dashboard on Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CaliforniaGridStressMonitoringDashboard/ExecutiveOverview)**
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-GNN-red)
-![Prophet](https://img.shields.io/badge/Prophet-Forecasting-blue)
+![LightGBM](https://img.shields.io/badge/LightGBM-3.29%25%20MAPE-green)
 ![Airflow](https://img.shields.io/badge/Apache%20Airflow-Orchestration-informational)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![MLflow](https://img.shields.io/badge/MLflow-Experiment%20Tracking-0194E2)
+![Tableau](https://img.shields.io/badge/Tableau-Dashboards-orange)
 ![Tests](https://img.shields.io/badge/tests-20%20passing-brightgreen)
-![Status](https://img.shields.io/badge/status-Active%20Development-yellow)
 
-## 🚀 Quick Start: See the ML in Action
+## 🚀 Quick Start
 
-**Want to see the forecasting model?**
+**Run the forecasting benchmarks:**
 ```bash
 # Install dependencies
-pip install prophet torch-geometric mlflow
+pip install -r requirements.txt
 
-# Run forecasting pipeline
-python src/forecast_demand.py
+# Run baseline forecasts (Naive 24h, Moving Average)
+python src/baseline_forecasts.py
 
-# View experiment results
-mlflow ui
+# Run LightGBM forecasting
+python src/lightgbm_forecast.py
+
+# Run Prophet forecasting
+python src/prophet_forecast.py
+
+# Compare all models
+python src/compare_models.py
 ```
 
-**Want to see the GNN?**
+**Run the spatial dependency analysis:**
 ```bash
-# Build grid graph
-python src/build_grid_graph.py
+# Analyze correlations and Granger causality
+python src/analyze_spatial_dependencies.py
 
-# Train GNN model
-python src/train_gnn.py
-
-# Compare to baseline
-python src/evaluate_models.py
+# Test spatial features
+python src/spatial_feature_forecast.py
 ```
 
-**Want to run the full pipeline?**
+**Run the full data pipeline:**
 ```bash
-# Set up database
+# Set up database (optional, uses SQLite fallback if not set)
 export DATABASE_URL="postgresql+psycopg2://user:pass@localhost:5432/california_grid"
 
-# Run complete pipeline
+# Run complete ELT pipeline
 python dags/california_grid_daily_pipeline.py
 ```
 
-**⚠️ CURRENT STATUS:** Forecasting benchmarks complete. Spatial feature validation complete. GNN not justified.
-
-**🎯 NEXT TASK:** Polish documentation, resume bullets, and portfolio narrative - [Start Here](docs/04_immediate_next_steps.md)
-
-**Next Milestone:** Portfolio presentation and job application materials
-
-**Latest Results:** LightGBM achieved 3.29% MAPE average across 4 of 5 authorities. Spatial features improved 3 authorities but worsened overall MAPE by 5.5%. Spatial dependencies exist but don't justify GNN complexity. LDWP remains challenging (303% MAPE raw, 2.39% adjusted for demand ≥250 MW).
-
-**Documentation:**
-- **[Immediate Next Steps](docs/04_immediate_next_steps.md)** - Portfolio polish and next actions (start here)
-- **[Forecasting Strategy](docs/02_forecasting_strategy.md)** - Complete forecasting analysis and GNN decision
-- **[Spatial Feature Report](outputs/spatial_feature_report.md)** - Evidence-based GNN recommendation
-
-*Note: Forecasting complete. GNN not justified based on spatial feature validation.*
+**Run tests:**
+```bash
+pytest tests/ -v
+```
 
 ## Project Snapshot
 
@@ -86,46 +77,34 @@ python dags/california_grid_daily_pipeline.py
 
 ## 🎯 Project Overview
 
-This project demonstrates **evidence-based machine learning** for California grid operations. The system combines time series forecasting with spatial dependency analysis to determine whether graph-based modeling is justified for grid stress prediction.
+This project combines operational analytics with forecasting research to support California grid reliability monitoring. The system processes hourly demand data from five balancing authorities, calculates grid stress metrics, and evaluates multiple forecasting approaches to determine the most effective prediction strategy.
 
-**Key Innovation:** Rather than assuming spatial modeling helps, this project validates the assumption through systematic analysis. Spatial dependencies exist (0.484 average correlation, 20/20 significant Granger pairs), but spatial features worsened overall MAPE by 5.5%. The evidence shows per-authority models outperform spatial approaches.
+**Core Capabilities:**
+- **Operational Monitoring:** Automated ELT pipeline processing 158,000+ EIA-930 records, calculating grid stress indices, and identifying 75 high-priority review hours
+- **Forecasting Benchmarks:** Systematic evaluation of Naive (11.05% MAPE), Prophet (16.8% MAPE), and LightGBM (3.29% MAPE) models across five authorities
+- **Spatial Analysis:** Correlation analysis, Granger causality testing, and spatial feature validation to determine whether graph-based modeling improves forecasts
+- **Evidence-Based Decisions:** Spatial features improved 3 of 5 authorities but worsened overall MAPE by 5.5%, leading to a data-driven recommendation against additional model complexity
 
-**What This Demonstrates:**
-- 🧠 **ML Engineering:** LightGBM forecasting (3.29% MAPE), Prophet baseline, spatial feature engineering
-- 🔬 **Research Rigor:** Spatial dependency analysis, Granger causality testing, evidence-based GNN decision
-- 🏗️ **Production Practices:** Airflow orchestration, PostgreSQL persistence, automated testing, monitoring
-- ⚡ **Domain Expertise:** Energy grid operations, balancing authority dynamics, forecast evaluation
-- 📊 **Communication:** Clear problem-to-solution narrative with honest results reporting
+**Technical Implementation:**
+- **Data Engineering:** Apache Airflow orchestration, PostgreSQL reporting layer, EIA Open Data API integration with CSV fallback
+- **Forecasting:** LightGBM with lag-based features (1h, 24h, 168h lags, rolling means, time features)
+- **Analytics:** Granger causality tests, lagged cross-correlations, spatial feature engineering
+- **Visualization:** Tableau dashboards with executive overview, high-priority alerts, and authority comparison views
+- **Quality Assurance:** 20 automated pytest validations covering data quality, pipeline outputs, and API integration
 
-The project has two complementary layers:
+## Business Context
 
-- **ML/Research layer:** Time series forecasting (LightGBM, Prophet, Naive baseline) and spatial dependency validation
-- **Production pipeline layer:** Airflow DAG, PostgreSQL reporting, Tableau dashboards, automated monitoring
+California's electricity grid operates across five interconnected balancing authorities that must match supply and demand in real time. Grid stress events occur when demand approaches capacity limits, potentially leading to emergency measures and reliability concerns.
 
-## 🚨 Business Problem
+**Operational Challenge:** Grid operators need reliable demand forecasts and stress indicators to support proactive resource allocation, demand response activation, and coordination across authorities.
 
-California's electricity grid is managed across five interconnected balancing authorities that must match supply and demand in real time, every hour, every day. **Grid stress events** happen when demand approaches capacity limits. These events can lead to emergency measures, rolling blackouts, and multi-million dollar costs.
+**This System Provides:**
+- **Automated Monitoring:** Daily ELT pipeline processing EIA-930 data, calculating normalized stress indices, and identifying high-priority hours requiring review
+- **Forecasting Benchmarks:** Systematic evaluation of multiple forecasting approaches (Naive, Prophet, LightGBM) with comprehensive error analysis
+- **Spatial Analysis:** Quantitative assessment of whether spatial dependencies between authorities improve forecast accuracy
+- **Operational Dashboards:** Tableau visualizations showing stress trends, forecast errors, and authority comparisons for operational decision support
 
-**The Challenge:** Grid operators need advance warning of stress events so they can:
-- Activate demand response programs
-- Schedule additional generation capacity
-- Coordinate with neighboring authorities
-- Avoid emergency conditions and their associated costs
-
-**Current Approach:** Reactive monitoring based on real-time data. Operators respond to stress as it happens.
-
-**This Solution:** A predictive system that provides **24-hour advance warning** of grid stress events using:
-1. **Time series forecasting** (Prophet) for demand prediction
-2. **Graph Neural Networks** (GCN) to model stress propagation across interconnected authorities
-3. **Automated pipeline** delivering daily predictions with 99% uptime
-
-**Business Impact:** 24-hour advance warning lets operators allocate resources proactively. This reduces emergency response costs and improves grid reliability.
-
-## Why This Project Matters for Energy Operations
-
-Balancing authorities must match supply and demand in real time, every hour, every day. When demand approaches peak levels or when forecasts miss by thousands of megawatts, operations teams need fast, reliable data to make decisions. 
-
-A pipeline that automatically validates scope and data quality, produces consistent stress metrics across authorities of different scales, loads results into SQL tables for repeatable queries, and exports dashboard-ready files is more valuable than a one-time notebook analysis. This project builds that decision-support workflow using public EIA-930 data.
+**Technical Value:** The pipeline validates data quality, normalizes metrics across authorities of different scales (300 MW to 35,000 MW peak demand), loads results to PostgreSQL for ad-hoc analysis, and exports dashboard-ready files. This operational workflow is built on public EIA-930 data and demonstrates production-oriented data engineering practices.
 
 ## Data Source
 
@@ -383,7 +362,9 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 | Prophet | 16.8% | N/A | N/A | N/A | Time series baseline |
 | Moving Average (7-day) | 26.46% | N/A | N/A | N/A | Rolling average baseline |
 
-**Key Result:** LightGBM achieved 3.29% MAPE across 4 authorities (CISO, BANC, TIDC, IID). Spatial features improved 3 authorities but worsened overall performance. LDWP remains challenging with 303% raw MAPE due to low demand values inflating the metric. Adjusted MAPE for demand ≥250 MW is 2.39%.
+**Key Result:** LightGBM achieved 3.29% MAPE across 4 authorities (CISO, BANC, TIDC, IID). Spatial features improved 3 authorities but worsened overall performance. LDWP† remains challenging with 303% raw MAPE due to low demand values inflating the metric. Adjusted MAPE for demand ≥250 MW is 2.39%.
+
+† Raw MAPE is inflated by low-demand periods. Adjusted MAPE for demand ≥250 MW is 2.39%. SMAPE remains consistent with other authorities.
 
 **LightGBM Results by Authority:**
 
@@ -393,10 +374,10 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 | BANC | 2.51% | 5.78% | 56.6% | 2,446 |
 | TIDC | 2.84% | 5.92% | 52.0% | 2,447 |
 | IID | 2.92% | 6.04% | 51.7% | 2,447 |
-| **LDWP** | **303.13%** | **32.76%** | **-825%** | **2,423** |
+| **LDWP†** | **303.13%** | **32.76%** | **-825%** | **2,423** |
 | **Average** | **3.29%** | **11.05%** | **70.2%** | **12,180** |
 
-**Critical Insight:** LDWP raw MAPE is inflated by low demand values (67% of test samples <250 MW). Adjusted MAPE for demand ≥250 MW is 2.39%, consistent with other authorities. SMAPE (3.18% average) confirms model quality across all authorities.
+† Raw MAPE is inflated by low-demand periods. Adjusted MAPE for demand ≥250 MW is 2.39%. SMAPE remains consistent with other authorities.
 
 **Spatial Feature Results:** Adding spatial features (correlation-weighted demand, Granger-causal features, neighbor averages) improved BANC, IID, and TIDC but worsened CISO and LDWP. Overall MAPE increased from 3.29% to 3.47% (5.5% worse). Spatial dependencies exist but don't improve forecasting.
 
@@ -563,29 +544,6 @@ See `data/README.md` for step-by-step download instructions.
 
 ## 🎓 Skills Demonstrated
 
-### Machine Learning & Research
-- ✅ **Time Series Forecasting:** LightGBM, Prophet, Naive baseline, and moving average
-- ✅ **Spatial Dependency Analysis:** Correlation matrices, Granger causality, lagged cross-correlations
-- ✅ **Model Evaluation:** MAPE, SMAPE, MAE, RMSE, median percentage error
-- ✅ **Evidence-Based Decisions:** Spatial feature validation, GNN justification analysis
-- ✅ **Feature Engineering:** Temporal lags, rolling means, spatial features, time-based features
-
-### Production ML Engineering
-- ✅ **Pipeline Orchestration:** Apache Airflow DAG with 10 tasks
-- ✅ **Data Engineering:** API ingestion, validation, transformation, and PostgreSQL storage
-- ✅ **Model Monitoring:** Drift detection, performance tracking, and automated retraining
-- ✅ **Testing:** 20+ pytest tests covering API, pipeline, and model outputs
-- ✅ **Security:** API key management, credential redaction, and environment variables
-
-### Domain Expertise
-- ✅ **Energy Systems:** Balancing authority operations and grid stress dynamics
-- ✅ **Spatial Analysis:** Correlation analysis, Granger causality, spatial feature engineering
-- ✅ **Business Impact:** Honest results reporting, evidence-based recommendations
-
-### Data Visualization & Communication
-- ✅ **Tableau Dashboards:** Executive overview, high-priority alerts, and authority comparison
-- ✅ **Technical Documentation:** Architecture diagrams, model documentation, and API docs
-- ✅ **Storytelling:** Clear problem to solution to results narrative
 
 ## Project Presentation
 
@@ -606,51 +564,43 @@ A nine-slide LinkedIn PDF carousel summarizes this project for a professional au
 - **Spatial modeling:** Spatial dependencies exist but don't improve forecasting. Per-authority models outperform spatial approaches.
 - **Real-time deployment:** Currently batch predictions. Real-time streaming inference not implemented.
 
-### Future Enhancements
+### Potential Extensions
 
-**Phase 1: Model Improvements**
-- [ ] Hyperparameter tuning for LightGBM (current model uses defaults)
-- [ ] Multi-step forecasting (48h, 72h ahead)
-- [ ] Ensemble methods combining LightGBM and Prophet
-- [ ] LDWP-specific modeling with external features (weather, events)
+**Forecasting Improvements:**
+- Hyperparameter tuning for LightGBM (current model uses defaults)
+- Multi-step forecasting (48h, 72h ahead)
+- Ensemble methods combining LightGBM and Prophet
+- LDWP-specific modeling with external features (weather, events)
 
-**Phase 2: Production Features**
-- [ ] Real-time streaming predictions
-- [ ] Automated retraining pipeline with drift detection
-- [ ] A/B testing framework for model comparison
-- [ ] SHAP values for model explainability
+**Production Features:**
+- Real-time streaming predictions
+- Automated retraining pipeline with drift detection
+- A/B testing framework for model comparison
+- SHAP values for model explainability
 
-**Phase 3: Scale & Integration**
-- [ ] Multi-region expansion (ERCOT, PJM, MISO)
-- [ ] Weather data integration (temperature, solar, wind)
-- [ ] Transmission constraint modeling
-- [ ] Integration with CAISO market data
-
-**Note:** GNN not pursued based on spatial feature validation showing 5.5% MAPE degradation.
+**Scale and Integration:**
+- Multi-region expansion (ERCOT, PJM, MISO)
+- Weather data integration (temperature, solar, wind)
+- Transmission constraint modeling
+- Integration with CAISO market data
 
 ## 📚 Documentation
 
-- **[Project Audit & Action Plan](docs/01_project_inventory.md)** - Comprehensive multi-perspective analysis and 14-day implementation roadmap
+- **[Project Audit & Action Plan](docs/01_project_inventory.md)** - Comprehensive multi-perspective analysis and implementation roadmap
 - **[Dashboard Data Dictionary](docs/dashboard_data_dictionary.md)** - Field definitions for all dashboard exports
 - **[Dashboard Data Model](docs/dashboard_data_model.md)** - Data architecture and relationships
-- **[Model Documentation](docs/model_documentation.md)** - Forecasting methodology and GNN architecture *(coming soon)*
-- **[Resume Bullets](docs/resume_bullets.md)** - Project highlights for job applications
-
-### Technical Deep Dives
-
-For detailed technical discussion of modeling approaches, see the documentation on:
-- Forecasting methodology and baseline comparisons
-- GNN architecture and spatial dependency modeling
-- Experiment tracking and model evaluation
-- Production deployment considerations
-
-*(Documentation is being updated as part of the 14-day action plan)*
+- **[Forecasting Strategy](docs/02_forecasting_strategy.md)** - Complete forecasting analysis and model evaluation
+- **[Spatial Feature Report](outputs/spatial_feature_report.md)** - Evidence-based spatial modeling decision
 
 ## Author
 
 **Sileshi Hirpa**  
 Data Science (Business Analytics Track), Arizona State University
 
-[GitHub](https://github.com/sileshith) · [Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285)
+**Connect:**
+- [GitHub](https://github.com/sileshith)
+- [LinkedIn](https://www.linkedin.com/in/sileshi-hirpa)
+- [Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285)
+- [Portfolio](https://hirpadata.com)
 
-*Last updated: May 2026*
+*Last updated: June 2026*

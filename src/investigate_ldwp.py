@@ -18,6 +18,45 @@ import seaborn as sns
 from pathlib import Path
 
 
+def detect_column_names(df):
+    """
+    Detect the correct column names for timestamp, authority, and demand.
+    
+    Args:
+        df: DataFrame to inspect
+    
+    Returns:
+        Dictionary with keys: 'timestamp', 'authority', 'demand'
+    """
+    columns = df.columns.tolist()
+    
+    # Detect timestamp column
+    timestamp_col = None
+    for col in ['timestamp_utc', 'period_utc', 'local_time_pacific']:
+        if col in columns:
+            timestamp_col = col
+            break
+    
+    if timestamp_col is None:
+        raise ValueError(f"No timestamp column found. Expected one of: timestamp_utc, period_utc, local_time_pacific. Found: {columns}")
+    
+    # Detect authority column
+    authority_col = 'balancing_authority'
+    if authority_col not in columns:
+        raise ValueError(f"Column '{authority_col}' not found in data. Found: {columns}")
+    
+    # Detect demand column
+    demand_col = 'demand_mw'
+    if demand_col not in columns:
+        raise ValueError(f"Column '{demand_col}' not found in data. Found: {columns}")
+    
+    return {
+        'timestamp': timestamp_col,
+        'authority': authority_col,
+        'demand': demand_col
+    }
+
+
 def load_dashboard_data():
     """Load the dashboard-ready dataset."""
     data_path = Path("outputs/tableau_exports/california_grid_dashboard_ready.csv")
@@ -25,26 +64,37 @@ def load_dashboard_data():
         raise FileNotFoundError(f"Dashboard data not found at {data_path}")
     
     df = pd.read_csv(data_path)
-    df['timestamp_utc'] = pd.to_datetime(df['timestamp_utc'])
-    return df
+    
+    # Detect column names
+    col_map = detect_column_names(df)
+    timestamp_col = col_map['timestamp']
+    
+    # Convert timestamp to datetime
+    df[timestamp_col] = pd.to_datetime(df[timestamp_col])
+    
+    return df, col_map
 
 
-def analyze_missing_data(df):
+def analyze_missing_data(df, col_map):
     """Check for missing values and data gaps."""
     print("\n" + "="*60)
     print("MISSING DATA ANALYSIS")
     print("="*60)
     
-    for authority in sorted(df['balancing_authority'].unique()):
-        auth_df = df[df['balancing_authority'] == authority].copy()
-        auth_df = auth_df.sort_values('timestamp_utc')
+    timestamp_col = col_map['timestamp']
+    authority_col = col_map['authority']
+    demand_col = col_map['demand']
+    
+    for authority in sorted(df[authority_col].unique()):
+        auth_df = df[df[authority_col] == authority].copy()
+        auth_df = auth_df.sort_values(timestamp_col)
         
         # Check for missing demand values
-        missing_count = auth_df['demand_mw'].isna().sum()
+        missing_count = auth_df[demand_col].isna().sum()
         missing_pct = 100 * missing_count / len(auth_df)
         
         # Check for time gaps (should be hourly)
-        auth_df['time_diff'] = auth_df['timestamp_utc'].diff()
+        auth_df['time_diff'] = auth_df[timestamp_col].diff()
         expected_diff = pd.Timedelta(hours=1)
         gaps = auth_df[auth_df['time_diff'] > expected_diff]
         
@@ -57,17 +107,20 @@ def analyze_missing_data(df):
             print(f"  Largest gap: {gaps['time_diff'].max()}")
 
 
-def analyze_outliers(df):
+def analyze_outliers(df, col_map):
     """Detect outliers using IQR method."""
     print("\n" + "="*60)
     print("OUTLIER ANALYSIS")
     print("="*60)
     
+    authority_col = col_map['authority']
+    demand_col = col_map['demand']
+    
     results = []
     
-    for authority in sorted(df['balancing_authority'].unique()):
-        auth_df = df[df['balancing_authority'] == authority].copy()
-        demand = auth_df['demand_mw'].dropna()
+    for authority in sorted(df[authority_col].unique()):
+        auth_df = df[df[authority_col] == authority].copy()
+        demand = auth_df[demand_col].dropna()
         
         # IQR method
         Q1 = demand.quantile(0.25)
@@ -97,19 +150,23 @@ def analyze_outliers(df):
     return pd.DataFrame(results)
 
 
-def analyze_volatility(df):
+def analyze_volatility(df, col_map):
     """Compare demand volatility across authorities."""
     print("\n" + "="*60)
     print("VOLATILITY ANALYSIS")
     print("="*60)
     
+    timestamp_col = col_map['timestamp']
+    authority_col = col_map['authority']
+    demand_col = col_map['demand']
+    
     results = []
     
-    for authority in sorted(df['balancing_authority'].unique()):
-        auth_df = df[df['balancing_authority'] == authority].copy()
-        auth_df = auth_df.sort_values('timestamp_utc')
+    for authority in sorted(df[authority_col].unique()):
+        auth_df = df[df[authority_col] == authority].copy()
+        auth_df = auth_df.sort_values(timestamp_col)
         
-        demand = auth_df['demand_mw'].dropna()
+        demand = auth_df[demand_col].dropna()
         
         # Calculate hour-to-hour changes
         hourly_change = demand.diff().dropna()
@@ -175,9 +232,9 @@ def visualize_ldwp_patterns(df, output_dir=None):
     # 2. Distribution comparison
     fig, ax = plt.subplots(figsize=(12, 6))
     
-    for authority in sorted(df['balancing_authority'].unique()):
-        auth_df = df[df['balancing_authority'] == authority]
-        demand = auth_df['demand_mw'].dropna()
+    for authority in sorted(df[authority_col].unique()):
+        auth_df = df[df[authority_col] == authority]
+        demand = auth_df[demand_col].dropna()
         
         # Normalize to 0-1 scale for comparison
         demand_norm = (demand - demand.min()) / (demand.max() - demand.min())
@@ -201,11 +258,11 @@ def visualize_ldwp_patterns(df, output_dir=None):
     # 3. Hourly patterns (average by hour of day)
     fig, ax = plt.subplots(figsize=(12, 6))
     
-    for authority in sorted(df['balancing_authority'].unique()):
-        auth_df = df[df['balancing_authority'] == authority].copy()
-        auth_df['hour'] = pd.to_datetime(auth_df['timestamp_utc']).dt.hour
+    for authority in sorted(df[authority_col].unique()):
+        auth_df = df[df[authority_col] == authority].copy()
+        auth_df['hour'] = pd.to_datetime(auth_df[timestamp_col]).dt.hour
         
-        hourly_avg = auth_df.groupby('hour')['demand_mw'].mean()
+        hourly_avg = auth_df.groupby('hour')[demand_col].mean()
         
         # Normalize
         hourly_avg_norm = (hourly_avg - hourly_avg.min()) / (hourly_avg.max() - hourly_avg.min())
@@ -304,22 +361,25 @@ def run_investigation(output_dir=None):
     print("="*70)
     print("\nLoading data...")
     
-    df = load_dashboard_data()
+    df, col_map = load_dashboard_data()
+    
+    timestamp_col = col_map['timestamp']
+    authority_col = col_map['authority']
     
     print(f"\nDataset: {len(df):,} total samples")
-    print(f"Authorities: {', '.join(sorted(df['balancing_authority'].unique()))}")
-    print(f"Date range: {df['timestamp_utc'].min()} to {df['timestamp_utc'].max()}")
+    print(f"Authorities: {', '.join(sorted(df[authority_col].unique()))}")
+    print(f"Date range: {df[timestamp_col].min()} to {df[timestamp_col].max()}")
     
     # Run analyses
-    analyze_missing_data(df)
-    outlier_df = analyze_outliers(df)
-    volatility_df = analyze_volatility(df)
+    analyze_missing_data(df, col_map)
+    outlier_df = analyze_outliers(df, col_map)
+    volatility_df = analyze_volatility(df, col_map)
     
     # Generate visualizations
     print("\n" + "="*60)
     print("GENERATING VISUALIZATIONS")
     print("="*60)
-    visualize_ldwp_patterns(df, output_dir)
+    visualize_ldwp_patterns(df, col_map, output_dir)
     
     # Generate summary report
     generate_summary_report(df, outlier_df, volatility_df, output_dir)

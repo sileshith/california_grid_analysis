@@ -36,6 +36,10 @@ def generate_comparison_table():
     baseline_df = load_baseline_results()
     prophet_df = load_prophet_results()
     
+    # Standardize column names
+    if 'balancing_authority' in baseline_df.columns:
+        baseline_df = baseline_df.rename(columns={'balancing_authority': 'authority'})
+    
     # Merge on authority
     comparison = baseline_df.merge(
         prophet_df[['authority', 'test_mape']], 

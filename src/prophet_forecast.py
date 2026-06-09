@@ -16,6 +16,45 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
+def detect_column_names(df):
+    """
+    Detect the correct column names for timestamp, authority, and demand.
+    
+    Args:
+        df: DataFrame to inspect
+    
+    Returns:
+        Dictionary with keys: 'timestamp', 'authority', 'demand'
+    """
+    columns = df.columns.tolist()
+    
+    # Detect timestamp column
+    timestamp_col = None
+    for col in ['timestamp_utc', 'period_utc', 'local_time_pacific']:
+        if col in columns:
+            timestamp_col = col
+            break
+    
+    if timestamp_col is None:
+        raise ValueError(f"No timestamp column found. Expected one of: timestamp_utc, period_utc, local_time_pacific. Found: {columns}")
+    
+    # Detect authority column
+    authority_col = 'balancing_authority'
+    if authority_col not in columns:
+        raise ValueError(f"Column '{authority_col}' not found in data. Found: {columns}")
+    
+    # Detect demand column
+    demand_col = 'demand_mw'
+    if demand_col not in columns:
+        raise ValueError(f"Column '{demand_col}' not found in data. Found: {columns}")
+    
+    return {
+        'timestamp': timestamp_col,
+        'authority': authority_col,
+        'demand': demand_col
+    }
+
+
 def load_dashboard_data():
     """Load the dashboard-ready dataset."""
     data_path = Path("outputs/tableau_exports/california_grid_dashboard_ready.csv")
@@ -23,19 +62,30 @@ def load_dashboard_data():
         raise FileNotFoundError(f"Dashboard data not found at {data_path}")
     
     df = pd.read_csv(data_path)
-    df['timestamp_utc'] = pd.to_datetime(df['timestamp_utc'])
-    return df
+    
+    # Detect column names
+    col_map = detect_column_names(df)
+    timestamp_col = col_map['timestamp']
+    
+    # Convert timestamp to datetime
+    df[timestamp_col] = pd.to_datetime(df[timestamp_col])
+    
+    return df, col_map
 
 
-def prepare_prophet_data(df, authority):
+def prepare_prophet_data(df, authority, col_map):
     """Prepare data for Prophet (requires 'ds' and 'y' columns)."""
-    auth_df = df[df['balancing_authority'] == authority].copy()
-    auth_df = auth_df.sort_values('timestamp_utc')
+    timestamp_col = col_map['timestamp']
+    authority_col = col_map['authority']
+    demand_col = col_map['demand']
+    
+    auth_df = df[df[authority_col] == authority].copy()
+    auth_df = auth_df.sort_values(timestamp_col)
     
     # Prophet requires specific column names
     prophet_df = pd.DataFrame({
-        'ds': auth_df['timestamp_utc'],
-        'y': auth_df['demand_mw']
+        'ds': auth_df[timestamp_col],
+        'y': auth_df[demand_col]
     })
     
     # Remove any missing values
@@ -97,14 +147,14 @@ def train_test_split_temporal(df, test_size=0.2):
     return train, test
 
 
-def forecast_authority(df, authority):
+def forecast_authority(df, authority, col_map):
     """Train Prophet and generate forecasts for one authority."""
     print(f"\n{'='*60}")
     print(f"FORECASTING: {authority}")
     print(f"{'='*60}")
     
     # Prepare data
-    prophet_df = prepare_prophet_data(df, authority)
+    prophet_df = prepare_prophet_data(df, authority, col_map)
     print(f"  Total samples: {len(prophet_df):,}")
     
     # Split train/test
@@ -160,19 +210,23 @@ def run_prophet_forecasts(output_dir=None):
     print("="*70)
     print("\nLoading data...")
     
-    df = load_dashboard_data()
-    authorities = sorted(df['balancing_authority'].unique())
+    df, col_map = load_dashboard_data()
+    
+    timestamp_col = col_map['timestamp']
+    authority_col = col_map['authority']
+    
+    authorities = sorted(df[authority_col].unique())
     
     print(f"\nDataset: {len(df):,} total samples")
     print(f"Authorities: {', '.join(authorities)}")
-    print(f"Date range: {df['timestamp_utc'].min()} to {df['timestamp_utc'].max()}")
+    print(f"Date range: {df[timestamp_col].min()} to {df[timestamp_col].max()}")
     
     # Run forecasts for each authority
     results = []
     all_forecasts = []
     
     for authority in authorities:
-        result = forecast_authority(df, authority)
+        result = forecast_authority(df, authority, col_map)
         results.append({
             'authority': result['authority'],
             'test_mape': result['test_mape'],

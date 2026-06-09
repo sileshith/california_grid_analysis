@@ -172,12 +172,24 @@ def plot_mape_comparison(output_dir=None):
     
     prophet_df = pd.read_csv(prophet_path)
     
-    # Baseline results
-    baseline_data = {
-        'authority': ['CISO', 'BANC', 'TIDC', 'IID', 'LDWP'],
-        'baseline_mape': [4.75, 5.78, 5.92, 6.04, 32.76]
-    }
-    baseline_df = pd.DataFrame(baseline_data)
+    # Load baseline results from CSV instead of hardcoding
+    baseline_path = Path("outputs/baseline_forecast_results.csv")
+    if baseline_path.exists():
+        baseline_df = pd.read_csv(baseline_path)
+        # Filter out AVERAGE row if present
+        baseline_df = baseline_df[baseline_df['balancing_authority'] != 'AVERAGE'].copy()
+        baseline_df = baseline_df.rename(columns={
+            'balancing_authority': 'authority',
+            'naive_mape': 'baseline_mape'
+        })
+        baseline_df = baseline_df[['authority', 'baseline_mape']]
+    else:
+        # Fallback to hardcoded values if baseline results not found
+        baseline_data = {
+            'authority': ['CISO', 'BANC', 'TIDC', 'IID', 'LDWP'],
+            'baseline_mape': [4.75, 5.78, 5.92, 6.04, 32.76]
+        }
+        baseline_df = pd.DataFrame(baseline_data)
     
     # Merge
     comparison_df = baseline_df.merge(prophet_df[['authority', 'test_mape']], on='authority')

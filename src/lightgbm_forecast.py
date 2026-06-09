@@ -125,6 +125,35 @@ def calculate_mape(y_true, y_pred):
     return np.mean(np.abs((y_true - y_pred) / y_true)) * 100
 
 
+def calculate_smape(y_true, y_pred):
+    """Calculate Symmetric Mean Absolute Percentage Error."""
+    y_true = np.array(y_true)
+    y_pred = np.array(y_pred)
+    
+    numerator = np.abs(y_true - y_pred)
+    denominator = (np.abs(y_true) + np.abs(y_pred)) / 2
+    
+    # Avoid division by zero
+    mask = denominator != 0
+    numerator = numerator[mask]
+    denominator = denominator[mask]
+    
+    if len(numerator) == 0:
+        return np.nan
+    
+    return np.mean(numerator / denominator) * 100
+
+
+def calculate_mae(y_true, y_pred):
+    """Calculate Mean Absolute Error."""
+    return np.mean(np.abs(y_true - y_pred))
+
+
+def calculate_rmse(y_true, y_pred):
+    """Calculate Root Mean Squared Error."""
+    return np.sqrt(np.mean((y_true - y_pred) ** 2))
+
+
 def train_test_split_temporal(df, test_size=0.2):
     """Split data temporally (no shuffling for time series)."""
     split_idx = int(len(df) * (1 - test_size))
@@ -211,11 +240,57 @@ def forecast_authority(df, authority, col_map):
     print(f"  Test MAPE: {test_mape:.2f}%")
     
     # Calculate additional metrics
-    test_errors = y_test - y_pred_test
-    mae = np.abs(test_errors).mean()
-    rmse = np.sqrt((test_errors ** 2).mean())
-    print(f"  Test MAE: {mae:.1f} MW")
-    print(f"  Test RMSE: {rmse:.1f} MW")
+    test_smape = calculate_smape(y_test, y_pred_test)
+    test_mae = calculate_mae(y_test, y_pred_test)
+    test_rmse = calculate_rmse(y_test, y_pred_test)
+    
+    print(f"  Test SMAPE: {test_smape:.2f}%")
+    print(f"  Test MAE: {test_mae:.1f} MW")
+    print(f"  Test RMSE: {test_rmse:.1f} MW")
+    
+    # DIAGNOSTIC: Check for low demand values
+    low_demand_100 = (y_test < 100).sum()
+    low_demand_250 = (y_test < 250).sum()
+    low_demand_500 = (y_test < 500).sum()
+    
+    print(f"  Demand < 100 MW: {low_demand_100} samples ({100*low_demand_100/len(y_test):.1f}%)")
+    print(f"  Demand < 250 MW: {low_demand_250} samples ({100*low_demand_250/len(y_test):.1f}%)")
+    print(f"  Demand < 500 MW: {low_demand_500} samples ({100*low_demand_500/len(y_test):.1f}%)")
+    
+    # DIAGNOSTIC: Identify top 20 largest percentage errors
+    test_errors = y_test.values - y_pred_test
+    pct_errors = np.abs(test_errors / y_test.values) * 100
+    
+    # Create error analysis dataframe
+    error_df = pd.DataFrame({
+        'actual': y_test.values,
+        'predicted': y_pred_test,
+        'error': test_errors,
+        'pct_error': pct_errors,
+        'abs_error': np.abs(test_errors)
+    })
+    
+    # Sort by percentage error
+    top_errors = error_df.nlargest(20, 'pct_error')
+    
+    print(f"  Top error: {top_errors['pct_error'].iloc[0]:.1f}% (actual: {top_errors['actual'].iloc[0]:.1f} MW, pred: {top_errors['predicted'].iloc[0]:.1f} MW)")
+    print(f"  Median error: {error_df['pct_error'].median():.1f}%")
+    
+    # Check if extreme MAPE is driven by low demand values
+    if test_mape > 50:
+        print(f"  ⚠️  WARNING: Extreme MAPE detected ({test_mape:.1f}%)")
+        
+        # Analyze errors by demand range
+        low_demand_mask = y_test < 250
+        high_demand_mask = y_test >= 250
+        
+        if low_demand_mask.sum() > 0:
+            low_demand_mape = calculate_mape(y_test[low_demand_mask], y_pred_test[low_demand_mask])
+            print(f"  MAPE for demand < 250 MW: {low_demand_mape:.1f}% ({low_demand_mask.sum()} samples)")
+        
+        if high_demand_mask.sum() > 0:
+            high_demand_mape = calculate_mape(y_test[high_demand_mask], y_pred_test[high_demand_mask])
+            print(f"  MAPE for demand >= 250 MW: {high_demand_mape:.1f}% ({high_demand_mask.sum()} samples)")
     
     # Feature importance
     importance = model.feature_importance(importance_type='gain')
@@ -227,12 +302,18 @@ def forecast_authority(df, authority, col_map):
         'authority': authority,
         'test_mape': test_mape,
         'train_mape': train_mape,
+        'test_smape': test_smape,
+        'test_mae': test_mae,
+        'test_rmse': test_rmse,
         'test_samples': len(test_df),
         'train_samples': len(train_df),
-        'mae': mae,
-        'rmse': rmse,
+        'low_demand_100': low_demand_100,
+        'low_demand_250': low_demand_250,
+        'low_demand_500': low_demand_500,
         'best_iteration': model.best_iteration,
-        'feature_importance': feature_importance
+        'feature_importance': feature_importance,
+        'error_analysis': error_df,
+        'top_errors': top_errors
     }
 
 
@@ -262,6 +343,7 @@ def run_lightgbm_forecasts(output_dir=None):
     
     # Run forecasts for each authority
     results = []
+    all_error_analyses = []
     
     for authority in authorities:
         result = forecast_authority(df, authority, col_map)
@@ -269,12 +351,22 @@ def run_lightgbm_forecasts(output_dir=None):
             'authority': result['authority'],
             'test_mape': result['test_mape'],
             'train_mape': result['train_mape'],
+            'test_smape': result['test_smape'],
+            'test_mae': result['test_mae'],
+            'test_rmse': result['test_rmse'],
             'test_samples': result['test_samples'],
             'train_samples': result['train_samples'],
-            'mae': result['mae'],
-            'rmse': result['rmse'],
+            'low_demand_100': result['low_demand_100'],
+            'low_demand_250': result['low_demand_250'],
+            'low_demand_500': result['low_demand_500'],
             'best_iteration': result['best_iteration']
         })
+        
+        # Store error analysis for LDWP
+        if authority == 'LDWP':
+            error_analysis = result['error_analysis'].copy()
+            error_analysis['authority'] = authority
+            all_error_analyses.append(error_analysis)
     
     # Create results summary
     results_df = pd.DataFrame(results)
@@ -295,6 +387,13 @@ def run_lightgbm_forecasts(output_dir=None):
     results_path = output_dir / 'lightgbm_forecast_results.csv'
     results_df.to_csv(results_path, index=False)
     print(f"\n✓ Results saved to {results_path}")
+    
+    # Save LDWP error analysis
+    if all_error_analyses:
+        ldwp_error_df = pd.concat(all_error_analyses, ignore_index=True)
+        ldwp_error_path = output_dir / 'ldwp_error_analysis.csv'
+        ldwp_error_df.to_csv(ldwp_error_path, index=False)
+        print(f"✓ LDWP error analysis saved to {ldwp_error_path}")
     
     # Compare to baseline
     print(f"\n{'='*70}")
@@ -328,6 +427,48 @@ def run_lightgbm_forecasts(output_dir=None):
     print("-" * 50)
     print(f"{'AVERAGE':<10} {baseline_avg:>6.2f}%     {overall_mape:>6.2f}%     {improvement_overall:>+6.2f}% ({improvement_overall_pct:>+5.1f}%)")
     print(f"{'='*70}\n")
+    
+    # Print diagnostic summary for extreme MAPE cases
+    extreme_mape_authorities = results_df[results_df['test_mape'] > 50]
+    if len(extreme_mape_authorities) > 0:
+        print(f"{'='*70}")
+        print("EXTREME MAPE DIAGNOSTIC SUMMARY")
+        print(f"{'='*70}\n")
+        
+        for _, row in extreme_mape_authorities.iterrows():
+            auth = row['authority']
+            mape = row['test_mape']
+            smape = row['test_smape']
+            mae = row['test_mae']
+            rmse = row['test_rmse']
+            low_100 = row['low_demand_100']
+            low_250 = row['low_demand_250']
+            low_500 = row['low_demand_500']
+            samples = row['test_samples']
+            
+            print(f"{auth}:")
+            print(f"  MAPE: {mape:.2f}% (extreme)")
+            print(f"  SMAPE: {smape:.2f}%")
+            print(f"  MAE: {mae:.1f} MW")
+            print(f"  RMSE: {rmse:.1f} MW")
+            print(f"  Low demand analysis:")
+            print(f"    < 100 MW: {low_100}/{samples} ({100*low_100/samples:.1f}%)")
+            print(f"    < 250 MW: {low_250}/{samples} ({100*low_250/samples:.1f}%)")
+            print(f"    < 500 MW: {low_500}/{samples} ({100*low_500/samples:.1f}%)")
+            print()
+            
+            # Diagnosis
+            if low_250 / samples > 0.5:
+                print(f"  ⚠️  DIAGNOSIS: {auth} has {100*low_250/samples:.1f}% of test samples below 250 MW")
+                print(f"     Low demand values inflate MAPE. Consider using SMAPE or MAE instead.")
+            elif smape < 30 and mape > 100:
+                print(f"  ⚠️  DIAGNOSIS: SMAPE ({smape:.1f}%) is much lower than MAPE ({mape:.1f}%)")
+                print(f"     MAPE is sensitive to small denominators. SMAPE is more robust.")
+            else:
+                print(f"  ⚠️  DIAGNOSIS: Model may be failing for {auth}. Review error analysis CSV.")
+            print()
+        
+        print(f"{'='*70}\n")
     
     return results_df
 

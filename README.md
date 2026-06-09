@@ -53,7 +53,18 @@ export DATABASE_URL="postgresql+psycopg2://user:pass@localhost:5432/california_g
 python dags/california_grid_daily_pipeline.py
 ```
 
-*Note: Forecasting and GNN modules are currently in development. See [14-Day Action Plan](docs/01_project_inventory.md#13-prioritized-14-day-action-plan) for implementation status.*
+**⚠️ CURRENT STATUS:** Forecasting implementation in progress (Days 1-3 of 7-day roadmap)
+
+**🎯 NEXT TASK:** Implement naive forecast baseline (1 hour) - [Start Here](docs/04_immediate_next_steps.md)
+
+**Next Milestone:** Prophet baseline forecasting (Target: MAPE < 15%)
+
+**Documentation:**
+- **[Immediate Next Steps](docs/04_immediate_next_steps.md)** - What to do RIGHT NOW (start here)
+- **[Implementation Roadmap](docs/03_implementation_roadmap.md)** - Detailed 7-day plan with code examples
+- **[Forecasting Strategy](docs/02_forecasting_strategy.md)** - Comprehensive strategy and GNN readiness criteria
+
+*Note: Forecasting and GNN modules are currently in development.*
 
 ## Project Snapshot
 

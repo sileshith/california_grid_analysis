@@ -2,19 +2,59 @@
 Model Comparison Report
 
 Compares baseline (naive, moving average), Prophet, and LightGBM forecasts.
-Generates comprehensive comparison table with multiple metrics:
-- MAPE (Mean Absolute Percentage Error)
-- SMAPE (Symmetric Mean Absolute Percentage Error)
-- MAE (Mean Absolute Error)
-- RMSE (Root Mean Squared Error)
-- Median Percentage Error
 
-Includes adjusted LDWP evaluation for demand >= 250 MW.
+Generates two rankings:
+1. Standard ranking using raw MAPE
+2. Production ranking using MAPE, SMAPE, MAE, and Median Percentage Error
+
+Includes:
+- Adjusted LDWP evaluation for demand >= 250 MW
+- Final recommendation section with best benchmark, most reliable, and production models
+- Model recommendation report CSV export
 """
 
 import pandas as pd
 import numpy as np
 from pathlib import Path
+
+
+def calculate_production_score(mape, smape, mae_normalized, median_pct_error):
+    """
+    Calculate production readiness score combining multiple metrics.
+    
+    Lower is better. Weights:
+    - MAPE: 30% (standard benchmark)
+    - SMAPE: 30% (robust to low values)
+    - MAE normalized: 20% (absolute error)
+    - Median % Error: 20% (robust to outliers)
+    
+    Args:
+        mape: Mean Absolute Percentage Error
+        smape: Symmetric Mean Absolute Percentage Error
+        mae_normalized: MAE normalized by mean demand (as percentage)
+        median_pct_error: Median percentage error
+    
+    Returns:
+        Production score (lower is better)
+    """
+    # Handle NaN values
+    if pd.isna(mape) or pd.isna(smape):
+        return np.nan
+    
+    # Use MAPE if median not available
+    if pd.isna(median_pct_error):
+        median_pct_error = mape
+    
+    # Use SMAPE if MAE not available
+    if pd.isna(mae_normalized):
+        mae_normalized = smape
+    
+    score = (0.30 * mape + 
+             0.30 * smape + 
+             0.20 * mae_normalized + 
+             0.20 * median_pct_error)
+    
+    return score
 
 
 def load_baseline_results():
@@ -47,6 +87,15 @@ def load_ldwp_error_analysis():
     if not ldwp_path.exists():
         return None
     return pd.read_csv(ldwp_path)
+
+
+def calculate_median_percentage_error(error_df):
+    """Calculate median percentage error from error analysis dataframe."""
+    if error_df is None or len(error_df) == 0:
+        return np.nan
+    if 'pct_error' in error_df.columns:
+        return error_df['pct_error'].median()
+    return np.nan
 
 
 def generate_comparison_table():
@@ -391,53 +440,260 @@ def generate_comparison_table():
     
     print("="*80 + "\n")
     
+    # Generate rankings
+    print("="*80)
+    print("MODEL RANKINGS")
+    print("="*80)
+    
+    # 1. Standard Ranking (MAPE only)
+    print("\n1. STANDARD RANKING (MAPE)")
+    print("-"*80)
+    
+    standard_ranking = []
+    
+    # Naive 24h
+    standard_ranking.append({
+        'rank': None,
+        'model': 'Naive 24h',
+        'avg_mape': avg_naive,
+        'metric': 'MAPE'
+    })
+    
+    # Moving Average 7d
+    standard_ranking.append({
+        'rank': None,
+        'model': 'Moving Avg 7d',
+        'avg_mape': avg_ma,
+        'metric': 'MAPE'
+    })
+    
+    # Prophet
+    if pd.notna(avg_prophet):
+        standard_ranking.append({
+            'rank': None,
+            'model': 'Prophet',
+            'avg_mape': avg_prophet,
+            'metric': 'MAPE'
+        })
+    
+    # LightGBM
+    if has_lightgbm:
+        standard_ranking.append({
+            'rank': None,
+            'model': 'LightGBM',
+            'avg_mape': avg_lgbm,
+            'metric': 'MAPE'
+        })
+    
+    standard_df = pd.DataFrame(standard_ranking)
+    standard_df = standard_df.sort_values('avg_mape')
+    standard_df['rank'] = range(1, len(standard_df) + 1)
+    
+    print(f"{'Rank':<6} {'Model':<15} {'MAPE':<10}")
+    print("-"*80)
+    for _, row in standard_df.iterrows():
+        print(f"{int(row['rank']):<6} {row['model']:<15} {row['avg_mape']:>6.2f}%")
+    
+    # 2. Production Ranking (Multi-metric)
+    print("\n2. PRODUCTION RANKING (Multi-Metric)")
+    print("-"*80)
+    print("Combines: MAPE (30%), SMAPE (30%), MAE (20%), Median % Error (20%)")
+    print("-"*80)
+    
+    production_ranking = []
+    
+    # Calculate normalized MAE (as percentage of mean demand)
+    # For baseline models, we don't have MAE, so use MAPE as proxy
+    
+    # Naive 24h
+    production_ranking.append({
+        'rank': None,
+        'model': 'Naive 24h',
+        'avg_mape': avg_naive,
+        'avg_smape': avg_naive,  # Approximate
+        'avg_mae_pct': avg_naive,  # Approximate
+        'median_pct_error': avg_naive,  # Approximate
+        'production_score': calculate_production_score(avg_naive, avg_naive, avg_naive, avg_naive)
+    })
+    
+    # Moving Average 7d
+    production_ranking.append({
+        'rank': None,
+        'model': 'Moving Avg 7d',
+        'avg_mape': avg_ma,
+        'avg_smape': avg_ma,  # Approximate
+        'avg_mae_pct': avg_ma,  # Approximate
+        'median_pct_error': avg_ma,  # Approximate
+        'production_score': calculate_production_score(avg_ma, avg_ma, avg_ma, avg_ma)
+    })
+    
+    # Prophet
+    if pd.notna(avg_prophet):
+        production_ranking.append({
+            'rank': None,
+            'model': 'Prophet',
+            'avg_mape': avg_prophet,
+            'avg_smape': avg_prophet,  # Approximate (no SMAPE for Prophet)
+            'avg_mae_pct': avg_prophet,  # Approximate
+            'median_pct_error': avg_prophet,  # Approximate
+            'production_score': calculate_production_score(avg_prophet, avg_prophet, avg_prophet, avg_prophet)
+        })
+    
+    # LightGBM (has full metrics)
+    if has_lightgbm:
+        # Calculate MAE as percentage of mean demand
+        if pd.notna(avg_mae):
+            # Estimate mean demand from comparison table
+            mean_demands = []
+            for _, row in comparison_no_avg.iterrows():
+                if 'lightgbm_mae' in row and pd.notna(row['lightgbm_mae']):
+                    # Reverse engineer mean demand from MAE and MAPE
+                    # MAE ≈ MAPE * mean_demand / 100
+                    if row['lightgbm_mape'] > 0:
+                        est_mean = row['lightgbm_mae'] / (row['lightgbm_mape'] / 100)
+                        mean_demands.append(est_mean)
+            
+            if mean_demands:
+                overall_mean_demand = np.mean(mean_demands)
+                avg_mae_pct = (avg_mae / overall_mean_demand) * 100
+            else:
+                avg_mae_pct = avg_smape  # Fallback
+        else:
+            avg_mae_pct = avg_smape
+        
+        # Get median percentage error from LDWP error analysis if available
+        median_pct_error = avg_lgbm  # Default to MAPE
+        if ldwp_error_df is not None:
+            median_pct_error = calculate_median_percentage_error(ldwp_error_df)
+            if pd.isna(median_pct_error):
+                median_pct_error = avg_lgbm
+        
+        production_ranking.append({
+            'rank': None,
+            'model': 'LightGBM',
+            'avg_mape': avg_lgbm,
+            'avg_smape': avg_smape if pd.notna(avg_smape) else avg_lgbm,
+            'avg_mae_pct': avg_mae_pct,
+            'median_pct_error': median_pct_error,
+            'production_score': calculate_production_score(
+                avg_lgbm,
+                avg_smape if pd.notna(avg_smape) else avg_lgbm,
+                avg_mae_pct,
+                median_pct_error
+            )
+        })
+    
+    production_df = pd.DataFrame(production_ranking)
+    production_df = production_df.sort_values('production_score')
+    production_df['rank'] = range(1, len(production_df) + 1)
+    
+    print(f"{'Rank':<6} {'Model':<15} {'Score':<10} {'MAPE':<10} {'SMAPE':<10}")
+    print("-"*80)
+    for _, row in production_df.iterrows():
+        print(f"{int(row['rank']):<6} {row['model']:<15} {row['production_score']:>6.2f}     "
+              f"{row['avg_mape']:>6.2f}%   {row['avg_smape']:>6.2f}%")
+    
+    print("="*80)
+    
+    # Final Recommendations
+    print("\n" + "="*80)
+    print("FINAL RECOMMENDATIONS")
+    print("="*80)
+    
+    best_benchmark = standard_df.iloc[0]['model']
+    best_benchmark_mape = standard_df.iloc[0]['avg_mape']
+    
+    best_production = production_df.iloc[0]['model']
+    best_production_score = production_df.iloc[0]['production_score']
+    
+    # Most reliable: lowest variance between MAPE and SMAPE
+    if has_lightgbm:
+        reliability_scores = []
+        for _, row in production_df.iterrows():
+            variance = abs(row['avg_mape'] - row['avg_smape'])
+            reliability_scores.append({
+                'model': row['model'],
+                'variance': variance,
+                'avg_mape': row['avg_mape']
+            })
+        reliability_df = pd.DataFrame(reliability_scores)
+        reliability_df = reliability_df.sort_values(['variance', 'avg_mape'])
+        most_reliable = reliability_df.iloc[0]['model']
+        most_reliable_variance = reliability_df.iloc[0]['variance']
+    else:
+        most_reliable = best_benchmark
+        most_reliable_variance = 0.0
+    
+    print(f"\n1. BEST BENCHMARK MODEL: {best_benchmark}")
+    print(f"   - MAPE: {best_benchmark_mape:.2f}%")
+    print(f"   - Use for: Quick baseline comparisons, simple forecasting")
+    
+    print(f"\n2. MOST RELIABLE MODEL: {most_reliable}")
+    if has_lightgbm:
+        print(f"   - MAPE/SMAPE variance: {most_reliable_variance:.2f}%")
+    print(f"   - Use for: Consistent performance across all demand ranges")
+    
+    print(f"\n3. RECOMMENDED PRODUCTION MODEL: {best_production}")
+    print(f"   - Production Score: {best_production_score:.2f}")
+    print(f"   - Use for: Production deployment, operational forecasting")
+    
+    # LDWP-specific recommendation
+    if has_lightgbm and 'lightgbm_mape_high_demand' in comparison.columns:
+        ldwp_row = comparison[comparison['authority'] == 'LDWP']
+        if len(ldwp_row) > 0:
+            ldwp_row = ldwp_row.iloc[0]
+            print(f"\n4. LDWP-SPECIFIC NOTES:")
+            print(f"   - Raw MAPE: {ldwp_row['lightgbm_mape']:.2f}% (inflated by low demand)")
+            print(f"   - Adjusted MAPE (≥250 MW): {ldwp_row['lightgbm_mape_high_demand']:.2f}%")
+            print(f"   - Recommendation: Use adjusted MAPE for LDWP performance assessment")
+    
+    print("="*80 + "\n")
+    
     # Save detailed comparison table
     output_path = Path("outputs/model_comparison.csv")
     comparison.to_csv(output_path, index=False)
     print(f"✓ Detailed comparison saved to {output_path}")
     
-    # Save summary table with all metrics
-    summary_data = {
-        'model': ['Naive 24h', 'Moving Avg 7d'],
-        'avg_mape': [avg_naive, avg_ma],
-        'avg_smape': [np.nan, np.nan],
-        'avg_mae': [np.nan, np.nan],
-        'avg_rmse': [np.nan, np.nan]
+    # Save standard ranking
+    standard_path = Path("outputs/model_comparison_summary.csv")
+    standard_df.to_csv(standard_path, index=False)
+    print(f"✓ Standard ranking saved to {standard_path}")
+    
+    # Save production ranking
+    production_path = Path("outputs/model_production_ranking.csv")
+    production_df.to_csv(production_path, index=False)
+    print(f"✓ Production ranking saved to {production_path}")
+    
+    # Save recommendation report
+    recommendation_data = {
+        'category': [
+            'Best Benchmark Model',
+            'Most Reliable Model',
+            'Recommended Production Model'
+        ],
+        'model': [
+            best_benchmark,
+            most_reliable,
+            best_production
+        ],
+        'primary_metric': [
+            f'MAPE: {best_benchmark_mape:.2f}%',
+            f'MAPE/SMAPE variance: {most_reliable_variance:.2f}%' if has_lightgbm else f'MAPE: {best_benchmark_mape:.2f}%',
+            f'Production Score: {best_production_score:.2f}'
+        ],
+        'use_case': [
+            'Quick baseline comparisons, simple forecasting',
+            'Consistent performance across all demand ranges',
+            'Production deployment, operational forecasting'
+        ]
     }
     
-    if pd.notna(avg_prophet):
-        summary_data['model'].append('Prophet')
-        summary_data['avg_mape'].append(avg_prophet)
-        summary_data['avg_smape'].append(np.nan)
-        summary_data['avg_mae'].append(np.nan)
-        summary_data['avg_rmse'].append(np.nan)
+    recommendation_df = pd.DataFrame(recommendation_data)
+    recommendation_path = Path("outputs/model_recommendation_report.csv")
+    recommendation_df.to_csv(recommendation_path, index=False)
+    print(f"✓ Recommendation report saved to {recommendation_path}")
     
-    if has_lightgbm:
-        summary_data['model'].append('LightGBM')
-        summary_data['avg_mape'].append(avg_lgbm)
-        summary_data['avg_smape'].append(avg_smape if pd.notna(avg_smape) else np.nan)
-        summary_data['avg_mae'].append(avg_mae if pd.notna(avg_mae) else np.nan)
-        summary_data['avg_rmse'].append(avg_rmse if pd.notna(avg_rmse) else np.nan)
-    
-    summary_df = pd.DataFrame(summary_data)
-    summary_df = summary_df.sort_values('avg_mape')
-    
-    # Add rank column
-    summary_df['rank'] = range(1, len(summary_df) + 1)
-    
-    # Reorder columns
-    summary_df = summary_df[['rank', 'model', 'avg_mape', 'avg_smape', 'avg_mae', 'avg_rmse']]
-    
-    summary_path = Path("outputs/model_comparison_summary.csv")
-    summary_df.to_csv(summary_path, index=False)
-    print(f"✓ Summary table saved to {summary_path}")
-    
-    # Print summary table
-    print("\n" + "="*80)
-    print("MODEL RANKING SUMMARY")
-    print("="*80)
-    print(summary_df.to_string(index=False))
-    print("="*80 + "\n")
+    print()
     
     return comparison
 

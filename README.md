@@ -1,6 +1,6 @@
 # California Grid Stress Forecasting System
 
-**Machine learning system predicting grid stress 24 hours ahead using Graph Neural Networks and time series forecasting across California's interconnected balancing authorities.**
+**A machine learning system that predicts grid stress 24 hours ahead using Graph Neural Networks and time series forecasting across California's interconnected balancing authorities.**
 
 **Author:** Sileshi Hirpa  
 **Published:** May 2026  
@@ -59,7 +59,7 @@ python dags/california_grid_daily_pipeline.py
 
 **Next Milestone:** Prophet baseline forecasting (Target: Overall MAPE < 10%, LDWP MAPE < 15%)
 
-**Latest Results:** Naive 24h forecast: 11.1% MAPE average. **LDWP critical outlier: 32.8% MAPE (6x worse than CISO)** - requires immediate investigation.
+**Latest Results:** Naive 24h forecast achieved 11.1% MAPE average. **LDWP is a critical outlier at 32.8% MAPE, which is 6x worse than CISO.** This needs immediate investigation.
 
 **Documentation:**
 - **[Immediate Next Steps](docs/04_immediate_next_steps.md)** - What to do RIGHT NOW (start here)
@@ -84,50 +84,45 @@ python dags/california_grid_daily_pipeline.py
 
 ## 🎯 Project Overview
 
-This project applies **Graph Neural Networks** and **time series forecasting** to predict California grid stress events 24 hours in advance. By modeling spatial dependencies between interconnected balancing authorities, the system achieves superior prediction accuracy compared to traditional non-spatial approaches.
+This project applies **Graph Neural Networks** and **time series forecasting** to predict California grid stress events 24 hours in advance. The system models spatial dependencies between interconnected balancing authorities, which gives it better prediction accuracy than traditional approaches that ignore these connections.
 
-**Key Innovation:** Unlike standard forecasting that treats each authority independently, this system uses Graph Convolutional Networks (GCN) to capture how stress propagates through the grid network, improving prediction accuracy by 8% over baseline Prophet models.
+**Key Innovation:** Standard forecasting treats each authority independently. This system uses Graph Convolutional Networks (GCN) to capture how stress propagates through the grid network. This improves prediction accuracy by 8% over baseline Prophet models.
 
 **What This Demonstrates:**
-- 🧠 **ML Engineering:** Prophet forecasting + GNN spatial modeling + MLflow experiment tracking
-- 🏗️ **Production Practices:** Airflow orchestration, PostgreSQL persistence, automated testing, monitoring
-- ⚡ **Domain Expertise:** Energy grid operations, balancing authority dynamics, stress propagation
-- 🔬 **Research Application:** Translating GNN research into production-ready forecasting system
+- 🧠 **ML Engineering:** Prophet forecasting, GNN spatial modeling, and MLflow experiment tracking
+- 🏗️ **Production Practices:** Airflow orchestration, PostgreSQL persistence, automated testing, and monitoring
+- ⚡ **Domain Expertise:** Energy grid operations, balancing authority dynamics, and stress propagation
+- 🔬 **Research Application:** Translating GNN research into a production-ready forecasting system
 
-The project is structured in two complementary layers:
+The project has two complementary layers:
 
-- **ML/Research layer:** Time series forecasting (Prophet, ARIMA) + Graph Neural Networks for spatial-temporal modeling
-- **Production pipeline layer:** Airflow DAG, PostgreSQL reporting, Tableau dashboards, automated monitoring
+- **ML/Research layer:** Time series forecasting (Prophet, ARIMA) and Graph Neural Networks for spatial-temporal modeling
+- **Production pipeline layer:** Airflow DAG, PostgreSQL reporting, Tableau dashboards, and automated monitoring
 
 ## 🚨 Business Problem
 
-California's electricity grid is managed across five interconnected balancing authorities that must match supply and demand in real time, every hour, every day. **Grid stress events** - when demand approaches capacity limits - can lead to emergency measures, rolling blackouts, and multi-million dollar costs.
+California's electricity grid is managed across five interconnected balancing authorities that must match supply and demand in real time, every hour, every day. **Grid stress events** happen when demand approaches capacity limits. These events can lead to emergency measures, rolling blackouts, and multi-million dollar costs.
 
-**The Challenge:** Grid operators need advance warning of stress events to:
+**The Challenge:** Grid operators need advance warning of stress events so they can:
 - Activate demand response programs
 - Schedule additional generation capacity
 - Coordinate with neighboring authorities
-- Avoid emergency conditions and associated costs
+- Avoid emergency conditions and their associated costs
 
 **Current Approach:** Reactive monitoring based on real-time data. Operators respond to stress as it happens.
 
-**This Solution:** Predictive system providing **24-hour advance warning** of grid stress events using:
+**This Solution:** A predictive system that provides **24-hour advance warning** of grid stress events using:
 1. **Time series forecasting** (Prophet) for demand prediction
 2. **Graph Neural Networks** (GCN) to model stress propagation across interconnected authorities
 3. **Automated pipeline** delivering daily predictions with 99% uptime
 
-**Business Impact:** 24-hour advance warning enables proactive resource allocation, reducing emergency response costs and improving grid reliability.
+**Business Impact:** 24-hour advance warning lets operators allocate resources proactively. This reduces emergency response costs and improves grid reliability.
 
 ## Why This Project Matters for Energy Operations
 
-Balancing authorities must match supply and demand in real time, every hour, every day. When demand approaches peak levels, or when forecasts miss by thousands of megawatts, operations teams need fast, reliable data to make decisions. A pipeline that:
+Balancing authorities must match supply and demand in real time, every hour, every day. When demand approaches peak levels or when forecasts miss by thousands of megawatts, operations teams need fast, reliable data to make decisions. 
 
-- Automatically validates scope and data quality before any analysis runs
-- Produces consistent, normalized stress metrics across authorities of different scales
-- Loads results into SQL tables that support repeatable operational queries
-- Exports dashboard-ready files that stakeholders can use without waiting for a data engineer
-
-...is more valuable than a one-time notebook analysis. This project builds that decision-support workflow using public EIA-930 data.
+A pipeline that automatically validates scope and data quality, produces consistent stress metrics across authorities of different scales, loads results into SQL tables for repeatable queries, and exports dashboard-ready files is more valuable than a one-time notebook analysis. This project builds that decision-support workflow using public EIA-930 data.
 
 ## Data Source
 
@@ -148,7 +143,7 @@ The pipeline supports two data ingestion modes selected by environment variable.
 
 **Local CSV fallback (default):**
 
-No API key required. Reproducible for portfolio demonstrations and offline use. Default for all pipeline runs unless `USE_EIA_API` is explicitly set.
+No API key required. This mode is reproducible for portfolio demonstrations and offline use. It's the default for all pipeline runs unless `USE_EIA_API` is explicitly set.
 
 ```bash
 unset USE_EIA_API
@@ -157,7 +152,7 @@ unset USE_EIA_API
 
 **EIA Open Data API mode:**
 
-Fetches hourly balancing authority data directly from the EIA Open Data API v2. Requires a free API key registered at `https://www.eia.gov/opendata/register.php`. Supports date-window filtering and automatic pagination. The API response is normalized to the same six-column schema used by the CSV path, so all downstream steps (validation, transformation, stress index, SQL load, Tableau export) run identically in both modes.
+Fetches hourly balancing authority data directly from the EIA Open Data API v2. Requires a free API key from `https://www.eia.gov/opendata/register.php`. Supports date-window filtering and automatic pagination. The API response is normalized to the same six-column schema used by the CSV path. This means all downstream steps (validation, transformation, stress index, SQL load, Tableau export) run identically in both modes.
 
 ```bash
 export USE_EIA_API="true"
@@ -179,7 +174,7 @@ export EIA_END_DATE="2026-01-02T23"
 | `EIA_API_PAGE_SIZE` | Rows per page (EIA max: 5000) | 5000 |
 | `SAVE_EIA_API_SNAPSHOT` | Save raw API response to `data/interim/` for debugging | false |
 
-> **Caution:** Do not commit API keys or `.env` files. `EIA_API_KEY` is read from the environment and never printed in logs or committed to the repository.
+> **Caution:** Don't commit API keys or `.env` files. `EIA_API_KEY` is read from the environment and never printed in logs or committed to the repository.
 
 ## California Balancing Authorities
 
@@ -191,7 +186,7 @@ export EIA_END_DATE="2026-01-02T23"
 | LDWP | Los Angeles Department of Water and Power | ~2,800 MW avg demand |
 | TIDC | Turlock Irrigation District | ~650 MW avg demand |
 
-The Grid Stress Index normalizes each authority against its own observed peak demand, enabling fair cross-scale comparison.
+The Grid Stress Index normalizes each authority against its own observed peak demand. This enables fair cross-scale comparison.
 
 ## 🏗️ System Architecture
 
@@ -241,7 +236,7 @@ fetch_or_load_eia_data           Load raw EIA-930 data (API or CSV)
     >> generate_monitoring_summary  Pipeline health tracking
 ```
 
-**Note:** Forecasting and GNN modules are currently in development. See [14-Day Action Plan](docs/01_project_inventory.md#13-prioritized-14-day-action-plan) for implementation roadmap.
+**Note:** Forecasting and GNN modules are currently in development. See the [14-Day Action Plan](docs/01_project_inventory.md#13-prioritized-14-day-action-plan) for the implementation roadmap.
 
 ### Engineered Metrics
 
@@ -267,7 +262,7 @@ fetch_or_load_eia_data           Load raw EIA-930 data (API or CSV)
 | `retry_delay` | 5 minutes |
 | Tags | `energy`, `airflow`, `elt`, `tableau`, `tesla-alignment`, `grid-analytics` |
 
-The DAG is import-safe. All execution code lives inside callable functions and nothing runs at import time. The file also includes a standalone mode (`python dags/california_grid_daily_pipeline.py`) that runs the full pipeline without requiring Airflow to be installed.
+The DAG is import-safe. All execution code lives inside callable functions and nothing runs at import time. The file also includes a standalone mode (`python dags/california_grid_daily_pipeline.py`) that runs the full pipeline without Airflow installed.
 
 To run via Airflow CLI:
 ```bash
@@ -284,7 +279,7 @@ Successful Apache Airflow Graph view showing the seven-step California Grid Oper
 
 **Directory:** `sql/`
 
-Five SQL files support operational and dashboard reporting. All queries target PostgreSQL. The pipeline also supports a local SQLite fallback when `DATABASE_URL` is not set. See Database Configuration below.
+Five SQL files support operational and dashboard reporting. All queries target PostgreSQL. The pipeline also supports a local SQLite fallback when `DATABASE_URL` isn't set. See Database Configuration below.
 
 | File | Purpose |
 |---|---|
@@ -303,7 +298,7 @@ Five SQL files support operational and dashboard reporting. All queries target P
 | `high_priority_review_queue` | 75 | High Review Priority hours only |
 | `daily_monitoring_summary` | 1 per run | Pipeline run records |
 
-The database (PostgreSQL or SQLite fallback) is excluded from git. Run the pipeline to populate it locally.
+The database (PostgreSQL or SQLite fallback) is excluded from git. You'll need to run the pipeline to populate it locally.
 
 ### Database Configuration
 
@@ -329,7 +324,7 @@ SELECT COUNT(*) FROM high_priority_review_queue;
 
 **SQLite fallback (no DATABASE_URL set):**
 
-If `DATABASE_URL` is not set, the pipeline automatically writes to `outputs/grid_operations.db`. This is a local demonstration fallback useful for quick verification without a PostgreSQL installation.
+If `DATABASE_URL` isn't set, the pipeline automatically writes to `outputs/grid_operations.db`. This is a local demonstration fallback that's useful for quick verification without a PostgreSQL installation.
 
 #### PostgreSQL Verification Commands
 
@@ -347,10 +342,10 @@ For portfolio evidence, capture a terminal screenshot showing the PostgreSQL `DA
 
 **[Explore the Tableau Dashboard on Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CaliforniaGridStressMonitoringDashboard/ExecutiveOverview)**
 
-The dashboard contains three tabs:
+The dashboard has three tabs:
 
 - **Executive Overview:** KPI summary cards, review priority composition, high-priority risk concentration by authority, and Stress Index trend over the dataset window
-- **High-Priority Review Queue:** Detailed view of the 75 high-priority hours, including top stress index events, peak forecast errors, and a ranked triage table
+- **High-Priority Review Queue:** Detailed view of the 75 high-priority hours with top stress index events, peak forecast errors, and a ranked triage table
 - **Authority Comparison:** Side-by-side comparison of average Stress Index, forecast error, demand vs. generation, and total interchange by balancing authority
 
 ### Dashboard Data Model
@@ -386,7 +381,7 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 | **Naive (24h lag)** | **11.1%** | **1,234** | **1,567** | Simple baseline (implemented) |
 | Moving Average (7-day) | 26.5% | 2,456 | 3,189 | Rolling average baseline (implemented) |
 
-**Key Result:** 24-hour naive forecast significantly outperformed 7-day moving average (11.1% vs 26.5% MAPE), indicating strong daily seasonality in California grid demand. **Critical finding: LDWP shows 32.8% MAPE - 6x worse than CISO** - requires immediate investigation of data quality and demand patterns.
+**Key Result:** The 24-hour naive forecast significantly outperformed the 7-day moving average (11.1% vs 26.5% MAPE). This indicates strong daily seasonality in California grid demand. **Critical finding: LDWP shows 32.8% MAPE, which is 6x worse than CISO.** This requires immediate investigation of data quality and demand patterns.
 
 **Baseline Forecast Results by Authority:**
 
@@ -399,12 +394,12 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 | **LDWP** | **32.76%** | **83.52%** | **2,423** |
 | **Average** | **11.05%** | **26.46%** | **12,180** |
 
-**Critical Insight:** LDWP forecast error is 6.9x higher than CISO (32.76% vs 4.75%). This suggests either:
+**Critical Insight:** LDWP forecast error is 6.9x higher than CISO (32.76% vs 4.75%). This suggests one of three things:
 1. Data quality issues in LDWP reporting
-2. Highly volatile demand patterns requiring specialized modeling
+2. Highly volatile demand patterns that need specialized modeling
 3. Missing features (weather, events) that drive LDWP demand
 
-**Next Step:** Implement Prophet forecasting baseline with LDWP-specific error analysis (target: reduce LDWP MAPE to <15%).
+**Next Step:** Implement Prophet forecasting baseline with LDWP-specific error analysis. Target is to reduce LDWP MAPE to under 15%.
 
 ### Dataset Metrics
 
@@ -416,7 +411,7 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 | Forecast Accuracy (High Stress) | 92% recall, 15% false positive rate |
 | Peak Demand MW | 35,596 (CISO) |
 | California Balancing Authorities | 5 (BANC, CISO, IID, LDWP, TIDC) |
-| Pipeline Uptime | 99.2% over 120-day period |
+| Pipeline Uptime | 99.2% over a 120-day period |
 
 ## Repository Structure
 
@@ -484,7 +479,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-For pipeline-only use (no notebook visualization), the minimum requirements are:
+For pipeline-only use without notebook visualization, the minimum requirements are:
 
 ```
 pandas>=1.5.0
@@ -496,7 +491,7 @@ psycopg2-binary>=2.9.0
 pytest>=7.0.0
 ```
 
-### Option A: Run the pipeline modules directly (no Airflow required)
+### Option A: Run the pipeline modules directly without Airflow
 
 Set `DATABASE_URL` for PostgreSQL or leave it unset for the SQLite fallback:
 
@@ -557,39 +552,39 @@ Tests skip gracefully if pipeline output files do not yet exist.
 
 ## Data Prerequisites
 
-Before running the pipeline or notebook:
+Before running the pipeline or notebook, you need to:
 
 1. Download `EIA930_BALANCE_2026_Jan_Jun.csv` from the [EIA Grid Monitor](https://www.eia.gov/electricity/gridmonitor/) (Balancing Authority Operations, Jan-Jun 2026 file)
 2. Place the file at `data/raw/EIA930_BALANCE_2026_Jan_Jun.csv`
-3. The file is ~27 MB and is excluded from git by `.gitignore`
+3. Note that the file is ~27 MB and is excluded from git by `.gitignore`
 
 See `data/README.md` for step-by-step download instructions.
 
 ## 🎓 Skills Demonstrated
 
 ### Machine Learning & Research
-- ✅ **Time Series Forecasting:** Prophet, ARIMA, seasonal decomposition
-- ✅ **Graph Neural Networks:** GCN architecture, spatial dependency modeling
-- ✅ **Model Evaluation:** MAPE, MAE, RMSE, walk-forward validation, ablation studies
+- ✅ **Time Series Forecasting:** Prophet, ARIMA, and seasonal decomposition
+- ✅ **Graph Neural Networks:** GCN architecture and spatial dependency modeling
+- ✅ **Model Evaluation:** MAPE, MAE, RMSE, walk-forward validation, and ablation studies
 - ✅ **Experiment Tracking:** MLflow for model versioning and comparison
-- ✅ **Feature Engineering:** Temporal features, spatial features, domain-specific metrics
+- ✅ **Feature Engineering:** Temporal features, spatial features, and domain-specific metrics
 
 ### Production ML Engineering
 - ✅ **Pipeline Orchestration:** Apache Airflow DAG with 10 tasks
-- ✅ **Data Engineering:** API ingestion, validation, transformation, PostgreSQL storage
-- ✅ **Model Monitoring:** Drift detection, performance tracking, automated retraining
+- ✅ **Data Engineering:** API ingestion, validation, transformation, and PostgreSQL storage
+- ✅ **Model Monitoring:** Drift detection, performance tracking, and automated retraining
 - ✅ **Testing:** 20+ pytest tests covering API, pipeline, and model outputs
-- ✅ **Security:** API key management, credential redaction, environment variables
+- ✅ **Security:** API key management, credential redaction, and environment variables
 
 ### Domain Expertise
-- ✅ **Energy Systems:** Balancing authority operations, grid stress dynamics
-- ✅ **Spatial Modeling:** Grid network topology, interchange flows, stress propagation
-- ✅ **Business Impact:** ROI analysis, operational use cases, stakeholder communication
+- ✅ **Energy Systems:** Balancing authority operations and grid stress dynamics
+- ✅ **Spatial Modeling:** Grid network topology, interchange flows, and stress propagation
+- ✅ **Business Impact:** ROI analysis, operational use cases, and stakeholder communication
 
 ### Data Visualization & Communication
-- ✅ **Tableau Dashboards:** Executive overview, high-priority alerts, authority comparison
-- ✅ **Technical Documentation:** Architecture diagrams, model documentation, API docs
-- ✅ **Storytelling:** Clear problem → solution → results narrative
+- ✅ **Tableau Dashboards:** Executive overview, high-priority alerts, and authority comparison
+- ✅ **Technical Documentation:** Architecture diagrams, model documentation, and API docs
+- ✅ **Storytelling:** Clear problem to solution to results narrative
 
 ## Project Presentation
 
@@ -604,11 +599,11 @@ A nine-slide LinkedIn PDF carousel summarizes this project for a professional au
 
 ### Current Limitations
 
-- **Dataset window:** 4-month historical period (Jan-Apr 2026). Limited extreme event data for model training.
-- **Graph size:** 5-node network (California authorities only). GNN architecture designed for scalability to larger grids.
-- **Forecast horizon:** 24 hours ahead. Multi-step forecasting (48h, 72h) planned for future work.
-- **Model complexity:** Basic GCN architecture. More sophisticated temporal GNNs (STGCN, DCRNN) under development.
-- **Real-time deployment:** Currently batch predictions. Real-time streaming inference planned.
+- **Dataset window:** 4-month historical period (Jan-Apr 2026). This limits extreme event data for model training.
+- **Graph size:** 5-node network (California authorities only). The GNN architecture is designed for scalability to larger grids.
+- **Forecast horizon:** 24 hours ahead. Multi-step forecasting (48h, 72h) is planned for future work.
+- **Model complexity:** Basic GCN architecture. More sophisticated temporal GNNs (STGCN, DCRNN) are under development.
+- **Real-time deployment:** Currently batch predictions. Real-time streaming inference is planned.
 
 ### Future Enhancements
 
@@ -630,7 +625,7 @@ A nine-slide LinkedIn PDF carousel summarizes this project for a professional au
 - [ ] Transmission constraint modeling
 - [ ] Integration with CAISO market data
 
-See [14-Day Action Plan](docs/01_project_inventory.md#13-prioritized-14-day-action-plan) for detailed implementation roadmap.
+See the [14-Day Action Plan](docs/01_project_inventory.md#13-prioritized-14-day-action-plan) for a detailed implementation roadmap.
 
 ## 📚 Documentation
 
@@ -642,13 +637,13 @@ See [14-Day Action Plan](docs/01_project_inventory.md#13-prioritized-14-day-acti
 
 ### Technical Deep Dives
 
-For detailed technical discussion of modeling approaches, see:
+For detailed technical discussion of modeling approaches, see the documentation on:
 - Forecasting methodology and baseline comparisons
 - GNN architecture and spatial dependency modeling
 - Experiment tracking and model evaluation
 - Production deployment considerations
 
-*(Documentation being updated as part of 14-day action plan)*
+*(Documentation is being updated as part of the 14-day action plan)*
 
 ## Author
 

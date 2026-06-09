@@ -67,8 +67,8 @@ def load_dashboard_data():
     col_map = detect_column_names(df)
     timestamp_col = col_map['timestamp']
     
-    # Convert timestamp to datetime
-    df[timestamp_col] = pd.to_datetime(df[timestamp_col])
+    # Convert timestamp to datetime (utc=True handles mixed DST offsets)
+    df[timestamp_col] = pd.to_datetime(df[timestamp_col], utc=True)
     
     return df, col_map
 
@@ -82,7 +82,7 @@ def prepare_prophet_data(df, authority, col_map):
     auth_df = df[df[authority_col] == authority].copy()
     auth_df = auth_df.sort_values(timestamp_col)
     
-    # Prophet requires specific column names
+    # Prophet requires specific column names and timezone-naive timestamps
     prophet_df = pd.DataFrame({
         'ds': auth_df[timestamp_col],
         'y': auth_df[demand_col]
@@ -90,6 +90,10 @@ def prepare_prophet_data(df, authority, col_map):
     
     # Remove any missing values
     prophet_df = prophet_df.dropna()
+    
+    # Convert to timezone-naive (Prophet requires this)
+    if prophet_df['ds'].dt.tz is not None:
+        prophet_df['ds'] = prophet_df['ds'].dt.tz_localize(None)
     
     return prophet_df
 

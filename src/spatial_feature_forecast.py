@@ -436,6 +436,13 @@ def generate_comparison_report(results_df, baseline_results, output_dir):
     """Generate comprehensive comparison report."""
     report_path = output_dir / 'spatial_feature_report.md'
     
+    # Load feature importance from CSV
+    importance_path = output_dir / 'spatial_feature_importance.csv'
+    if importance_path.exists():
+        importance_df = pd.read_csv(importance_path)
+    else:
+        importance_df = None
+    
     # Merge with baseline results
     baseline_results = baseline_results.rename(columns={
         'authority': 'authority',
@@ -582,16 +589,21 @@ def generate_comparison_report(results_df, baseline_results, output_dir):
         f.write("### Most Important Spatial Features\n\n")
         f.write("Aggregated across all authorities:\n\n")
         
-        # Aggregate feature importance across all authorities
-        all_importance = {}
-        for _, row in results_df.iterrows():
-            for feat, imp in row['feature_importance'].items():
-                if feat.startswith('spatial_'):
-                    all_importance[feat] = all_importance.get(feat, 0) + imp
-        
-        top_spatial = sorted(all_importance.items(), key=lambda x: x[1], reverse=True)[:10]
-        for i, (feat, imp) in enumerate(top_spatial, 1):
-            f.write(f"{i}. `{feat}`: {imp:.0f}\n")
+        # Aggregate feature importance from CSV
+        if importance_df is not None:
+            spatial_importance = importance_df[importance_df['is_spatial'] == True].copy()
+            if len(spatial_importance) > 0:
+                # Aggregate by feature name
+                agg_importance = spatial_importance.groupby('feature')['importance'].sum().reset_index()
+                agg_importance = agg_importance.sort_values('importance', ascending=False)
+                
+                top_spatial = agg_importance.head(10)
+                for i, (_, row) in enumerate(top_spatial.iterrows(), 1):
+                    f.write(f"{i}. `{row['feature']}`: {row['importance']:.0f}\n")
+            else:
+                f.write("No spatial features found in importance data.\n")
+        else:
+            f.write("Feature importance data not available.\n")
         
         f.write("\n---\n\n")
         

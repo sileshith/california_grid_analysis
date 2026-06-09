@@ -69,8 +69,8 @@ def load_dashboard_data():
     col_map = detect_column_names(df)
     timestamp_col = col_map['timestamp']
     
-    # Convert timestamp to datetime
-    df[timestamp_col] = pd.to_datetime(df[timestamp_col])
+    # Convert timestamp to datetime (utc=True handles mixed DST offsets)
+    df[timestamp_col] = pd.to_datetime(df[timestamp_col], utc=True)
     
     return df, col_map
 
@@ -264,7 +264,7 @@ def visualize_ldwp_patterns(df, col_map, output_dir=None):
     
     for authority in sorted(df[authority_col].unique()):
         auth_df = df[df[authority_col] == authority].copy()
-        auth_df['hour'] = pd.to_datetime(auth_df[timestamp_col]).dt.hour
+        auth_df['hour'] = pd.to_datetime(auth_df[timestamp_col], utc=True).dt.hour
         
         hourly_avg = auth_df.groupby('hour')[demand_col].mean()
         

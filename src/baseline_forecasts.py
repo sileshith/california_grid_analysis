@@ -111,6 +111,45 @@ def evaluate_forecasts(df, target_col='demand_mw'):
     }
 
 
+def detect_column_names(df):
+    """
+    Detect the correct column names for timestamp, authority, and demand.
+    
+    Args:
+        df: DataFrame to inspect
+    
+    Returns:
+        Dictionary with keys: 'timestamp', 'authority', 'demand'
+    """
+    columns = df.columns.tolist()
+    
+    # Detect timestamp column
+    timestamp_col = None
+    for col in ['timestamp_utc', 'period_utc', 'local_time_pacific']:
+        if col in columns:
+            timestamp_col = col
+            break
+    
+    if timestamp_col is None:
+        raise ValueError(f"No timestamp column found. Expected one of: timestamp_utc, period_utc, local_time_pacific. Found: {columns}")
+    
+    # Detect authority column
+    authority_col = 'balancing_authority'
+    if authority_col not in columns:
+        raise ValueError(f"Column '{authority_col}' not found in data. Found: {columns}")
+    
+    # Detect demand column
+    demand_col = 'demand_mw'
+    if demand_col not in columns:
+        raise ValueError(f"Column '{demand_col}' not found in data. Found: {columns}")
+    
+    return {
+        'timestamp': timestamp_col,
+        'authority': authority_col,
+        'demand': demand_col
+    }
+
+
 def run_baseline_forecasts(input_path=None, output_path=None):
     """
     Run baseline forecasts on California grid data.
@@ -166,11 +205,19 @@ def run_baseline_forecasts(input_path=None, output_path=None):
     print(f"Loading data from {input_path}...")
     df = pd.read_csv(input_path)
     
+    # Detect column names
+    col_map = detect_column_names(df)
+    timestamp_col = col_map['timestamp']
+    authority_col = col_map['authority']
+    demand_col = col_map['demand']
+    
+    print(f"Using columns: timestamp='{timestamp_col}', authority='{authority_col}', demand='{demand_col}'")
+    
     # Convert timestamp to datetime
-    df['timestamp_utc'] = pd.to_datetime(df['timestamp_utc'])
+    df[timestamp_col] = pd.to_datetime(df[timestamp_col])
     
     # Get unique authorities
-    authorities = df['balancing_authority'].unique()
+    authorities = df[authority_col].unique()
     print(f"Found {len(authorities)} balancing authorities: {', '.join(authorities)}")
     
     # Evaluate each authority
@@ -179,11 +226,11 @@ def run_baseline_forecasts(input_path=None, output_path=None):
         print(f"\nEvaluating {authority}...")
         
         # Filter to this authority and sort by time
-        df_auth = df[df['balancing_authority'] == authority].copy()
-        df_auth = df_auth.sort_values('timestamp_utc').set_index('timestamp_utc')
+        df_auth = df[df[authority_col] == authority].copy()
+        df_auth = df_auth.sort_values(timestamp_col).set_index(timestamp_col)
         
         # Evaluate forecasts
-        metrics = evaluate_forecasts(df_auth, target_col='demand_mw')
+        metrics = evaluate_forecasts(df_auth, target_col=demand_col)
         
         results.append({
             'balancing_authority': authority,

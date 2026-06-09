@@ -163,7 +163,7 @@ def run_baseline_forecasts(input_path=None, output_path=None):
     """
     # Load data
     if input_path is None:
-        input_path = Path('outputs/tableau_exports/dashboard_ready.csv')
+        input_path = Path('outputs/tableau_exports/california_grid_dashboard_ready.csv')
     else:
         input_path = Path(input_path)
     
@@ -286,7 +286,7 @@ if __name__ == '__main__':
         '--input',
         type=str,
         default=None,
-        help='Path to input CSV file (default: outputs/tableau_exports/dashboard_ready.csv)'
+        help='Path to input CSV file (default: outputs/tableau_exports/california_grid_dashboard_ready.csv)'
     )
     parser.add_argument(
         '--output',

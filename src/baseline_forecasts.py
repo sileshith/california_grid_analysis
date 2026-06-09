@@ -9,6 +9,7 @@ Implements:
 
 import pandas as pd
 import numpy as np
+import sys
 from pathlib import Path
 
 
@@ -122,6 +123,36 @@ def run_baseline_forecasts(input_path=None):
     # Load data
     if input_path is None:
         input_path = Path('outputs/tableau_exports/dashboard_ready.csv')
+    
+    # Check if file exists
+    if not input_path.exists():
+        print(f"❌ ERROR: Input file not found: {input_path}")
+        print()
+        print("This file should be created by running the main data pipeline.")
+        print()
+        
+        # List available CSV files in outputs/
+        outputs_dir = Path('outputs')
+        if outputs_dir.exists():
+            csv_files = list(outputs_dir.rglob('*.csv'))
+            if csv_files:
+                print(f"Found {len(csv_files)} CSV file(s) in outputs/:")
+                for csv_file in sorted(csv_files):
+                    size_kb = csv_file.stat().st_size / 1024
+                    print(f"  - {csv_file} ({size_kb:.1f} KB)")
+                print()
+                print("To use a different file, run:")
+                print(f"  python src/baseline_forecasts.py --input <path_to_csv>")
+            else:
+                print("No CSV files found in outputs/ directory.")
+        else:
+            print("outputs/ directory does not exist.")
+        
+        print()
+        print("To generate the required file, run the data pipeline:")
+        print("  python -m dags.california_grid_daily_pipeline")
+        print()
+        sys.exit(1)
     
     print(f"Loading data from {input_path}...")
     df = pd.read_csv(input_path)

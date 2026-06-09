@@ -7,6 +7,7 @@ Implements:
 - MAPE calculation
 """
 
+import argparse
 import pandas as pd
 import numpy as np
 import sys
@@ -110,12 +111,13 @@ def evaluate_forecasts(df, target_col='demand_mw'):
     }
 
 
-def run_baseline_forecasts(input_path=None):
+def run_baseline_forecasts(input_path=None, output_path=None):
     """
     Run baseline forecasts on California grid data.
     
     Args:
         input_path: Path to dashboard-ready CSV file
+        output_path: Path to save results CSV file
     
     Returns:
         DataFrame with results by authority
@@ -123,6 +125,13 @@ def run_baseline_forecasts(input_path=None):
     # Load data
     if input_path is None:
         input_path = Path('outputs/tableau_exports/dashboard_ready.csv')
+    else:
+        input_path = Path(input_path)
+    
+    if output_path is None:
+        output_path = Path('outputs/baseline_forecast_results.csv')
+    else:
+        output_path = Path(output_path)
     
     # Check if file exists
     if not input_path.exists():
@@ -200,7 +209,6 @@ def run_baseline_forecasts(input_path=None):
     results_df = pd.concat([results_df, avg_row], ignore_index=True)
     
     # Save results
-    output_path = Path('outputs/baseline_forecast_results.csv')
     output_path.parent.mkdir(parents=True, exist_ok=True)
     results_df.to_csv(output_path, index=False)
     print(f"\n✅ Results saved to {output_path}")
@@ -224,4 +232,21 @@ def run_baseline_forecasts(input_path=None):
 
 
 if __name__ == '__main__':
-    results = run_baseline_forecasts()
+    parser = argparse.ArgumentParser(
+        description='Run baseline forecasts on California grid demand data'
+    )
+    parser.add_argument(
+        '--input',
+        type=str,
+        default=None,
+        help='Path to input CSV file (default: outputs/tableau_exports/dashboard_ready.csv)'
+    )
+    parser.add_argument(
+        '--output',
+        type=str,
+        default=None,
+        help='Path to output results CSV file (default: outputs/baseline_forecast_results.csv)'
+    )
+    
+    args = parser.parse_args()
+    results = run_baseline_forecasts(input_path=args.input, output_path=args.output)

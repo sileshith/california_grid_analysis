@@ -35,7 +35,6 @@ DETAIL_COLS = [
     "abs_forecast_error_mw",
     "forecast_error_pct",
     "net_generation_mw",
-    "net_interchange_mw",
     "total_interchange_mw",
     "net_import_mw",
     "import_reliance_ratio",

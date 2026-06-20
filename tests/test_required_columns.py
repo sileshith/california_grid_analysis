@@ -40,7 +40,6 @@ REQUIRED_COLUMNS = [
     "abs_forecast_error_mw",
     "forecast_error_pct",
     "net_generation_mw",
-    "net_interchange_mw",
     "total_interchange_mw",
     "net_import_mw",
     "import_reliance_ratio",
@@ -70,7 +69,7 @@ def dashboard_df():
 
 
 def test_required_columns_exist(dashboard_df):
-    """All nine required columns must be present in the dashboard-ready file."""
+    """All required dashboard-ready columns must be present in the export."""
     missing = [c for c in REQUIRED_COLUMNS if c not in dashboard_df.columns]
     assert not missing, f"Missing required columns: {missing}"
 

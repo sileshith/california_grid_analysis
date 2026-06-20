@@ -49,10 +49,12 @@ def transform_energy_metrics(df):
     Returns
     -------
     pd.DataFrame
-        Transformed DataFrame with 9 columns:
-        balancing_authority, utc_time, local_time_pacific,
-        demand_mw, demand_forecast_mw, net_generation_mw, total_interchange_mw,
-        forecast_error_mw, generation_demand_gap_mw, import_pressure_mw
+        California-only DataFrame with the renamed core columns plus engineered
+        operational metrics: forecast error (forecast_error_mw,
+        abs_forecast_error_mw, forecast_error_pct), generation_demand_gap_mw,
+        import_pressure_mw, net_import_mw, import_reliance_ratio, and the
+        per-authority capacity-normalization fields (ba_min_demand_mw,
+        ba_max_demand_mw, normalized_demand).
     """
     # Fix known source column-name typo
     df = df.rename(columns=COLUMN_NAME_FIXES)

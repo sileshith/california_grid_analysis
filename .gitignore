@@ -29,6 +29,9 @@ outputs/*.csv
 # Notebook backups — large files kept local only
 notebooks/*_with_outputs_backup.ipynb
 
+# Jupyter virtual documents (VSCode/JupyterLab temp files)
+notebooks/.virtual_documents/
+
 # Tableau — temporary, recovery, and duplicate workbook files
 tableau/*.twbr
 tableau/.~*

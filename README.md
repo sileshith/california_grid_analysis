@@ -56,7 +56,7 @@ python dags/california_grid_daily_pipeline.py
 
 **Run tests:**
 ```bash
-pytest tests/ -v
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests/ -v
 ```
 
 ## Project Snapshot
@@ -617,8 +617,12 @@ Run all cells top-to-bottom. Notebook outputs are stripped before git commit.
 ### Run tests
 
 ```bash
-pytest tests/ -v
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python -m pytest tests/ -v
 ```
+
+`PYTEST_DISABLE_PLUGIN_AUTOLOAD=1` disables unrelated globally installed pytest
+plugins (e.g. a broken `langsmith` plugin in some environments) for reproducible
+local validation. Plain `pytest tests/ -v` also works in a clean environment.
 
 Tests skip gracefully if pipeline output files do not yet exist.
 

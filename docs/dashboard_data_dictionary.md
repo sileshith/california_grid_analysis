@@ -24,7 +24,7 @@ Each field entry includes:
 ## Section 1: Dashboard-Ready Hourly Detail Fields
 
 **File:** `data/processed/california_grid_dashboard_ready.csv`
-**Rows:** 13,020 **Columns:** 9
+**Rows:** 13,020 **Columns:** 24
 
 These are the only fields needed to power the Tableau dashboard and any
 Power BI detailed view. All other EIA source columns are excluded from this file.
@@ -163,6 +163,197 @@ Power BI detailed view. All other EIA source columns are excluded from this file
 | Tableau role | Measure |
 | Power BI role | Measure |
 | Origin | Engineered (derived via groupby max over the dataset window) |
+
+---
+
+### local_date
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Date |
+| Description | The calendar date in Pacific Time, extracted from `local_time_pacific`. Used for daily aggregations and date-based filtering in dashboards. |
+| Example value | `2026-03-15` |
+| Tableau role | Dimension |
+| Power BI role | Column |
+| Origin | Engineered |
+
+---
+
+### local_hour
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Integer (0-23) |
+| Description | The hour of day in Pacific Time, extracted from `local_time_pacific`. Used for hourly pattern analysis and time-of-day filtering. |
+| Example value | `14` |
+| Tableau role | Dimension |
+| Power BI role | Column |
+| Origin | Engineered |
+
+---
+
+### day_of_week
+
+| Attribute | Value |
+| --- | --- |
+| Data type | String |
+| Description | The day name (Monday, Tuesday, etc.) in Pacific Time. Used for weekday vs. weekend analysis. |
+| Example value | `Monday` |
+| Tableau role | Dimension |
+| Power BI role | Column |
+| Origin | Engineered |
+
+---
+
+### month
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Integer (1-12) |
+| Description | The calendar month number extracted from `local_time_pacific`. Used for seasonal trend analysis. |
+| Example value | `3` |
+| Tableau role | Dimension |
+| Power BI role | Column |
+| Origin | Engineered |
+
+---
+
+### is_weekend
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Boolean |
+| Description | True if the day is Saturday or Sunday in Pacific Time, False otherwise. Used for weekday/weekend demand pattern comparison. |
+| Example value | `False` |
+| Tableau role | Dimension |
+| Power BI role | Column |
+| Origin | Engineered |
+
+---
+
+### abs_forecast_error_mw
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float |
+| Description | Absolute value of forecast error in megawatts. Always positive, representing the magnitude of forecast deviation regardless of direction. |
+| Example value | `552.0` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### forecast_error_pct
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float (0-1) |
+| Description | Forecast error as a percentage of actual demand, normalized to 0-1 scale. Calculated as `abs_forecast_error_mw / demand_mw`, clipped at 1.0 to handle extreme outliers. Used as the forecast shock component in the composite stress index. |
+| Example value | `0.0194` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### net_import_mw
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float |
+| Description | Net imports in megawatts, calculated as `-total_interchange_mw`. Positive values indicate net imports (reliance on external sources); negative values indicate net exports. |
+| Example value | `4342.0` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### import_reliance_ratio
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float (0-1) |
+| Description | Import reliance as a ratio of demand, normalized to 0-1 scale. Calculated as `max(net_import_mw, 0) / demand_mw`. Only counts imports (positive net_import_mw); exports are treated as zero reliance. Used as the import component in the composite stress index. |
+| Example value | `0.1526` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### ba_min_demand_mw
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float |
+| Description | The lowest `demand_mw` value observed for the given balancing authority across the full dataset window. Used as the minimum bound for capacity normalization. Constant for all rows sharing the same `balancing_authority`. |
+| Example value | `15234.0` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### ba_max_demand_mw
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float |
+| Description | The highest `demand_mw` value observed for the given balancing authority across the full dataset window. Used as the maximum bound for capacity normalization. Constant for all rows sharing the same `balancing_authority`. Same as `peak_demand_mw`. |
+| Example value | `35596.0` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### normalized_demand
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float (0-1) |
+| Description | Demand normalized to 0-1 scale within each balancing authority's observed range. Calculated as `(demand_mw - ba_min_demand_mw) / (ba_max_demand_mw - ba_min_demand_mw)`. Enables fair cross-scale comparison between large (CISO) and small (IID) authorities. Used as the demand component in the composite stress index. |
+| Example value | `0.6523` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### grid_stress_composite
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float (0-1, rounded to 4 decimal places) |
+| Description | Multi-dimensional weighted stress index combining normalized demand (50%), import reliance (30%), and forecast shock (20%). Provides a holistic operational stress measure that accounts for capacity pressure, external dependency, and planning accuracy. Range: 0 (minimal stress) to 1 (maximum stress). |
+| Example value | `0.4127` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
+### grid_stress_level
+
+| Attribute | Value |
+| --- | --- |
+| Data type | String (categorical, 4 values) |
+| Description | Categorical stress classification derived from `grid_stress_composite`. Used for operational triage and dashboard filtering. |
+| Example value | `Moderate` |
+| Tableau role | Dimension |
+| Power BI role | Column |
+| Origin | Engineered |
+
+**Stress level reference:**
+
+| Label | Composite Score Range | Operational Meaning |
+| --- | --- | --- |
+| High | 0.75 - 1.00 | Critical operational attention required |
+| Elevated | 0.50 - 0.75 | Heightened monitoring recommended |
+| Moderate | 0.25 - 0.50 | Normal operational variance |
+| Low | 0.00 - 0.25 | Comfortable operational margin |
 
 ---
 

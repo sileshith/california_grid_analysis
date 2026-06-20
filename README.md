@@ -350,6 +350,96 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 #### Authority Comparison
 ![Authority Comparison](outputs/dashboard_screenshots/authority_comparison.png)
 
+## 🎯 Grid Stress Index Feature Layer
+
+The Grid Stress Index provides a normalized, multi-dimensional measure of grid operational stress that enables fair comparison across California's five balancing authorities, which range from 300 MW (IID) to 35,000 MW (CISO) in peak demand.
+
+### Why Normalization Matters
+
+Raw megawatt (MW) values cannot be directly compared across utilities of vastly different scales. A 1,000 MW demand spike represents:
+- **CISO:** Minor fluctuation (~3% of 35,596 MW peak)
+- **IID:** Critical event (~300% of typical 300 MW demand)
+
+The Grid Stress Index solves this by normalizing each authority against its own observed operational range.
+
+### Feature Engineering Pipeline
+
+**Step 1: Capacity Normalization (Step 12)**
+
+Each balancing authority's demand is normalized to a 0-1 scale:
+
+```
+normalized_demand = (demand_mw - ba_min_demand_mw) / (ba_max_demand_mw - ba_min_demand_mw)
+```
+
+- **0.0** = Operating at observed minimum demand
+- **1.0** = Operating at observed peak demand
+- Enables cross-scale comparison while preserving operational context
+
+**Step 2: Forecast Deviation Metrics (Step 13)**
+
+Forecast error indicates planning accuracy and unexpected load pressure:
+
+```
+forecast_error_mw = demand_mw - demand_forecast_mw
+abs_forecast_error_mw = |forecast_error_mw|
+forecast_error_pct = abs_forecast_error_mw / demand_mw
+```
+
+- **Positive error:** Actual demand exceeded forecast (potential shortfall)
+- **Negative error:** Actual demand below forecast (over-provisioned)
+- Percentage error normalized to 0-1 scale for composite index
+
+**Step 3: Import Reliance Feature (Step 14)**
+
+Import reliance measures dependence on external power sources:
+
+```
+net_import_mw = -total_interchange_mw
+import_reliance_ratio = max(net_import_mw, 0) / demand_mw
+```
+
+- **Negative interchange** = Net imports (reliance on neighbors)
+- **Positive interchange** = Net exports (surplus generation)
+- CISO averages -5,635 MW imports, indicating significant external dependence
+
+**Step 4: Unified Grid Stress Composite (Step 15)**
+
+The final composite index combines three normalized components:
+
+```
+grid_stress_composite = 
+    0.50 × normalized_demand +
+    0.30 × normalized_import_reliance +
+    0.20 × normalized_forecast_shock
+```
+
+**Weighting rationale:**
+- **50% Demand pressure** - Primary operational constraint
+- **30% Import reliance** - External dependency risk
+- **20% Forecast shock** - Planning accuracy indicator
+
+**Stress Level Classification:**
+
+| Composite Score | Stress Level | Operational Meaning |
+|---|---|---|
+| 0.75 - 1.00 | High | Critical operational attention required |
+| 0.50 - 0.75 | Elevated | Heightened monitoring recommended |
+| 0.25 - 0.50 | Moderate | Normal operational variance |
+| 0.00 - 0.25 | Low | Comfortable operational margin |
+
+### Dashboard Integration
+
+The Tableau export includes both scoring systems:
+
+1. **`stress_index`** (0-100 scale) - Simple demand/peak ratio for executive dashboards
+2. **`grid_stress_composite`** (0-1 scale) - Multi-dimensional weighted index for operational analysis
+3. **`grid_stress_level`** - Categorical labels (Low/Moderate/Elevated/High) for triage workflows
+
+All features use safe division handling, bounded outputs (0-1), and preserve operational interpretability for non-technical stakeholders.
+
+---
+
 ## 📊 Model Performance & Key Metrics
 
 ### Forecasting Performance

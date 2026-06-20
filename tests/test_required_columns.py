@@ -29,13 +29,27 @@ DASHBOARD_FILE = os.path.join(PROCESSED_DIR, "california_grid_dashboard_ready.cs
 REQUIRED_COLUMNS = [
     "balancing_authority",
     "local_time_pacific",
+    "local_date",
+    "local_hour",
+    "day_of_week",
+    "month",
+    "is_weekend",
     "demand_mw",
     "demand_forecast_mw",
+    "forecast_error_mw",
+    "abs_forecast_error_mw",
+    "forecast_error_pct",
     "net_generation_mw",
+    "net_interchange_mw",
     "total_interchange_mw",
+    "net_import_mw",
+    "import_reliance_ratio",
+    "normalized_demand",
     "stress_index",
     "review_priority",
     "peak_demand_mw",
+    "grid_stress_composite",
+    "grid_stress_level",
 ]
 
 VALID_PRIORITIES = {
@@ -111,6 +125,52 @@ def test_high_priority_hours_exist(dashboard_df):
     """At least one High Review Priority hour should be present in the dataset."""
     high_count = (dashboard_df["review_priority"] == "High Review Priority").sum()
     assert high_count > 0, "No High Review Priority hours found — check stress index thresholds"
+
+
+def test_grid_stress_composite_exists(dashboard_df):
+    """grid_stress_composite column must be present."""
+    assert "grid_stress_composite" in dashboard_df.columns, "grid_stress_composite column is missing"
+
+
+def test_grid_stress_composite_in_valid_range(dashboard_df):
+    """Grid stress composite values must be between 0 and 1 (inclusive)."""
+    valid = dashboard_df["grid_stress_composite"].dropna()
+    assert (valid >= 0).all(), "grid_stress_composite contains values below 0"
+    assert (valid <= 1).all(), "grid_stress_composite contains values above 1"
+
+
+def test_grid_stress_level_exists(dashboard_df):
+    """grid_stress_level column must be present."""
+    assert "grid_stress_level" in dashboard_df.columns, "grid_stress_level column is missing"
+
+
+def test_grid_stress_level_valid_labels(dashboard_df):
+    """grid_stress_level must only contain Low/Moderate/Elevated/High labels."""
+    valid_levels = {"Low", "Moderate", "Elevated", "High"}
+    found = set(dashboard_df["grid_stress_level"].dropna().unique())
+    unexpected = found - valid_levels
+    assert not unexpected, f"Unexpected grid_stress_level values: {unexpected}"
+
+
+def test_normalized_demand_in_valid_range(dashboard_df):
+    """Normalized demand must be between 0 and 1 (inclusive)."""
+    valid = dashboard_df["normalized_demand"].dropna()
+    assert (valid >= 0).all(), "normalized_demand contains values below 0"
+    assert (valid <= 1).all(), "normalized_demand contains values above 1"
+
+
+def test_import_reliance_ratio_in_valid_range(dashboard_df):
+    """Import reliance ratio must be between 0 and 1 (inclusive)."""
+    valid = dashboard_df["import_reliance_ratio"].dropna()
+    assert (valid >= 0).all(), "import_reliance_ratio contains values below 0"
+    assert (valid <= 1).all(), "import_reliance_ratio contains values above 1"
+
+
+def test_forecast_error_pct_in_valid_range(dashboard_df):
+    """Forecast error percentage must be between 0 and 1 (inclusive)."""
+    valid = dashboard_df["forecast_error_pct"].dropna()
+    assert (valid >= 0).all(), "forecast_error_pct contains values below 0"
+    assert (valid <= 1).all(), "forecast_error_pct contains values above 1"
 
 
 def test_dataset_row_count(dashboard_df):

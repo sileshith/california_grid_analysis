@@ -76,11 +76,38 @@ def transform_energy_metrics(df):
     df["utc_time"] = pd.to_datetime(df["utc_time"], utc=True)
     df["local_time_pacific"] = df["utc_time"].dt.tz_convert("America/Los_Angeles")
 
-    # Feature engineering
+    # Feature engineering - forecast error
     df["forecast_error_mw"] = df["demand_mw"] - df["demand_forecast_mw"]
+    df["abs_forecast_error_mw"] = df["forecast_error_mw"].abs()
+    df["forecast_error_pct"] = (
+        df["abs_forecast_error_mw"] / df["demand_mw"].replace(0, pd.NA)
+    ).fillna(0).clip(upper=1.0)
+    
+    # Feature engineering - generation and interchange
     df["generation_demand_gap_mw"] = df["demand_mw"] - df["net_generation_mw"]
     # import_pressure: positive when demand exceeds local generation (must import)
     df["import_pressure_mw"] = df["generation_demand_gap_mw"].clip(lower=0)
+    
+    # Feature engineering - import reliance (Step 14)
+    # Negative interchange means imports; positive means exports
+    df["net_import_mw"] = -df["total_interchange_mw"]
+    df["import_reliance_ratio"] = (
+        df["net_import_mw"].clip(lower=0) / df["demand_mw"].replace(0, pd.NA)
+    ).fillna(0).clip(upper=1.0)
+    
+    # Feature engineering - capacity normalization (Step 12)
+    # Calculate min/max demand per authority for normalization
+    ba_demand_stats = df.groupby("balancing_authority")["demand_mw"].agg(
+        ba_min_demand_mw="min",
+        ba_max_demand_mw="max"
+    ).reset_index()
+    df = df.merge(ba_demand_stats, on="balancing_authority", how="left")
+    
+    # Normalized demand: 0 = at minimum, 1 = at maximum for this authority
+    demand_range = df["ba_max_demand_mw"] - df["ba_min_demand_mw"]
+    df["normalized_demand"] = (
+        (df["demand_mw"] - df["ba_min_demand_mw"]) / demand_range.replace(0, pd.NA)
+    ).fillna(0).clip(lower=0, upper=1.0)
 
     print(
         f"[transform] {len(df):,} rows | "

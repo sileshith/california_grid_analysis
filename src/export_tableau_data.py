@@ -24,13 +24,27 @@ EXPORT_DIR = os.path.join(BASE_DIR, "outputs", "tableau_exports")
 DETAIL_COLS = [
     "balancing_authority",
     "local_time_pacific",
+    "local_date",
+    "local_hour",
+    "day_of_week",
+    "month",
+    "is_weekend",
     "demand_mw",
     "demand_forecast_mw",
+    "forecast_error_mw",
+    "abs_forecast_error_mw",
+    "forecast_error_pct",
     "net_generation_mw",
+    "net_interchange_mw",
     "total_interchange_mw",
+    "net_import_mw",
+    "import_reliance_ratio",
+    "normalized_demand",
     "stress_index",
     "review_priority",
     "peak_demand_mw",
+    "grid_stress_composite",
+    "grid_stress_level",
 ]
 
 
@@ -55,16 +69,25 @@ def export_tableau_data(df, export_dir=None):
     os.makedirs(export_dir, exist_ok=True)
 
     exported = []
-    detail_cols_available = [c for c in DETAIL_COLS if c in df.columns]
+    
+    # Add time features for dashboard filtering and analysis
+    df_export = df.copy()
+    df_export["local_date"] = df_export["local_time_pacific"].dt.date
+    df_export["local_hour"] = df_export["local_time_pacific"].dt.hour
+    df_export["day_of_week"] = df_export["local_time_pacific"].dt.day_name()
+    df_export["month"] = df_export["local_time_pacific"].dt.month
+    df_export["is_weekend"] = df_export["local_time_pacific"].dt.dayofweek.isin([5, 6])
+    
+    detail_cols_available = [c for c in DETAIL_COLS if c in df_export.columns]
 
     # 1. Full hourly detail — primary dashboard data source
     detail_path = os.path.join(export_dir, "california_grid_dashboard_ready.csv")
-    df[detail_cols_available].to_csv(detail_path, index=False)
+    df_export[detail_cols_available].to_csv(detail_path, index=False)
     exported.append(detail_path)
     print(f"[export] {len(df):,} rows -> {os.path.basename(detail_path)}")
 
     # 2. Monthly summary — one row per authority per calendar month
-    df_m = df.copy()
+    df_m = df_export.copy()
     df_m["year_month"] = df_m["local_time_pacific"].dt.strftime("%Y-%m")
     monthly = (
         df_m.groupby(["balancing_authority", "year_month"])
@@ -94,7 +117,7 @@ def export_tableau_data(df, export_dir=None):
     print(f"[export] {len(monthly)} rows -> {os.path.basename(monthly_path)}")
 
     # 3. Hourly risk summary — hour-of-day demand and stress profile
-    df_h = df.copy()
+    df_h = df_export.copy()
     df_h["hour_of_day"] = df_h["local_time_pacific"].dt.hour
     hourly_risk = (
         df_h.groupby(["balancing_authority", "hour_of_day"])
@@ -123,7 +146,7 @@ def export_tableau_data(df, export_dir=None):
     print(f"[export] {len(hourly_risk)} rows -> {os.path.basename(hourly_path)}")
 
     # 4. High-priority review queue — filtered view for the triage tab
-    hp = df[df["review_priority"] == "High Review Priority"].copy()
+    hp = df_export[df_export["review_priority"] == "High Review Priority"].copy()
     hp_path = os.path.join(export_dir, "high_priority_review_queue.csv")
     hp[detail_cols_available].to_csv(hp_path, index=False)
     exported.append(hp_path)

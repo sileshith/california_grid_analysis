@@ -14,7 +14,7 @@
 ![Airflow](https://img.shields.io/badge/Apache%20Airflow-Orchestration-informational)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 ![Tableau](https://img.shields.io/badge/Tableau-Dashboards-orange)
-![Tests](https://img.shields.io/badge/tests-20%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-36%20passing-brightgreen)
 
 ## 🚀 Quick Start
 
@@ -72,7 +72,7 @@ pytest tests/ -v
 | Dashboard | Tableau Public executive dashboard with review queue |
 | Forecasting | LightGBM: 3.29% MAPE (4 authorities), Naive: 11.05% MAPE |
 | Spatial analysis | Correlation: 0.484 avg, Granger: 20/20 significant pairs |
-| Validation | 20 pytest checks passing |
+| Validation | 36 pytest checks passing |
 | Key output | 75 high-priority grid review hours identified |
 
 ## 🎯 Project Overview
@@ -90,7 +90,7 @@ This project combines operational analytics with forecasting research to support
 - **Forecasting:** LightGBM with lag-based features (1h, 24h, 168h lags, rolling means, time features)
 - **Analytics:** Granger causality tests, lagged cross-correlations, spatial feature engineering
 - **Visualization:** Tableau dashboards with executive overview, high-priority alerts, and authority comparison views
-- **Quality Assurance:** 20 automated pytest validations covering data quality, pipeline outputs, and API integration
+- **Quality Assurance:** 36 automated pytest validations covering data quality, pipeline outputs, and API integration
 
 ## Business Context
 
@@ -334,10 +334,10 @@ The pipeline exports four purpose-built CSV files to `outputs/tableau_exports/`.
 
 | File | Rows | Columns | Role |
 |---|---:|---:|---|
-| `california_grid_dashboard_ready.csv` | 13,020 | 9 | Hourly detail for time-series and filters |
+| `california_grid_dashboard_ready.csv` | 13,020 | 22 | Hourly detail for time-series and filters |
 | `california_grid_monthly_summary.csv` | 20 | 11 | Month-level trend by authority |
 | `california_grid_hourly_risk_summary.csv` | 120 | 10 | Hour-of-day demand and stress profile |
-| `high_priority_review_queue.csv` | 75 | 9 | High-priority triage view |
+| `high_priority_review_queue.csv` | 75 | 22 | High-priority triage view |
 
 ### Dashboard Screenshots
 

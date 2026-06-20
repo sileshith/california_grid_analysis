@@ -24,7 +24,7 @@ Each field entry includes:
 ## Section 1: Dashboard-Ready Hourly Detail Fields
 
 **File:** `data/processed/california_grid_dashboard_ready.csv`
-**Rows:** 13,020 **Columns:** 24
+**Rows:** 13,020 **Columns:** 22
 
 These are the only fields needed to power the Tableau dashboard and any
 Power BI detailed view. All other EIA source columns are excluded from this file.
@@ -231,6 +231,19 @@ Power BI detailed view. All other EIA source columns are excluded from this file
 
 ---
 
+### forecast_error_mw
+
+| Attribute | Value |
+| --- | --- |
+| Data type | Float |
+| Description | Signed forecast error in megawatts, calculated as `demand_mw - demand_forecast_mw`. Positive values mean actual demand exceeded the forecast (potential under-provisioning); negative values mean actual demand fell below the forecast (over-provisioned). |
+| Example value | `-552.0` |
+| Tableau role | Measure |
+| Power BI role | Measure |
+| Origin | Engineered |
+
+---
+
 ### abs_forecast_error_mw
 
 | Attribute | Value |
@@ -277,32 +290,6 @@ Power BI detailed view. All other EIA source columns are excluded from this file
 | Data type | Float (0-1) |
 | Description | Import reliance as a ratio of demand, normalized to 0-1 scale. Calculated as `max(net_import_mw, 0) / demand_mw`. Only counts imports (positive net_import_mw); exports are treated as zero reliance. Used as the import component in the composite stress index. |
 | Example value | `0.1526` |
-| Tableau role | Measure |
-| Power BI role | Measure |
-| Origin | Engineered |
-
----
-
-### ba_min_demand_mw
-
-| Attribute | Value |
-| --- | --- |
-| Data type | Float |
-| Description | The lowest `demand_mw` value observed for the given balancing authority across the full dataset window. Used as the minimum bound for capacity normalization. Constant for all rows sharing the same `balancing_authority`. |
-| Example value | `15234.0` |
-| Tableau role | Measure |
-| Power BI role | Measure |
-| Origin | Engineered |
-
----
-
-### ba_max_demand_mw
-
-| Attribute | Value |
-| --- | --- |
-| Data type | Float |
-| Description | The highest `demand_mw` value observed for the given balancing authority across the full dataset window. Used as the maximum bound for capacity normalization. Constant for all rows sharing the same `balancing_authority`. Same as `peak_demand_mw`. |
-| Example value | `35596.0` |
 | Tableau role | Measure |
 | Power BI role | Measure |
 | Origin | Engineered |

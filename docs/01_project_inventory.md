@@ -103,7 +103,7 @@ Monitor and analyze California's electrical grid stress patterns using real-time
 ## 5. Analytics Metrics
 
 ### Core Metrics:
-1. **Grid Stress Index** - Composite risk score (0-100+)
+1. **Grid Stress Index** - `stress_index` demand-pressure score (0-100) plus the `grid_stress_composite` weighted multi-factor score (0-1)
 2. **Review Priority** - Classification (High/Medium/Low)
 3. **Demand Patterns** - Hourly consumption trends
 4. **Generation Mix** - Source composition

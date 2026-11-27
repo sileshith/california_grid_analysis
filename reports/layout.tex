@@ -1,0 +1,27 @@
+\usepackage{graphicx}
+\usepackage{fontspec}
+\IfFontExistsTF{Charter}{\setmainfont{Charter}}{\setmainfont{Latin Modern Roman}}
+\IfFontExistsTF{Helvetica}{\setsansfont{Helvetica}}{\setsansfont{Latin Modern Sans}}
+\usepackage{setspace}
+\setstretch{1.23}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily California Grid Analytics}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\sffamily\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\large\sffamily\bfseries}{}{0pt}{}
+\usepackage[table]{xcolor}
+\definecolor{rowshade}{gray}{0.96}
+\AtBeginEnvironment{longtable}{\small\setstretch{1.08}\rowcolors{2}{rowshade}{white}}
+\renewcommand{\toprule}[1][]{ }
+\renewcommand{\midrule}[1][]{ }
+\renewcommand{\bottomrule}[1][]{ }
+\widowpenalty=10000
+\clubpenalty=10000
+\raggedbottom
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue,pdftitle={California Grid Analytics},pdfauthor={Sileshi Hirpa},pdfsubject={Audited grid demand and forecast evaluation},pdfkeywords={California, grid, forecasting, data quality}}

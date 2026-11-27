@@ -124,9 +124,3 @@ Keep the README to a concise overview, decision questions, generated findings, r
 - Diebold and Mariano (1995), *Comparing Predictive Accuracy*. Use for comparisons of dependent loss differences. The primary geometric-mean ratio uses the block bootstrap specified above. [Paper](https://users.ssc.wisc.edu/~behansen/718/DieboldMariano1995.pdf)
 - Hong and Fan (2016), *Probabilistic electric load forecasting: A tutorial review*. Cite when discussing a future probabilistic extension. [Article](https://doi.org/10.1016/j.ijforecast.2015.11.011)
 
-## Sources
-
-- [Quad Analytics final report](https://chatgpt.com/library?file_id=libfile_e81eea3a8cec8191b42e49fb54717765&account_id=personal), especially EDA, methodology, RQ1, RQ2 and recommendations.
-- ASU DAT 490, Fall 2026 Session B syllabus, course schedule and capstone assignment descriptions.
-- [Audited grid repository revision](https://github.com/sileshith/california_grid_analysis/tree/27d22eb6fe8832613e649a12b5101c3ee6c7ce52).
-- [EIA Hourly Electric Grid Monitor definitions, reporting schedules and limitations](https://www.eia.gov/electricity/930-content/about.html).

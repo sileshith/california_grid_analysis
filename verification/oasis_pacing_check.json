@@ -1,0 +1,13 @@
+{
+  "download_requests": 6,
+  "request_gaps_seconds": [
+    60.002279,
+    60.001798,
+    60.002331,
+    60.002716,
+    60.000016
+  ],
+  "all_gaps_at_least_60_seconds": true,
+  "all_eight_reports_validated": true,
+  "april_files_retained": true
+}

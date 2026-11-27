@@ -123,4 +123,3 @@ Keep the README to a concise overview, decision questions, generated findings, r
 - Hong, Pinson and Fan (2014), *Global Energy Forecasting Competition 2012*. Use for benchmark design and load-forecasting context. [Article](https://doi.org/10.1016/j.ijforecast.2013.07.001)
 - Diebold and Mariano (1995), *Comparing Predictive Accuracy*. Use for comparisons of dependent loss differences. The primary geometric-mean ratio uses the block bootstrap specified above. [Paper](https://users.ssc.wisc.edu/~behansen/718/DieboldMariano1995.pdf)
 - Hong and Fan (2016), *Probabilistic electric load forecasting: A tutorial review*. Cite when discussing a future probabilistic extension. [Article](https://doi.org/10.1016/j.ijforecast.2015.11.011)
-

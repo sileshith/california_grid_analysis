@@ -1,36 +1,41 @@
 # Release preparation status
 
-Preparation stopped at the operator-data download gate. OASIS returned HTTP 429 (Too Many Requests) on the summer day-ahead request after returning the spring day-ahead and actual reports. No cross-source comparison or storage-adjusted holdout result is established.
+## Access and preservation
 
-## Requested downloads
+Step 0 switched successfully to `release/v1` at `bf7169c`. Status showed only the two protected untracked folders. The freeze tag was absent and was then created as an annotated local tag at `53d75a23d37021f25f0a62449420fbc5621c2084`. Its annotation explicitly records that it was added after scoring.
 
-Use CAISO OASIS, System Demand, CAISO Demand Forecast. Request both Day Ahead (DAM) and Actuals (ACTUAL), with the CAISO total area. Keep all returned rows and columns. These are the official query names and process identifiers documented in the [CAISO OASIS FAQ](https://www.caiso.com/documents/oasis-frequently-asked-questions.pdf). The UTC end bounds below are exclusive.
+The original replay commits remain in history. Frozen source files and the published forecast JSON are unchanged. See [freeze scope](freeze_scope.md).
 
-The exact parameters, target paths, and hashes of completed downloads are in [the request manifest](../verification/oasis_download_requests.json). Raw ZIP files remain ignored.
+## Operator-data gate
 
-- DAM, `20250407T07:00-0000` to `20250414T07:00-0000`. Downloaded. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250407T07%3A00-0000&enddatetime=20250414T07%3A00-0000&version=1&market_run_id=DAM&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_DAM_20250407_20250414.zip`.
-- ACTUAL, `20250407T07:00-0000` to `20250414T07:00-0000`. Downloaded. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250407T07%3A00-0000&enddatetime=20250414T07%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_ACTUAL_20250407_20250414.zip`.
-- DAM, `20250707T07:00-0000` to `20250714T07:00-0000`. Download required. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250707T07%3A00-0000&enddatetime=20250714T07%3A00-0000&version=1&market_run_id=DAM&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_DAM_20250707_20250714.zip`.
-- ACTUAL, `20250707T07:00-0000` to `20250714T07:00-0000`. Download required. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250707T07%3A00-0000&enddatetime=20250714T07%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_ACTUAL_20250707_20250714.zip`.
-- DAM, `20251006T07:00-0000` to `20251013T07:00-0000`. Download required. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251006T07%3A00-0000&enddatetime=20251013T07%3A00-0000&version=1&market_run_id=DAM&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_DAM_20251006_20251013.zip`.
-- ACTUAL, `20251006T07:00-0000` to `20251013T07:00-0000`. Download required. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251006T07%3A00-0000&enddatetime=20251013T07%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_ACTUAL_20251006_20251013.zip`.
-- DAM, `20251201T08:00-0000` to `20251208T08:00-0000`. Download required. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251201T08%3A00-0000&enddatetime=20251208T08%3A00-0000&version=1&market_run_id=DAM&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_DAM_20251201_20251208.zip`.
-- ACTUAL, `20251201T08:00-0000` to `20251208T08:00-0000`. Download required. [Download report](https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251201T08%3A00-0000&enddatetime=20251208T08%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6). Save as `data/raw/operator_checks/SLD_FCST_ACTUAL_20251201_20251208.zip`.
+All seasonal OASIS reports validated. The April files were preserved. Remaining files were acquired sequentially under the prescribed pacing and attempt policy. Exact URLs, targets, attempt times, hashes and report coverage are in the [request manifest](../verification/oasis_download_requests.json). Findings and supported sensitivities are in [operator definitions](operator_definitions.md).
 
-## Header inspection
+## Validation
 
-The available bulk file has battery and storage columns. Their exact names and the inspected file hash are in [the header record](../verification/eia_storage_headers.json). The inspected file falls outside the holdout. A generation field alone does not establish a charging-load correction. No formula or sensitivity result has been asserted.
+Final fresh-clone validation is pending. Earlier local fixture and contract tests passed.
 
-## Source discrepancies
+## Local commits
 
-A read-only tree inspection of the protected review repository at `046c15b` found `.github/workflows/verify.yml`, `Makefile`, and `src/demo.py`. It found no docker-compose, event-validation, interval-store, or interval-DAG files. A corrected source commit is needed before porting those components. The review repository was not modified.
+```text
+5cdab2a Add isolated freeze-reference replay with strict byte comparison
+c14e7c8 Record freeze verification and blocked operator-data handoff
+f4aee61 Inventory individual ports from afa56acaef5e42093c9ad57c4b057586f91906c5
+b4d6614 Quantify Prophet replay differences and repeat-fit stability
+1011cae Port isolated demo from afa56acaef5e42093c9ad57c4b057586f91906c5
+c2a15cc Port interval contracts from afa56acaef5e42093c9ad57c4b057586f91906c5
+094922a Port forecast status from afa56acaef5e42093c9ad57c4b057586f91906c5
+d626e1a Port and rescore events from afa56acaef5e42093c9ad57c4b057586f91906c5
+cb70f3c Port interval DAGs from afa56acaef5e42093c9ad57c4b057586f91906c5
+86ba1e7 Port Compose configuration from afa56acaef5e42093c9ad57c4b057586f91906c5
+95817fb Port release CI from afa56acaef5e42093c9ad57c4b057586f91906c5
+c370196 Validate seasonal OASIS reports and quantify post-freeze sensitivities
+e2e6e41 Adapt publication from afa56acaef5e42093c9ad57c4b057586f91906c5 with audited figures and PDF
+4b49f83 Add clean-clone result notebook and isolated pipeline test fixtures
+87c5ee7 Remove private links and machine paths and add release hygiene check
+```
 
-The specified `literature_review_source.md` was not found in the checkout or Downloads. Its exact source is needed before editing or reference verification.
+This list records the implementation source history before the final status-record commit. The final local Git log supplies the complete commit list.
 
-## Remaining work
+## Outstanding inputs and unverified environments
 
-Operator diagnostics, sensitivity scoring, component ports, literature verification, publication documents, notebook updates, hygiene verification, employer PDF, and final clean-clone validation remain unfinished. No full-suite test count, zero-skip claim, clean hygiene result, or publication preview is reported.
-
-## Replay gate
-
-Fresh-clone scoring completed but the full JSON byte comparison failed. Only Prophet authority metrics differed. All headline values and other fields matched. The published JSON was not changed. The exact differences and tested environment are recorded in [the replay result](../verification/replay_result.json). The original scoring runtime and optimizer randomness need investigation before replay can be marked verified.
+The literature source remains missing. Its original wording and full reference list cannot be processed. The strict replay failure remains unresolved. Docker, network PostgreSQL, hosted CI and GitHub rendering require their own verification. No publication action was taken.

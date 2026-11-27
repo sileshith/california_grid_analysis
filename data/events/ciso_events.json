@@ -1,0 +1,23 @@
+{
+  "source": "https://www.caiso.com/documents/grid-emergencies-history-report-1998-to-present.pdf",
+  "sha256": "3c115ca4bef75f5c37fb9047f90502d3271c1ade1de5b551295aef2d2e51f63f",
+  "revision": "2026-10-09",
+  "catalog_start": "2024-01-01",
+  "catalog_end": "2025-12-31",
+  "types": [
+    "Grid-wide Flex Alert",
+    "Grid-wide EEA Watch",
+    "Grid-wide EEA1",
+    "Grid-wide EEA2",
+    "Grid-wide EEA3"
+  ],
+  "events": [
+    {
+      "date": "2024-07-24",
+      "category": "EEA Watch",
+      "notice": "202455419651-36",
+      "start_local": "17:25",
+      "end_local": "23:59"
+    }
+  ]
+}

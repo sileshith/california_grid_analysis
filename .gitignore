@@ -64,3 +64,8 @@ airflow_env/
 
 # Archived portfolio material retained locally
 local_archive/
+
+outputs/audit/
+outputs/development/
+outputs/operations/
+*.parquet

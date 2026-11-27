@@ -1,0 +1,160 @@
+{
+  "sources": [
+    {
+      "file": "EIA930_BALANCE_2026_Jan_Jun.csv",
+      "sha256": "9b0b83506002aa3d7f002d5d5fcaf98df677c335fe35b66389fc6220c194e7bd"
+    }
+  ],
+  "authorities": {
+    "BANC": {
+      "calendar_hours": 2639,
+      "missing_hours": 0,
+      "null_reported": 25,
+      "zero_reported": 0,
+      "duplicate_keys": 0,
+      "changed_readings": 7,
+      "eligible": 2614,
+      "reported_peak": 9770.0,
+      "adjusted_peak": 3243.0,
+      "queue_counts": [
+        2,
+        0,
+        3
+      ],
+      "shared": 0,
+      "changed_share": 1.0,
+      "prior_week_p99_eligible": 2278,
+      "at_or_above_prior_p99": 43,
+      "balance": {
+        "eligible": 2614,
+        "above_1_mw": 17,
+        "above_10_mw": 0
+      },
+      "balance_adjusted": {
+        "eligible": 2615,
+        "above_1_mw": 25,
+        "above_10_mw": 7
+      }
+    },
+    "CISO": {
+      "calendar_hours": 2639,
+      "missing_hours": 0,
+      "null_reported": 54,
+      "zero_reported": 0,
+      "duplicate_keys": 0,
+      "changed_readings": 0,
+      "eligible": 2585,
+      "reported_peak": 35596.0,
+      "adjusted_peak": 35596.0,
+      "queue_counts": [
+        25,
+        25,
+        25
+      ],
+      "shared": 25,
+      "changed_share": 0.0,
+      "prior_week_p99_eligible": 1744,
+      "at_or_above_prior_p99": 47,
+      "balance": {
+        "eligible": 2584,
+        "above_1_mw": 2584,
+        "above_10_mw": 2583
+      },
+      "balance_adjusted": {
+        "eligible": 2590,
+        "above_1_mw": 2590,
+        "above_10_mw": 2589
+      }
+    },
+    "IID": {
+      "calendar_hours": 2639,
+      "missing_hours": 0,
+      "null_reported": 24,
+      "zero_reported": 1,
+      "duplicate_keys": 0,
+      "changed_readings": 0,
+      "eligible": 2615,
+      "reported_peak": 839.0,
+      "adjusted_peak": 839.0,
+      "queue_counts": [
+        16,
+        16,
+        16
+      ],
+      "shared": 16,
+      "changed_share": 0.0,
+      "prior_week_p99_eligible": 2447,
+      "at_or_above_prior_p99": 82,
+      "balance": {
+        "eligible": 2615,
+        "above_1_mw": 1580,
+        "above_10_mw": 903
+      },
+      "balance_adjusted": {
+        "eligible": 2615,
+        "above_1_mw": 1581,
+        "above_10_mw": 904
+      }
+    },
+    "LDWP": {
+      "calendar_hours": 2639,
+      "missing_hours": 0,
+      "null_reported": 48,
+      "zero_reported": 0,
+      "duplicate_keys": 0,
+      "changed_readings": 0,
+      "eligible": 2591,
+      "reported_peak": 4993.0,
+      "adjusted_peak": 4993.0,
+      "queue_counts": [
+        13,
+        13,
+        13
+      ],
+      "shared": 13,
+      "changed_share": 0.0,
+      "prior_week_p99_eligible": 2255,
+      "at_or_above_prior_p99": 53,
+      "balance": {
+        "eligible": 2591,
+        "above_1_mw": 0,
+        "above_10_mw": 0
+      },
+      "balance_adjusted": {
+        "eligible": 2591,
+        "above_1_mw": 1,
+        "above_10_mw": 1
+      }
+    },
+    "TIDC": {
+      "calendar_hours": 2639,
+      "missing_hours": 0,
+      "null_reported": 24,
+      "zero_reported": 1,
+      "duplicate_keys": 0,
+      "changed_readings": 0,
+      "eligible": 2615,
+      "reported_peak": 444.0,
+      "adjusted_peak": 444.0,
+      "queue_counts": [
+        19,
+        19,
+        19
+      ],
+      "shared": 19,
+      "changed_share": 0.0,
+      "prior_week_p99_eligible": 2447,
+      "at_or_above_prior_p99": 54,
+      "balance": {
+        "eligible": 2615,
+        "above_1_mw": 1836,
+        "above_10_mw": 21
+      },
+      "balance_adjusted": {
+        "eligible": 2615,
+        "above_1_mw": 1836,
+        "above_10_mw": 21
+      }
+    }
+  }
+}

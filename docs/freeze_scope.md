@@ -23,3 +23,23 @@ Run `python -m src.replay_benchmark --freeze-ref 53d75a2` after installing `requ
 Replay verification is recorded separately in the release preparation status. A byte comparison failure must remain a failure even when rounded headline values agree.
 
 The fresh-clone replay completed but failed the byte comparison. Differences were confined to Prophet authority metrics. The headline and all other JSON fields matched. See [the result](../verification/replay_result.json) and [the exact differences](../verification/replay_difference.patch). `requirements-replay.txt` records the tested environment, not a verified original scoring environment. Prophet fitting in the immutable scorer has no explicit seed. Whether optimizer randomness or the original runtime explains these differences remains unresolved.
+
+## Quantified replay audit
+
+Both fresh local clone runs were compared with the published JSON at `bf7169c`. The strict byte comparison outcome remains FAIL. Every field outside Prophet authority metrics matched exactly in both runs, including LightGBM, authority, previous-week, moving-average, and all headline fields.
+
+The first run has the following maxima across authorities. Relative differences divide by the absolute published value. A zero published value gives an undefined relative difference.
+
+| Prophet metric | Units | Largest absolute difference | Authority | Largest relative difference | Authority |
+| --- | --- | ---: | --- | ---: | --- |
+| daily_mae_mw | MW | 109.129167297 | CISO | 4.090304438% | CISO |
+| mae_mw | MW | 109.103165155 | CISO | 4.088931027% | CISO |
+| bias_mw | MW | 92.2305543551 | CISO | 5.231999866% | CISO |
+| rmse_mw | MW | 97.0877367077 | CISO | 2.952971385% | CISO |
+| peak_mae_mw | MW | 244.857561378 | CISO | 4.012920587% | CISO |
+
+Platform: macOS-26.7.3-x86_64-i386-64bit. Machine: x86_64. Python: 3.11.5. Packages: prophet 1.5.0, cmdstanpy 1.3.2, lightgbm 4.7.0, pandas 3.0.3, numpy 2.4.6, scipy 1.17.1, scikit-learn 1.9.1.
+
+The immutable Prophet constructor and fit call set neither a seed nor a thread count. LightGBM explicitly sets random_state and n_jobs as recorded in the audit JSON. Thread environment values are recorded there. No frozen source was changed.
+
+The repeated same-environment run was byte identical to the first run. The original scoring runtime is unavailable. The cause of the published-versus-replay difference remains unresolved. Detailed row differences, undefined relative values, package versions, and repeat comparisons are in [the audit metrics](../outputs/metrics/replay_audit.json).

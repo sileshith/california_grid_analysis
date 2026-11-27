@@ -69,3 +69,6 @@ outputs/audit/
 outputs/development/
 outputs/operations/
 *.parquet
+
+.venv/
+.artifacts/

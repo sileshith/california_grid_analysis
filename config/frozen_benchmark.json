@@ -1,0 +1,17 @@
+{
+  "candidate": "lightgbm",
+  "block_days": 1,
+  "validation_scores": {
+    "lightgbm": 1.209898654234934,
+    "prophet": 6.165539301646567,
+    "previous_week": 1.2727720511069183,
+    "moving_average": 2.0210581400665606
+  },
+  "hashes": {
+    "holdout.json": "0c450f8baa93772300e4cea6fc3fa81c20543f6b6760276a95bdb3d4fc906732",
+    "benchmark.py": "5ac6d050d7fddda5cb5b7974b5036883e17804e226e02ffeb8047918b2d201bd",
+    "quality_audit.py": "792451467efbdcce08b5e17ccb68f205ed64219f51cea44732e2b95a547d7e35",
+    "benchmark_sources.json": "9da4e94bf3c3127c6a54679e0a81ff7ad616cf2e2aeed7e0356f070e26399ea5",
+    "hourly.parquet": "c93d542f88f71b8ee8d2301e5a2d7788ada9962795db3a63457b927716dfa138"
+  }
+}

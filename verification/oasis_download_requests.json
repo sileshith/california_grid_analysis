@@ -9,7 +9,16 @@
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_DAM_20250407_20250414.zip",
     "downloaded": true,
-    "sha256": "d229c1738277c516cb427227e03d7569ba1787d479e77273f375ed6642a03e45"
+    "sha256": "d229c1738277c516cb427227e03d7569ba1787d479e77273f375ed6642a03e45",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250407T07%3A00-0000&enddatetime=20250414T07%3A00-0000&version=1&market_run_id=DAM&resultformat=6",
+    "attempts": [],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_DA_MW",
+      "member": "20250407_20250414_SLD_FCST_DAM_20261127_10_50_30_v1.csv"
+    }
   },
   {
     "report": "CAISO Demand Forecast",
@@ -21,7 +30,16 @@
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20250407_20250414.zip",
     "downloaded": true,
-    "sha256": "caef652d2da21ed881847662948fc5b3f683df4c13c4285d9fbd388a104b02e5"
+    "sha256": "caef652d2da21ed881847662948fc5b3f683df4c13c4285d9fbd388a104b02e5",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250407T07%3A00-0000&enddatetime=20250414T07%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6",
+    "attempts": [],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_ACT_MW",
+      "member": "20250407_20250414_SLD_FCST_ACTUAL_20261127_10_50_31_v1.csv"
+    }
   },
   {
     "report": "CAISO Demand Forecast",
@@ -32,8 +50,24 @@
     "version": 1,
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_DAM_20250707_20250714.zip",
-    "downloaded": false,
-    "sha256": null
+    "downloaded": true,
+    "sha256": "ba331099da2d6938a79ed5dc9afd2ae3c3a8aa7fd5bb991946b8245f0ef51bd7",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250707T07%3A00-0000&enddatetime=20250714T07%3A00-0000&version=1&market_run_id=DAM&resultformat=6",
+    "attempts": [
+      {
+        "attempt": 1,
+        "requested_at": "2026-11-27T19:02:30.611849+00:00",
+        "http_status": 200,
+        "outcome": "validated"
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_DA_MW",
+      "member": "20250707_20250714_SLD_FCST_DAM_20261127_11_02_31_v1.csv"
+    }
   },
   {
     "report": "CAISO Demand Forecast",
@@ -44,8 +78,24 @@
     "version": 1,
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20250707_20250714.zip",
-    "downloaded": false,
-    "sha256": null
+    "downloaded": true,
+    "sha256": "15e319851d0d6bbc0bbc2b09d288916de10f83cbbb97f4422b74161397ff937c",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20250707T07%3A00-0000&enddatetime=20250714T07%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6",
+    "attempts": [
+      {
+        "attempt": 1,
+        "requested_at": "2026-11-27T19:03:30.614128+00:00",
+        "http_status": 200,
+        "outcome": "validated"
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_ACT_MW",
+      "member": "20250707_20250714_SLD_FCST_ACTUAL_20261127_11_03_31_v1.csv"
+    }
   },
   {
     "report": "CAISO Demand Forecast",
@@ -56,8 +106,24 @@
     "version": 1,
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_DAM_20251006_20251013.zip",
-    "downloaded": false,
-    "sha256": null
+    "downloaded": true,
+    "sha256": "fc9ba7d45b1ded1ff1ba54c503a3692a6969ad2f7e869e52a03870e1864ec4dc",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251006T07%3A00-0000&enddatetime=20251013T07%3A00-0000&version=1&market_run_id=DAM&resultformat=6",
+    "attempts": [
+      {
+        "attempt": 1,
+        "requested_at": "2026-11-27T19:04:30.615926+00:00",
+        "http_status": 200,
+        "outcome": "validated"
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_DA_MW",
+      "member": "20251006_20251013_SLD_FCST_DAM_20261127_11_04_31_v1.csv"
+    }
   },
   {
     "report": "CAISO Demand Forecast",
@@ -68,8 +134,24 @@
     "version": 1,
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20251006_20251013.zip",
-    "downloaded": false,
-    "sha256": null
+    "downloaded": true,
+    "sha256": "048214f99327e36116b2b324f4fd56d2e6664e3efc87b3e92dec4ca9f95d8217",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251006T07%3A00-0000&enddatetime=20251013T07%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6",
+    "attempts": [
+      {
+        "attempt": 1,
+        "requested_at": "2026-11-27T19:05:30.618257+00:00",
+        "http_status": 200,
+        "outcome": "validated"
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_ACT_MW",
+      "member": "20251006_20251013_SLD_FCST_ACTUAL_20261127_11_05_31_v1.csv"
+    }
   },
   {
     "report": "CAISO Demand Forecast",
@@ -80,8 +162,24 @@
     "version": 1,
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_DAM_20251201_20251208.zip",
-    "downloaded": false,
-    "sha256": null
+    "downloaded": true,
+    "sha256": "71f70a7cf6f6e4786ae3f0afeaf55a47228fbb612b6ebd5900b57c773112a98f",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251201T08%3A00-0000&enddatetime=20251208T08%3A00-0000&version=1&market_run_id=DAM&resultformat=6",
+    "attempts": [
+      {
+        "attempt": 1,
+        "requested_at": "2026-11-27T19:06:30.620973+00:00",
+        "http_status": 200,
+        "outcome": "validated"
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_DA_MW",
+      "member": "20251201_20251208_SLD_FCST_DAM_20261127_11_06_31_v1.csv"
+    }
   },
   {
     "report": "CAISO Demand Forecast",
@@ -92,7 +190,23 @@
     "version": 1,
     "resultformat": 6,
     "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20251201_20251208.zip",
-    "downloaded": false,
-    "sha256": null
+    "downloaded": true,
+    "sha256": "4313746f1916d4e25baa04b5e1b1a39d037de1d8e504bc17f3a19777d35f9328",
+    "url": "https://oasis.caiso.com/oasisapi/SingleZip?queryname=SLD_FCST&startdatetime=20251201T08%3A00-0000&enddatetime=20251208T08%3A00-0000&version=1&market_run_id=ACTUAL&resultformat=6",
+    "attempts": [
+      {
+        "attempt": 1,
+        "requested_at": "2026-11-27T19:07:30.620989+00:00",
+        "http_status": 200,
+        "outcome": "validated"
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "area": "CA ISO-TAC",
+      "hours": 168,
+      "item": "SYS_FCST_ACT_MW",
+      "member": "20251201_20251208_SLD_FCST_ACTUAL_20261127_11_07_31_v1.csv"
+    }
   }
 ]

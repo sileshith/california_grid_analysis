@@ -1,0 +1,98 @@
+[
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "DAM",
+    "startdatetime": "20250407T07:00-0000",
+    "enddatetime": "20250414T07:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_DAM_20250407_20250414.zip",
+    "downloaded": true,
+    "sha256": "d229c1738277c516cb427227e03d7569ba1787d479e77273f375ed6642a03e45"
+  },
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "ACTUAL",
+    "startdatetime": "20250407T07:00-0000",
+    "enddatetime": "20250414T07:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20250407_20250414.zip",
+    "downloaded": true,
+    "sha256": "caef652d2da21ed881847662948fc5b3f683df4c13c4285d9fbd388a104b02e5"
+  },
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "DAM",
+    "startdatetime": "20250707T07:00-0000",
+    "enddatetime": "20250714T07:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_DAM_20250707_20250714.zip",
+    "downloaded": false,
+    "sha256": null
+  },
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "ACTUAL",
+    "startdatetime": "20250707T07:00-0000",
+    "enddatetime": "20250714T07:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20250707_20250714.zip",
+    "downloaded": false,
+    "sha256": null
+  },
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "DAM",
+    "startdatetime": "20251006T07:00-0000",
+    "enddatetime": "20251013T07:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_DAM_20251006_20251013.zip",
+    "downloaded": false,
+    "sha256": null
+  },
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "ACTUAL",
+    "startdatetime": "20251006T07:00-0000",
+    "enddatetime": "20251013T07:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20251006_20251013.zip",
+    "downloaded": false,
+    "sha256": null
+  },
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "DAM",
+    "startdatetime": "20251201T08:00-0000",
+    "enddatetime": "20251208T08:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_DAM_20251201_20251208.zip",
+    "downloaded": false,
+    "sha256": null
+  },
+  {
+    "report": "CAISO Demand Forecast",
+    "queryname": "SLD_FCST",
+    "market_run_id": "ACTUAL",
+    "startdatetime": "20251201T08:00-0000",
+    "enddatetime": "20251208T08:00-0000",
+    "version": 1,
+    "resultformat": 6,
+    "target": "data/raw/operator_checks/SLD_FCST_ACTUAL_20251201_20251208.zip",
+    "downloaded": false,
+    "sha256": null
+  }
+]

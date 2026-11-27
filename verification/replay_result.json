@@ -1,0 +1,26 @@
+{
+  "freeze_ref": "53d75a23d37021f25f0a62449420fbc5621c2084",
+  "fresh_local_clone": true,
+  "byte_identical": false,
+  "status": "failed",
+  "difference_scope": "Prophet authority metrics only",
+  "published_file_sha256": "ef716231e10394000142950a22c7513b827bd8edefdaf9f9b1835fdc1b6bcc5f",
+  "unchanged_headline": {
+    "candidate": "lightgbm",
+    "g": 1.4706744810046752,
+    "reported_target_g": 1.4553151414053154,
+    "eligible_days": 265,
+    "matched_hours": 31794,
+    "intended_hours": 33005,
+    "upper95": {
+      "1": 1.571008705966093,
+      "3": 1.6029625892451462,
+      "14": 1.6459962438998008,
+      "7": 1.6368134790631286
+    },
+    "block_days": 1,
+    "freeze_sha256": "f4a3b8da606b126c2ea8d8a86a50b8ba5a2e899b7e657d045dae98446bea17db"
+  },
+  "diff": "verification/replay_difference.patch",
+  "environment": "requirements-replay.txt"
+}

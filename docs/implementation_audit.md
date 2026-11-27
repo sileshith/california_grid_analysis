@@ -2,7 +2,13 @@
 
 ## Local verification
 
-Final fresh-clone validation is pending. Earlier local fixture and contract tests passed.
+Fresh local clone tested source commit `eb6bec0c08a909328c2cd74561271c393d9d5f0f` in the recorded installed release environment.
+
+The configured full suite ran 48 tests with 0 failures, 0 errors and 0 skips. The isolated demo also completed its fixture suite.
+
+The report build returned 0 and produced 14 US Letter pages. The results notebook executed top to bottom. Hygiene returned 0 and lint returned 0.
+
+Strict replay returned 1. Its byte comparison remains failed. Published metrics are unchanged: True.
 
 The replay audit ran two same-environment frozen fits. They matched each other, while Prophet authority metrics differed from the publication. Every other JSON field matched exactly. The cause remains unresolved. See [freeze scope](freeze_scope.md).
 

@@ -1,0 +1,13 @@
+{
+  "files": [
+    "docs/screenshots/airflow_dag_success_graph.png",
+    "outputs/granger_causality_network.png",
+    "outputs/lagged_correlations.png",
+    "outputs/monitoring/ldwp_distribution_comparison.png",
+    "outputs/monitoring/ldwp_hourly_pattern_comparison.png",
+    "outputs/monitoring/ldwp_time_series_comparison.png",
+    "outputs/spatial_correlation_heatmap.png"
+  ],
+  "pixels_unchanged": true,
+  "scope": "Removed ancillary software, EXIF and XMP metadata from historical PNGs. No pixel changes."
+}

@@ -1,0 +1,12 @@
+{
+  "archive": "California_Grid_Release.zip",
+  "member": "california-grid.bundle",
+  "sha256": "4665ee7566e3a941295fa2c0c5716f47cf10113f3189731a6a7507f75081ad9e",
+  "bundle_verified": true,
+  "refs": {
+    "HEAD": "afa56acaef5e42093c9ad57c4b057586f91906c5",
+    "refs/tags/spec-frozen-v1": "bbbea520cebda0c51196884092434d9daaebe689"
+  },
+  "temporary_ref_removed": true,
+  "histories_merged": false
+}

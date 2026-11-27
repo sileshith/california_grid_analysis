@@ -19,7 +19,7 @@ DAG identity:
     dag_id   : california_grid_operations_pipeline
     owner    : sileshi
     schedule : @daily (override to None for manual local testing)
-    tags     : energy, airflow, elt, tableau, tesla-alignment, grid-analytics
+    tags     : energy, airflow, elt, tableau, grid-analytics
 
 To run locally without Airflow:
     python dags/california_grid_daily_pipeline.py
@@ -158,7 +158,7 @@ try:
         start_date=datetime(2026, 1, 1),
         catchup=False,
         default_args=default_args,
-        tags=["energy", "airflow", "elt", "tableau", "tesla-alignment", "grid-analytics"],
+        tags=["energy", "airflow", "elt", "tableau", "grid-analytics"],
     ) as dag:
 
         fetch = PythonOperator(

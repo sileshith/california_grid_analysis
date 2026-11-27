@@ -61,3 +61,6 @@ outputs/temp/
 .pytest_cache/
 .aider*
 airflow_env/
+
+# Archived portfolio material retained locally
+local_archive/

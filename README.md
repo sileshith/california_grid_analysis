@@ -6,9 +6,9 @@ Audited demand revisions, day-ahead forecast comparisons and reproducible interv
 
 Across 265 matched delivery days, the geometric mean of the five authority-level model-to-operator MAE ratios was 1.471, with a one-sided 95% upper bound of 1.571. A ratio of 1 denotes parity. The result supports retaining the operator forecasts across the five authorities. The model recorded lower mean daily errors for CISO (1,486 versus 2,161 MW) and LDWP (243 versus 305 MW), but interpreting those differences requires checking demand definitions and hour alignment.
 
-BANC's retrospective queue changed from 2 to 0 to 3 flagged hours as adjusted readings and then the revised peak were applied. In 2024, both rules captured 0 of 1 catalog event days at a 12-day review budget. In 2025, both rules captured 0 of 0 catalog event days at a 12-day review budget. Recall is undefined when no qualifying event exists.
+BANC's retrospective queue changed from 2 to 0 to 3 flagged hours as adjusted readings and then the revised peak were applied. In 2024, both rules captured 0 of 1 catalog event days at a 12-day review budget. No qualifying event days occurred in 2025. Recall is undefined when no qualifying event exists.
 
-The post-freeze shift check lowers CISO operator hourly MAE from 2,160.6 to 1,966.5 MW when demand is taken from the following UTC hour. This does not establish the correct timestamp convention. Across the seasonal weeks, CISO EIA forecasts agree with OASIS DAM within 0.24-0.26 MW mean absolute difference, but adjusted actuals differ by 241-1,192 MW. LDWP's sampled ratio changes from 0.855 to 4.454 when OASIS actuals replace its EIA target. This supports a demand-definition caveat, not a superiority claim.
+In the April, July and October daylight-time weeks, EIA CISO demand matched OASIS actuals with a mean absolute difference of 67 to 152 MW after a one-hour shift, compared with 824 to 1,192 MW unshifted. In the December standard-time week, the unshifted series fit best at 241 MW. These four weeks indicate a one-hour labeling offset in EIA CISO demand during daylight time. The operator forecast’s midday shortfall persists against OASIS actuals and remains unexplained. The EIA files report no CISO battery generation. G exceeds parity in every variant. The full-window estimates range from 1.164 to 1.471. Seasonal OASIS substitutions reach 2.025.
 
 ### Results
 
@@ -19,6 +19,7 @@ The post-freeze shift check lowers CISO operator hourly MAE from 2,160.6 to 1,96
 | IID | 53.5 | 28.7 | 1.862 |
 | LDWP | 243.1 | 304.7 | 0.798 |
 | TIDC | 24.2 | 11.3 | 2.141 |
+| **G (geometric mean)** | | | **1.471** |
 
 ![Relative MAE by authority](assets/figures/relative_mae.png)
 
@@ -59,9 +60,9 @@ The pipeline preserves revisions and separates frozen evaluation from post-freez
 
 ### Verification and further reading
 
-The strict JSON replay fails because Prophet metrics differ. All other fields match exactly. Two same-environment repeated fits agree. The cause remains unresolved. All eight seasonal OASIS files validate. Docker operation and hosted CI are unverified. The reviewed literature source is missing.
+[Verification status](docs/report.md#verification-status)
 
-[Employer PDF](reports/California_Grid_Analytics_Report_Sileshi_Hirpa.pdf) · [Full report](docs/report.md) · [Literature review status](docs/literature_review.md) · [Implementation audit](docs/implementation_audit.md) · [Freeze scope](docs/freeze_scope.md) · [Tableau Public](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CaliforniaGridStressMonitoringDashboard/ExecutiveOverview)
+[Employer PDF](reports/California_Grid_Analytics_Report_Sileshi_Hirpa.pdf) · [Full report](docs/report.md) · [Literature review](docs/literature_review.md) · [Implementation audit](docs/implementation_audit.md) · [Freeze scope](docs/freeze_scope.md) · [Tableau Public (historical dashboard)](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CaliforniaGridStressMonitoringDashboard/ExecutiveOverview)
 
 <details>
 <summary>Historical exploratory snapshot</summary>

@@ -33,6 +33,10 @@ def generate():
     ax.plot([upper]*2,[len(authorities)-.12,len(authorities)+.12],color='#D55E00')
     ax.axvline(1,color='#777777',linestyle='--',linewidth=1)
     ax.set_xscale('log');ax.set_yticks(range(len(labels)),labels);ax.invert_yaxis()
+    from matplotlib.ticker import NullFormatter
+    ax.set_xticks([0.5,1,2,3],['0.5','1','2','3'])
+    ax.xaxis.set_minor_formatter(NullFormatter())
+    ax.text(1.02,0.04,'Parity',transform=ax.get_xaxis_transform(),color='#777777')
     ax.set_xlabel('Model / operator daily MAE ratio (log scale)');ax.set_ylabel('Authority')
     save(fig,'relative_mae')
     r=next(r for r in diag['diagnostics'] if r['authority']=='CISO' and r['target']=='adjusted' and r['shift_hours']==0)

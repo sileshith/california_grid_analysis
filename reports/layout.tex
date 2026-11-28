@@ -17,11 +17,12 @@
 \titleformat{\subsection}{\large\sffamily\bfseries}{}{0pt}{}
 \usepackage[table]{xcolor}
 \definecolor{rowshade}{gray}{0.96}
-\AtBeginEnvironment{longtable}{\small\setstretch{1.08}\rowcolors{2}{rowshade}{white}}
+\AtBeginEnvironment{longtable}{\small\setstretch{1.08}}
 \renewcommand{\toprule}[1][]{ }
 \renewcommand{\midrule}[1][]{ }
 \renewcommand{\bottomrule}[1][]{ }
 \widowpenalty=10000
 \clubpenalty=10000
 \raggedbottom
+\usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue,pdftitle={California Grid Analytics},pdfauthor={Sileshi Hirpa},pdfsubject={Audited grid demand and forecast evaluation},pdfkeywords={California, grid, forecasting, data quality}}

@@ -1,7 +1,7 @@
 \usepackage{graphicx}
 \usepackage{fontspec}
-\IfFontExistsTF{Charter}{\setmainfont{Charter}}{\setmainfont{Latin Modern Roman}}
-\IfFontExistsTF{Helvetica}{\setsansfont{Helvetica}}{\setsansfont{Latin Modern Sans}}
+\setmainfont{DejaVuSerif.ttf}[Path=.artifacts/report/fonts/,BoldFont=DejaVuSerif-Bold.ttf,ItalicFont=DejaVuSerif-Italic.ttf,BoldItalicFont=DejaVuSerif-BoldItalic.ttf]
+\setsansfont{DejaVuSans.ttf}[Path=.artifacts/report/fonts/,BoldFont=DejaVuSans-Bold.ttf,ItalicFont=DejaVuSans-Oblique.ttf,BoldItalicFont=DejaVuSans-BoldOblique.ttf]
 \usepackage{setspace}
 \setstretch{1.23}
 \usepackage{fancyhdr}
@@ -17,10 +17,12 @@
 \titleformat{\subsection}{\large\sffamily\bfseries}{}{0pt}{}
 \usepackage[table]{xcolor}
 \definecolor{rowshade}{gray}{0.96}
-\AtBeginEnvironment{longtable}{\small\setstretch{1.08}}
-\renewcommand{\toprule}[1][]{ }
-\renewcommand{\midrule}[1][]{ }
-\renewcommand{\bottomrule}[1][]{ }
+% Preserve booktabs alignment commands while rendering rules with zero thickness.
+\usepackage{booktabs}
+\setlength{\heavyrulewidth}{0pt}
+\setlength{\lightrulewidth}{0pt}
+\setlength{\cmidrulewidth}{0pt}
+\AtBeginEnvironment{longtable}{\small\setstretch{1.08}\rowcolors{2}{rowshade}{white}}
 \widowpenalty=10000
 \clubpenalty=10000
 \raggedbottom

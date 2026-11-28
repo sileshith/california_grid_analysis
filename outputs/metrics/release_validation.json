@@ -1,0 +1,43 @@
+{
+  "tested_source_commit": "eb6bec0c08a909328c2cd74561271c393d9d5f0f",
+  "fresh_local_clone": true,
+  "python": "3.11.5",
+  "checks": {
+    "demo": {
+      "returncode": 0
+    },
+    "tests": {
+      "returncode": 0,
+      "tests": 48,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "report": {
+      "returncode": 0,
+      "pages": 14,
+      "metadata": {
+        "/Title": "California Grid Analytics",
+        "/Author": "Sileshi Hirpa",
+        "/Subject": "Audited grid demand and forecast evaluation",
+        "/Keywords": "California, grid, forecasting, data quality"
+      },
+      "letter_pages": true
+    },
+    "notebook": {
+      "returncode": 0
+    },
+    "hygiene": {
+      "returncode": 0
+    },
+    "lint": {
+      "returncode": 0
+    },
+    "strict_replay": {
+      "returncode": 1
+    },
+    "published_metrics_unchanged": true
+  },
+  "scope": "Local checks in the installed release environment. Hosted CI, Docker operation and network PostgreSQL are unverified. Strict replay retains its actual failing outcome.",
+  "published_metrics_sha256": "ef716231e10394000142950a22c7513b827bd8edefdaf9f9b1835fdc1b6bcc5f"
+}

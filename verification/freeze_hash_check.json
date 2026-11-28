@@ -1,0 +1,32 @@
+[
+  {
+    "path": "config/holdout.json",
+    "expected": "0c450f8baa93772300e4cea6fc3fa81c20543f6b6760276a95bdb3d4fc906732",
+    "observed": "0c450f8baa93772300e4cea6fc3fa81c20543f6b6760276a95bdb3d4fc906732",
+    "matches": true
+  },
+  {
+    "path": "src/benchmark.py",
+    "expected": "5ac6d050d7fddda5cb5b7974b5036883e17804e226e02ffeb8047918b2d201bd",
+    "observed": "5ac6d050d7fddda5cb5b7974b5036883e17804e226e02ffeb8047918b2d201bd",
+    "matches": true
+  },
+  {
+    "path": "src/quality_audit.py",
+    "expected": "792451467efbdcce08b5e17ccb68f205ed64219f51cea44732e2b95a547d7e35",
+    "observed": "792451467efbdcce08b5e17ccb68f205ed64219f51cea44732e2b95a547d7e35",
+    "matches": true
+  },
+  {
+    "path": "data/manifest/benchmark_sources.json",
+    "expected": "9da4e94bf3c3127c6a54679e0a81ff7ad616cf2e2aeed7e0356f070e26399ea5",
+    "observed": "9da4e94bf3c3127c6a54679e0a81ff7ad616cf2e2aeed7e0356f070e26399ea5",
+    "matches": true
+  },
+  {
+    "path": ".artifacts/benchmark/hourly.parquet",
+    "expected": "c93d542f88f71b8ee8d2301e5a2d7788ada9962795db3a63457b927716dfa138",
+    "observed": "c93d542f88f71b8ee8d2301e5a2d7788ada9962795db3a63457b927716dfa138",
+    "matches": true
+  }
+]

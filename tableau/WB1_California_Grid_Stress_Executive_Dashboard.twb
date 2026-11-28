@@ -30,7 +30,7 @@
       <connection class='federated'>
         <named-connections>
           <named-connection caption='california_grid_dashboard_ready' name='textscan.0ok311d1x0jqoh113l4xf0ezrj9j'>
-            <connection class='textscan' directory='/Users/sileshihirpa/Desktop/ASU/projects/california-grid-analysis/data/processed' filename='california_grid_dashboard_ready.csv' password='' server='' />
+            <connection class='textscan' directory='../data/processed' filename='california_grid_dashboard_ready.csv' password='' server='' />
           </named-connection>
         </named-connections>
         <relation connection='textscan.0ok311d1x0jqoh113l4xf0ezrj9j' name='california_grid_dashboard_ready.csv' table='[california_grid_dashboard_ready#csv]' type='table'>

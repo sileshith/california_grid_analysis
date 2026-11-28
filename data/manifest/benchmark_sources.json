@@ -1,0 +1,52 @@
+[
+  {
+    "file": "EIA930_BALANCE_2024_Jan_Jun.csv",
+    "sha256": "26768c495c3ba987e29d79df2e40d4e741f9dbcff086f53c12ff774465756a10",
+    "bytes": 41742812,
+    "raw_rows": 266398,
+    "selected_rows": 21835,
+    "first": "2024-01-01 09:00:00+00:00",
+    "last": "2024-07-01 07:00:00+00:00",
+    "url": "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jan_Jun.csv"
+  },
+  {
+    "file": "EIA930_BALANCE_2024_Jul_Dec.csv",
+    "sha256": "a602a8e577cfdd2fa3083413eaa4dd8ba7f0d2b26a2986f8f6d22917465ea49f",
+    "bytes": 47928993,
+    "raw_rows": 269426,
+    "selected_rows": 22085,
+    "first": "2024-07-01 08:00:00+00:00",
+    "last": "2025-01-01 08:00:00+00:00",
+    "url": "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2024_Jul_Dec.csv"
+  },
+  {
+    "file": "EIA930_BALANCE_2025_Jan_Jun.csv",
+    "sha256": "fac4bb991dfa1dab3b4b35300ccab54ac99be13a40ce91954db8ddafb2816242",
+    "bytes": 47565054,
+    "raw_rows": 264934,
+    "selected_rows": 21715,
+    "first": "2025-01-01 09:00:00+00:00",
+    "last": "2025-07-01 07:00:00+00:00",
+    "url": "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2025_Jan_Jun.csv"
+  },
+  {
+    "file": "EIA930_BALANCE_2025_Jul_Dec.csv",
+    "sha256": "1146158b972439db7c7f4cc7d0491e07644ddbf244d03b8ecb44cb2c833d10f1",
+    "bytes": 48256021,
+    "raw_rows": 267218,
+    "selected_rows": 22085,
+    "first": "2025-07-01 08:00:00+00:00",
+    "last": "2026-01-01 08:00:00+00:00",
+    "url": "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2025_Jul_Dec.csv"
+  },
+  {
+    "file": "EIA930_BALANCE_2026_Jan_Jun.csv",
+    "sha256": "c4ee108252941b43117f6284bd2aa0d7f9a27cfdc9089ff4e2ba66d553b9beec",
+    "bytes": 47106615,
+    "raw_rows": 260590,
+    "selected_rows": 21715,
+    "first": "2026-01-01 09:00:00+00:00",
+    "last": "2026-07-01 07:00:00+00:00",
+    "url": "https://www.eia.gov/electricity/gridmonitor/sixMonthFiles/EIA930_BALANCE_2026_Jan_Jun.csv"
+  }
+]

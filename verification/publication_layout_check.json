@@ -1,0 +1,41 @@
+{
+  "pdf_sha256": "364f70ff873f8a2f82c9710a5695c5dd51a06566b2d29c50fa1de3aa45a75fcf",
+  "pages": 16,
+  "rendered_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "visual_review": "All pages inspected via four contact sheets after the final rebuild. No clipping or overlap observed.",
+  "related_work_page": 5,
+  "table_pages": [
+    10,
+    11,
+    13
+  ],
+  "verification_subsection": "10.1",
+  "captions": "Explicit ragged-right macro; all three captions visually checked.",
+  "fonts": "Vendored XCharter and TeX Gyre Heros; no DejaVu in embedded font inventory. Figure glyphs embedded as Type 3 to avoid Matplotlib CFF/TrueType mismatch.",
+  "local_checks": {
+    "tests": "48 passed",
+    "demo": "passed",
+    "notebook": "executed top to bottom",
+    "lint": "passed",
+    "hygiene": "passed",
+    "stale_numbers": "0 findings in 26 files; exact scope and patterns in stale_number_check.json"
+  },
+  "frozen_metrics": "Unchanged"
+}

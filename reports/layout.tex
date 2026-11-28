@@ -1,0 +1,44 @@
+\usepackage{graphicx}
+\usepackage{fontspec}
+\setmainfont{XCharter-Roman.otf}[Path=reports/fonts/,BoldFont=XCharter-Bold.otf,ItalicFont=XCharter-Italic.otf,BoldItalicFont=XCharter-BoldItalic.otf]
+\setsansfont{texgyreheros-regular.otf}[Path=reports/fonts/,BoldFont=texgyreheros-bold.otf,ItalicFont=texgyreheros-italic.otf,BoldItalicFont=texgyreheros-bolditalic.otf]
+\usepackage{setspace}
+\setstretch{1.23}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily California Grid Analytics}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{14pt}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\sffamily\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\large\sffamily\bfseries}{\thesubsection}{0.6em}{}
+\usepackage[table]{xcolor}
+\definecolor{rowshade}{gray}{0.96}
+% Preserve booktabs alignment commands while rendering rules with zero thickness.
+\usepackage{booktabs}
+\setlength{\heavyrulewidth}{0pt}
+\setlength{\lightrulewidth}{0pt}
+\setlength{\cmidrulewidth}{0pt}
+\AtBeginEnvironment{longtable}{\small\setstretch{1.08}\rowcolors{2}{rowshade}{white}}
+\widowpenalty=10000
+\clubpenalty=10000
+\raggedbottom
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue,pdftitle={California Grid Analytics},pdfauthor={Sileshi Hirpa},pdfsubject={Audited grid demand and forecast evaluation},pdfkeywords={California, grid, forecasting, data quality}}
+
+% Pandoc longtables are boxed to prevent a table splitting across pages.
+\usepackage{float}
+\BeforeBeginEnvironment{longtable}{\begin{table}[H]\begin{minipage}{\linewidth}}
+\AfterEndEnvironment{longtable}{\end{minipage}\end{table}}
+\usepackage{caption}
+\captionsetup{justification=raggedright,singlelinecheck=false,font=small}
+\newcommand{\figurecaption}[1]{\par\begingroup\small\raggedright #1\par\endgroup}
+\titleformat{\subsubsection}{\normalsize\sffamily\bfseries}{}{0pt}{}
+
+\usepackage{url}
+\def\UrlBreaks{\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\/\do\.\do\-\do\_}
+\urlstyle{same}
+\newenvironment{apareferences}{\begingroup\raggedright\setstretch{1.12}\setlength{\parindent}{0pt}\setlength{\parskip}{0.5em}\everypar{\hangindent=0.5in\hangafter=1}}{\par\endgroup}

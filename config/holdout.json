@@ -1,0 +1,10 @@
+{
+  "validation_start": "2025-01-01", "test_start": "2025-04-01", "end_exclusive": "2026-01-01",
+  "issue_hour_pacific": 12, "assumed_reporting_delay_hours": 1, "minimum_daily_fraction": 0.9,
+  "confidence": 0.95, "replicates": 2000, "seed": 42, "margin": null,
+  "candidate_pool": ["lightgbm","prophet","previous_week","moving_average"],
+  "bootstrap_rule": "First lag from 1 through 7 with absolute validation daily pooled loss differential autocorrelation below 0.2; otherwise 7. Sensitivity 3, 7, 14 days.",
+  "target": "adjusted demand", "training_target": "reported historical demand",
+  "calendar": "local delivery day is the Pacific start date of each UTC hour-ending interval",
+  "training_freeze": "all outcomes at least one assumed reporting hour before earliest issue in the next window; validation selection uses only complete delivery days ending before the first test issue"
+}

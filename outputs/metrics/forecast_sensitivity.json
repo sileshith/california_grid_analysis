@@ -1,0 +1,141 @@
+{
+  "status": "post-freeze sensitivity",
+  "frozen_predictions_unchanged": true,
+  "eligibility": "Recomputed under each target variant using the frozen rule. Shift endpoints can change common eligible days. No imputation.",
+  "variants": {
+    "adjusted_shift_-1": {
+      "g": 1.1685568223553964,
+      "upper95": 1.2161857349538638,
+      "eligible_days": 265,
+      "matched_hours": 31788,
+      "ratios": {
+        "BANC": 1.8302583588927248,
+        "CISO": 0.6576516184385929,
+        "IID": 1.4186921009078157,
+        "LDWP": 0.8705489647586515,
+        "TIDC": 1.4657487422340776
+      }
+    },
+    "adjusted_shift_+0": {
+      "g": 1.4706744810046752,
+      "upper95": 1.571008705966093,
+      "eligible_days": 265,
+      "matched_hours": 31794,
+      "ratios": {
+        "BANC": 3.145307635723847,
+        "CISO": 0.687978557611754,
+        "IID": 1.862093192705405,
+        "LDWP": 0.7976297086056641,
+        "TIDC": 2.1406320203510805
+      }
+    },
+    "adjusted_shift_+1": {
+      "g": 1.2047068992835073,
+      "upper95": 1.2561377415936736,
+      "eligible_days": 265,
+      "matched_hours": 31788,
+      "ratios": {
+        "BANC": 1.7285160180255887,
+        "CISO": 0.8710258897160509,
+        "IID": 1.355360661056968,
+        "LDWP": 0.773976431710881,
+        "TIDC": 1.6066449114882246
+      }
+    },
+    "reported_shift_-1": {
+      "g": 1.164315172959702,
+      "upper95": 1.209660781079795,
+      "eligible_days": 263,
+      "matched_hours": 31548,
+      "ratios": {
+        "BANC": 1.8057682762133234,
+        "CISO": 0.6552641613139213,
+        "IID": 1.4187364733681216,
+        "LDWP": 0.8699534077246969,
+        "TIDC": 1.465131559349501
+      }
+    },
+    "reported_shift_+0": {
+      "g": 1.4553151414053154,
+      "upper95": 1.5442406190094284,
+      "eligible_days": 263,
+      "matched_hours": 31554,
+      "ratios": {
+        "BANC": 3.013961589174713,
+        "CISO": 0.6828064737452573,
+        "IID": 1.8586615488329252,
+        "LDWP": 0.7965430252554916,
+        "TIDC": 2.142596259052936
+      }
+    },
+    "reported_shift_+1": {
+      "g": 1.1999116929884028,
+      "upper95": 1.2468645310960191,
+      "eligible_days": 263,
+      "matched_hours": 31547,
+      "ratios": {
+        "BANC": 1.7043863333959082,
+        "CISO": 0.8671503228723592,
+        "IID": 1.3554184158656577,
+        "LDWP": 0.7730286911248389,
+        "TIDC": 1.6062568731276594
+      }
+    },
+    "seasonal_original_adjusted": {
+      "g": 1.3654704213255182,
+      "upper95": 1.7186442258744872,
+      "eligible_days": 27,
+      "matched_hours": 3240,
+      "ratios": {
+        "BANC": 2.8106685902361983,
+        "CISO": 0.517494845548403,
+        "IID": 1.8700666778208301,
+        "LDWP": 0.8545523461225846,
+        "TIDC": 2.042208377166848
+      }
+    },
+    "seasonal_oasis_actual": {
+      "g": 1.9879862313502084,
+      "upper95": 2.4794040570761418,
+      "eligible_days": 27,
+      "matched_hours": 3240,
+      "ratios": {
+        "BANC": 2.8106685902361983,
+        "CISO": 0.6494740571172729,
+        "IID": 1.8700666778208301,
+        "LDWP": 4.4538774937205075,
+        "TIDC": 2.042208377166848
+      },
+      "scope": "Only sampled seasonal weeks. CISO and LDWP use OASIS targets. Other authorities retain EIA targets. Not comparable to full-window G."
+    },
+    "seasonal_oasis_actual_and_operator": {
+      "g": 2.0247608366399317,
+      "upper95": 2.538875917947632,
+      "eligible_days": 27,
+      "matched_hours": 3240,
+      "ratios": {
+        "BANC": 2.8106685902361983,
+        "CISO": 0.6494720594789845,
+        "IID": 1.8700666778208301,
+        "LDWP": 4.881366342602747,
+        "TIDC": 2.042208377166848
+      },
+      "scope": "Only sampled seasonal weeks. CISO and LDWP use OASIS targets. Other authorities retain EIA targets. Not comparable to full-window G."
+    },
+    "adjusted_ldwp_net_battery_charging_proxy": {
+      "g": 1.4686971651461787,
+      "upper95": 1.5600834027400239,
+      "eligible_days": 264,
+      "matched_hours": 31672,
+      "ratios": {
+        "BANC": 3.140029263234512,
+        "CISO": 0.6883597068487508,
+        "IID": 1.8612113200541311,
+        "LDWP": 0.795817259829925,
+        "TIDC": 2.1345341497545873
+      },
+      "formula": "LDWP adjusted demand + min(battery net generation, 0), other authorities unchanged. Missing LDWP battery values remain unavailable. Exploratory net-charging proxy, not a validated demand definition. CISO has no observed dedicated battery-generation values. No integrated, pumped or other storage is removed.",
+      "source_vintage": "Newly retrieved holdout bulk files match the frozen source hashes."
+    }
+  }
+}

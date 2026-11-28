@@ -1,0 +1,42 @@
+{
+  "input_sha256": "9b0b83506002aa3d7f002d5d5fcaf98df677c335fe35b66389fc6220c194e7bd",
+  "scored_hours": 13020,
+  "high_priority_hours": 75,
+  "by_authority": {
+    "BANC": {
+      "eligible_hours": 2614,
+      "high_priority_hours": 2,
+      "mean_demand_mw": 1863.82,
+      "first_utc": "2026-01-01T09:00:00+00:00",
+      "last_utc": "2026-04-20T07:00:00+00:00"
+    },
+    "CISO": {
+      "eligible_hours": 2585,
+      "high_priority_hours": 25,
+      "mean_demand_mw": 24332.09,
+      "first_utc": "2026-01-01T09:00:00+00:00",
+      "last_utc": "2026-04-20T07:00:00+00:00"
+    },
+    "IID": {
+      "eligible_hours": 2615,
+      "high_priority_hours": 16,
+      "mean_demand_mw": 348.15,
+      "first_utc": "2026-01-01T09:00:00+00:00",
+      "last_utc": "2026-04-20T07:00:00+00:00"
+    },
+    "LDWP": {
+      "eligible_hours": 2591,
+      "high_priority_hours": 13,
+      "mean_demand_mw": 2550.59,
+      "first_utc": "2026-01-01T09:00:00+00:00",
+      "last_utc": "2026-04-20T07:00:00+00:00"
+    },
+    "TIDC": {
+      "eligible_hours": 2615,
+      "high_priority_hours": 19,
+      "mean_demand_mw": 281.16,
+      "first_utc": "2026-01-01T09:00:00+00:00",
+      "last_utc": "2026-04-20T07:00:00+00:00"
+    }
+  }
+}

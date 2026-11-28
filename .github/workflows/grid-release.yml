@@ -25,6 +25,7 @@ jobs:
         env:
           GRID_TEST_DATABASE_URL: postgresql+psycopg2://gridtest:gridtest@localhost:5432/gridtest
       - run: make report PYTHON=python
+      - run: python -m src.check_stale_numbers
       - uses: actions/upload-artifact@v4
         with:
           name: employer-report

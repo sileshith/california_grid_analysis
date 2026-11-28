@@ -4,6 +4,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib import font_manager
 import numpy as np
 from PIL import Image
 
@@ -14,7 +15,9 @@ def generate():
     metrics=ROOT/'outputs/metrics';out=ROOT/'assets/figures';out.mkdir(parents=True,exist_ok=True)
     stats=json.loads((metrics/'forecast_benchmark.json').read_text())
     diag=json.loads((metrics/'operator_diagnostics.json').read_text())
-    plt.rcParams.update({'font.family':'DejaVu Sans','pdf.fonttype':42,'font.size':11,'axes.spines.top':False,'axes.spines.right':False,'text.color':'#777777','axes.labelcolor':'#777777','xtick.color':'#777777','ytick.color':'#777777','axes.edgecolor':'#777777','svg.fonttype':'path','svg.hashsalt':'california-grid-v1'})
+    for font in (ROOT/'reports/fonts').glob('texgyreheros-*.otf'):
+        font_manager.fontManager.addfont(str(font))
+    plt.rcParams.update({'font.family':'TeX Gyre Heros','pdf.fonttype':3,'font.size':11,'axes.spines.top':False,'axes.spines.right':False,'text.color':'#777777','axes.labelcolor':'#777777','xtick.color':'#777777','ytick.color':'#777777','axes.edgecolor':'#777777','svg.fonttype':'path','svg.hashsalt':'california-grid-v1'})
     def save(fig,name):
         for ext in ['svg','png','pdf']:
             meta={'Creator':None,'Date':None} if ext=='svg' else {'Creator':None,'Producer':None,'CreationDate':None,'ModDate':None} if ext=='pdf' else {'Software':None}

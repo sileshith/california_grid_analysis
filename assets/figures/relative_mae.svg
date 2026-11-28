@@ -25,11 +25,11 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 61.308828 234.598661
-L 505.19952 234.598661
+    <path d="M 60.671344 234.577864
+L 505.19952 234.577864
 L 505.19952 7.2
-L 61.308828 7.2
-L 61.308828 234.598661
+L 60.671344 7.2
+L 60.671344 234.577864
 z
 " style="fill: none"/>
    </g>
@@ -42,185 +42,146 @@ L 0 3.5
 " style="stroke: #777777; stroke-width: 0.8"/>
       </defs>
       <g>
-       <use xlink:href="#m810e5e51dd" x="61.308828" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#m810e5e51dd" x="60.671344" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_1">
       <!-- 0.5 -->
-      <g style="fill: #777777" transform="translate(52.562109 249.956082) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(53.027203 250.201864) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-13" d="M 2034 4250
-Q 1547 4250 1301 3770
-Q 1056 3291 1056 2328
-Q 1056 1369 1301 889
-Q 1547 409 2034 409
-Q 2525 409 2770 889
-Q 3016 1369 3016 2328
-Q 3016 3291 2770 3770
-Q 2525 4250 2034 4250
+        <path id="TeXGyreHeros-Regular-7a" d="M 3245 2182
+C 3245 3757 2746 4538 1760 4538
+C 781 4538 275 3744 275 2221
+C 275 691 787 -96 1760 -96
+C 2720 -96 3245 691 3245 2182
 z
-M 2034 4750
-Q 2819 4750 3233 4129
-Q 3647 3509 3647 2328
-Q 3647 1150 3233 529
-Q 2819 -91 2034 -91
-Q 1250 -91 836 529
-Q 422 1150 422 2328
-Q 422 3509 836 4129
-Q 1250 4750 2034 4750
+M 2669 2234
+C 2669 947 2374 371 1747 371
+C 1152 371 851 973 851 2214
+C 851 3456 1152 4038 1760 4038
+C 2368 4038 2669 3450 2669 2234
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-11" d="M 684 794
-L 1344 794
-L 1344 0
-L 684 0
-L 684 794
+        <path id="TeXGyreHeros-Regular-59" d="M 1222 0
+L 1222 666
+L 557 666
+L 557 0
+L 1222 0
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-18" d="M 691 4666
-L 3169 4666
-L 3169 4134
-L 1269 4134
-L 1269 2991
-Q 1406 3038 1543 3061
-Q 1681 3084 1819 3084
-Q 2600 3084 3056 2656
-Q 3513 2228 3513 1497
-Q 3513 744 3044 326
-Q 2575 -91 1722 -91
-Q 1428 -91 1123 -41
-Q 819 9 494 109
-L 494 744
-Q 775 591 1075 516
-Q 1375 441 1709 441
-Q 2250 441 2565 725
-Q 2881 1009 2881 1497
-Q 2881 1984 2565 2268
-Q 2250 2553 1709 2553
-Q 1456 2553 1204 2497
-Q 953 2441 691 2322
-L 691 4666
+        <path id="TeXGyreHeros-Regular-39" d="M 3283 1504
+C 3283 2400 2688 2989 1818 2989
+C 1498 2989 1242 2906 979 2714
+L 1158 3885
+L 3046 3885
+L 3046 4442
+L 704 4442
+L 365 2067
+L 883 2067
+C 1146 2381 1363 2490 1715 2490
+C 2323 2490 2707 2099 2707 1427
+C 2707 774 2330 403 1715 403
+C 1222 403 922 653 787 1165
+L 224 1165
+C 410 262 922 -96 1728 -96
+C 2643 -96 3283 544 3283 1504
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-13"/>
-       <use xlink:href="#DejaVuSans-11" transform="translate(63.625 0)"/>
-       <use xlink:href="#DejaVuSans-18" transform="translate(95.40625 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-7a"/>
+       <use xlink:href="#TeXGyreHeros-Regular-59" transform="translate(55.59375 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-39" transform="translate(83.390625 0)"/>
       </g>
      </g>
     </g>
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
-       <use xlink:href="#m810e5e51dd" x="221.973502" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#m810e5e51dd" x="221.566752" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_2">
       <!-- 1 -->
-      <g style="fill: #777777" transform="translate(218.474127 249.956082) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(218.509096 250.201864) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-14" d="M 794 531
-L 1825 531
-L 1825 4091
-L 703 3866
-L 703 4441
-L 1819 4666
-L 2450 4666
-L 2450 531
-L 3481 531
-L 3481 0
-L 794 0
-L 794 531
+        <path id="TeXGyreHeros-Regular-53" d="M 2221 0
+L 2221 4538
+L 1850 4538
+C 1651 3840 1523 3744 653 3635
+L 653 3232
+L 1658 3232
+L 1658 0
+L 2221 0
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-14"/>
+       <use xlink:href="#TeXGyreHeros-Regular-53"/>
       </g>
      </g>
     </g>
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
-       <use xlink:href="#m810e5e51dd" x="382.638175" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#m810e5e51dd" x="382.462161" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_3">
       <!-- 2 -->
-      <g style="fill: #777777" transform="translate(379.1388 249.956082) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(379.404505 250.201864) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-15" d="M 1228 531
-L 3431 531
-L 3431 0
-L 469 0
-L 469 531
-Q 828 903 1448 1529
-Q 2069 2156 2228 2338
-Q 2531 2678 2651 2914
-Q 2772 3150 2772 3378
-Q 2772 3750 2511 3984
-Q 2250 4219 1831 4219
-Q 1534 4219 1204 4116
-Q 875 4013 500 3803
-L 500 4441
-Q 881 4594 1212 4672
-Q 1544 4750 1819 4750
-Q 2544 4750 2975 4387
-Q 3406 4025 3406 3419
-Q 3406 3131 3298 2873
-Q 3191 2616 2906 2266
-Q 2828 2175 2409 1742
-Q 1991 1309 1228 531
+        <path id="TeXGyreHeros-Regular-6c" d="M 3270 3206
+C 3270 3974 2675 4538 1818 4538
+C 890 4538 352 4064 320 2963
+L 883 2963
+C 928 3725 1242 4045 1798 4045
+C 2310 4045 2694 3680 2694 3194
+C 2694 2835 2483 2528 2080 2298
+L 1491 1965
+C 544 1427 269 998 218 0
+L 3238 0
+L 3238 557
+L 851 557
+C 909 928 1114 1165 1670 1491
+L 2310 1837
+C 2944 2176 3270 2650 3270 3206
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-15"/>
+       <use xlink:href="#TeXGyreHeros-Regular-6c"/>
       </g>
      </g>
     </g>
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
-       <use xlink:href="#m810e5e51dd" x="476.620984" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#m810e5e51dd" x="476.579942" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_4">
       <!-- 3 -->
-      <g style="fill: #777777" transform="translate(473.121609 249.956082) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(473.522285 250.201864) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-16" d="M 2597 2516
-Q 3050 2419 3304 2112
-Q 3559 1806 3559 1356
-Q 3559 666 3084 287
-Q 2609 -91 1734 -91
-Q 1441 -91 1130 -33
-Q 819 25 488 141
-L 488 750
-Q 750 597 1062 519
-Q 1375 441 1716 441
-Q 2309 441 2620 675
-Q 2931 909 2931 1356
-Q 2931 1769 2642 2001
-Q 2353 2234 1838 2234
-L 1294 2234
-L 1294 2753
-L 1863 2753
-Q 2328 2753 2575 2939
-Q 2822 3125 2822 3475
-Q 2822 3834 2567 4026
-Q 2313 4219 1838 4219
-Q 1578 4219 1281 4162
-Q 984 4106 628 3988
-L 628 4550
-Q 988 4650 1302 4700
-Q 1616 4750 1894 4750
-Q 2613 4750 3031 4423
-Q 3450 4097 3450 3541
-Q 3450 3153 3228 2886
-Q 3006 2619 2597 2516
+        <path id="TeXGyreHeros-Regular-6b" d="M 3238 1318
+C 3238 1869 3014 2189 2470 2374
+C 2893 2541 3104 2835 3104 3290
+C 3104 4070 2586 4538 1722 4538
+C 806 4538 320 4038 301 3072
+L 864 3072
+C 877 3744 1152 4045 1728 4045
+C 2227 4045 2528 3750 2528 3270
+C 2528 2784 2317 2586 1414 2586
+L 1414 2112
+L 1722 2112
+C 2342 2112 2662 1818 2662 1312
+C 2662 742 2310 403 1722 403
+C 1107 403 806 710 768 1370
+L 205 1370
+C 275 358 774 -96 1702 -96
+C 2637 -96 3238 461 3238 1318
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-16"/>
+       <use xlink:href="#TeXGyreHeros-Regular-6b"/>
       </g>
      </g>
     </g>
@@ -232,453 +193,367 @@ L 0 2
 " style="stroke: #777777; stroke-width: 0.6"/>
       </defs>
       <g>
-       <use xlink:href="#m02aa548a32" x="103.569165" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
+       <use xlink:href="#m02aa548a32" x="102.992372" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
-       <use xlink:href="#m02aa548a32" x="139.299771" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
+       <use xlink:href="#m02aa548a32" x="138.774291" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_7">
      <g id="line2d_7">
       <g>
-       <use xlink:href="#m02aa548a32" x="170.251029" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
+       <use xlink:href="#m02aa548a32" x="169.77" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="xtick_8">
      <g id="line2d_8">
       <g>
-       <use xlink:href="#m02aa548a32" x="197.551974" y="234.598661" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
+       <use xlink:href="#m02aa548a32" x="197.110153" y="234.577864" style="fill: #777777; stroke: #777777; stroke-width: 0.6"/>
       </g>
      </g>
     </g>
     <g id="text_5">
      <!-- Model / operator daily MAE ratio (log scale) -->
-     <g style="fill: #777777" transform="translate(164.309799 264.956942) scale(0.11 -0.11)">
+     <g style="fill: #777777" transform="translate(177.628479 265.201864) scale(0.11 -0.11)">
       <defs>
-       <path id="DejaVuSans-30" d="M 628 4666
-L 1569 4666
-L 2759 1491
-L 3956 4666
-L 4897 4666
-L 4897 0
-L 4281 0
-L 4281 4097
-L 3078 897
-L 2444 897
-L 1241 4097
-L 1241 0
-L 628 0
-L 628 4666
+       <path id="TeXGyreHeros-Regular-4b" d="M 4870 0
+L 4870 4666
+L 4045 4666
+L 2688 602
+L 1306 4666
+L 480 4666
+L 480 0
+L 1043 0
+L 1043 3910
+L 2368 0
+L 2995 0
+L 4307 3910
+L 4307 0
+L 4870 0
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-52" d="M 1959 3097
-Q 1497 3097 1228 2736
-Q 959 2375 959 1747
-Q 959 1119 1226 758
-Q 1494 397 1959 397
-Q 2419 397 2687 759
-Q 2956 1122 2956 1747
-Q 2956 2369 2687 2733
-Q 2419 3097 1959 3097
+       <path id="TeXGyreHeros-Regular-52" d="M 3264 1651
+C 3264 2810 2707 3450 1741 3450
+C 800 3450 230 2803 230 1677
+C 230 550 794 -96 1747 -96
+C 2688 -96 3264 550 3264 1651
 z
-M 1959 3584
-Q 2709 3584 3137 3096
-Q 3566 2609 3566 1747
-Q 3566 888 3137 398
-Q 2709 -91 1959 -91
-Q 1206 -91 779 398
-Q 353 888 353 1747
-Q 353 2609 779 3096
-Q 1206 3584 1959 3584
+M 2707 1658
+C 2707 870 2336 397 1747 397
+C 1152 397 787 864 787 1677
+C 787 2483 1152 2957 1747 2957
+C 2349 2957 2707 2490 2707 1658
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-47" d="M 2906 2969
-L 2906 4863
-L 3481 4863
-L 3481 0
-L 2906 0
-L 2906 525
-Q 2725 213 2448 61
-Q 2172 -91 1784 -91
-Q 1150 -91 751 415
-Q 353 922 353 1747
-Q 353 2572 751 3078
-Q 1150 3584 1784 3584
-Q 2172 3584 2448 3432
-Q 2725 3281 2906 2969
+       <path id="TeXGyreHeros-Regular-30" d="M 3168 0
+L 3168 4666
+L 2637 4666
+L 2637 2931
+C 2413 3270 2054 3450 1606 3450
+C 736 3450 166 2778 166 1709
+C 166 576 723 -96 1626 -96
+C 2086 -96 2406 77 2694 493
+L 2694 0
+L 3168 0
 z
-M 947 1747
-Q 947 1113 1208 752
-Q 1469 391 1925 391
-Q 2381 391 2643 752
-Q 2906 1113 2906 1747
-Q 2906 2381 2643 2742
-Q 2381 3103 1925 3103
-Q 1469 3103 1208 2742
-Q 947 2381 947 1747
+M 2637 1664
+C 2637 890 2266 403 1702 403
+C 1114 403 723 896 723 1677
+C 723 2458 1114 2950 1696 2950
+C 2272 2950 2637 2438 2637 1664
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-48" d="M 3597 1894
-L 3597 1613
-L 953 1613
-Q 991 1019 1311 708
-Q 1631 397 2203 397
-Q 2534 397 2845 478
-Q 3156 559 3463 722
-L 3463 178
-Q 3153 47 2828 -22
-Q 2503 -91 2169 -91
-Q 1331 -91 842 396
-Q 353 884 353 1716
-Q 353 2575 817 3079
-Q 1281 3584 2069 3584
-Q 2775 3584 3186 3129
-Q 3597 2675 3597 1894
+       <path id="TeXGyreHeros-Regular-33" d="M 3283 1523
+C 3283 2010 3245 2317 3149 2566
+C 2931 3117 2419 3450 1792 3450
+C 858 3450 256 2758 256 1658
+C 256 557 838 -96 1779 -96
+C 2547 -96 3078 339 3213 1018
+L 2675 1018
+C 2528 576 2227 397 1798 397
+C 1242 397 826 755 813 1523
+L 3283 1523
 z
-M 3022 2063
-Q 3016 2534 2758 2815
-Q 2500 3097 2075 3097
-Q 1594 3097 1305 2825
-Q 1016 2553 972 2059
-L 3022 2063
+M 2714 1997
+C 2714 1997 2714 1971 2707 1958
+L 826 1958
+C 870 2554 1248 2957 1786 2957
+C 2310 2957 2714 2522 2714 1997
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-4f" d="M 603 4863
-L 1178 4863
-L 1178 0
-L 603 0
-L 603 4863
+       <path id="TeXGyreHeros-Regular-49" d="M 966 0
+L 966 4666
+L 435 4666
+L 435 0
+L 966 0
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-3" transform="scale(0.015625)"/>
-       <path id="DejaVuSans-12" d="M 1625 4666
-L 2156 4666
-L 531 -594
-L 0 -594
-L 1625 4666
+       <path id="TeXGyreHeros-Regular-68" transform="scale(0.015625)"/>
+       <path id="TeXGyreHeros-Regular-67" d="M 1818 4666
+L 1466 4666
+L -51 -128
+L 301 -128
+L 1818 4666
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-53" d="M 1159 525
-L 1159 -1331
-L 581 -1331
-L 581 3500
-L 1159 3500
-L 1159 2969
-Q 1341 3281 1617 3432
-Q 1894 3584 2278 3584
-Q 2916 3584 3314 3078
-Q 3713 2572 3713 1747
-Q 3713 922 3314 415
-Q 2916 -91 2278 -91
-Q 1894 -91 1617 61
-Q 1341 213 1159 525
+       <path id="TeXGyreHeros-Regular-55" d="M 3347 1645
+C 3347 2771 2797 3450 1907 3450
+C 1453 3450 1088 3245 838 2848
+L 838 3354
+L 352 3354
+L 352 -1395
+L 883 -1395
+L 883 403
+C 1165 58 1478 -96 1914 -96
+C 2778 -96 3347 576 3347 1645
 z
-M 3116 1747
-Q 3116 2381 2855 2742
-Q 2594 3103 2138 3103
-Q 1681 3103 1420 2742
-Q 1159 2381 1159 1747
-Q 1159 1113 1420 752
-Q 1681 391 2138 391
-Q 2594 391 2855 752
-Q 3116 1113 3116 1747
+M 2790 1658
+C 2790 896 2400 403 1818 403
+C 1254 403 883 864 883 1651
+C 883 2438 1254 2950 1818 2950
+C 2406 2950 2790 2458 2790 1658
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-55" d="M 2631 2963
-Q 2534 3019 2420 3045
-Q 2306 3072 2169 3072
-Q 1681 3072 1420 2755
-Q 1159 2438 1159 1844
-L 1159 0
-L 581 0
-L 581 3500
-L 1159 3500
-L 1159 2956
-Q 1341 3275 1631 3429
-Q 1922 3584 2338 3584
-Q 2397 3584 2469 3576
-Q 2541 3569 2628 3553
-L 2631 2963
+       <path id="TeXGyreHeros-Regular-61" d="M 2054 2886
+L 2054 3430
+C 1965 3443 1920 3450 1850 3450
+C 1504 3450 1242 3245 934 2746
+L 934 3354
+L 448 3354
+L 448 0
+L 979 0
+L 979 1741
+C 979 2496 1229 2874 2054 2886
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-44" d="M 2194 1759
-Q 1497 1759 1228 1600
-Q 959 1441 959 1056
-Q 959 750 1161 570
-Q 1363 391 1709 391
-Q 2188 391 2477 730
-Q 2766 1069 2766 1631
-L 2766 1759
-L 2194 1759
+       <path id="TeXGyreHeros-Regular-1d" d="M 3424 13
+L 3424 416
+C 3366 403 3341 403 3309 403
+C 3123 403 3021 499 3021 666
+L 3021 2534
+C 3021 3130 2586 3450 1760 3450
+C 947 3450 448 3136 416 2362
+L 954 2362
+C 998 2771 1242 2957 1741 2957
+C 2221 2957 2490 2778 2490 2458
+L 2490 2317
+C 2490 2093 2355 1997 1933 1946
+C 1178 1850 1062 1824 858 1741
+C 467 1581 269 1280 269 870
+C 269 262 691 -96 1370 -96
+C 1798 -96 2214 83 2509 397
+C 2566 141 2797 -45 3059 -45
+C 3168 -45 3251 -32 3424 13
 z
-M 3341 1997
-L 3341 0
-L 2766 0
-L 2766 531
-Q 2569 213 2275 61
-Q 1981 -91 1556 -91
-Q 1019 -91 701 211
-Q 384 513 384 1019
-Q 384 1609 779 1909
-Q 1175 2209 1959 2209
-L 2766 2209
-L 2766 2266
-Q 2766 2663 2505 2880
-Q 2244 3097 1772 3097
-Q 1472 3097 1187 3025
-Q 903 2953 641 2809
-L 641 3341
-Q 956 3463 1253 3523
-Q 1550 3584 1831 3584
-Q 2591 3584 2966 3190
-Q 3341 2797 3341 1997
+M 2490 1158
+C 2490 678 2003 371 1485 371
+C 1069 371 826 518 826 883
+C 826 1235 1062 1389 1632 1472
+C 2195 1549 2310 1574 2490 1658
+L 2490 1158
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-57" d="M 1172 4494
-L 1172 3500
-L 2356 3500
-L 2356 3053
-L 1172 3053
-L 1172 1153
-Q 1172 725 1289 603
-Q 1406 481 1766 481
-L 2356 481
-L 2356 0
-L 1766 0
-Q 1100 0 847 248
-Q 594 497 594 1153
-L 594 3053
-L 172 3053
-L 172 3500
-L 594 3500
-L 594 4494
-L 1172 4494
+       <path id="TeXGyreHeros-Regular-6a" d="M 1626 0
+L 1626 448
+C 1555 429 1472 422 1370 422
+C 1139 422 1075 486 1075 723
+L 1075 2918
+L 1626 2918
+L 1626 3354
+L 1075 3354
+L 1075 4275
+L 544 4275
+L 544 3354
+L 90 3354
+L 90 2918
+L 544 2918
+L 544 486
+C 544 147 774 -45 1190 -45
+C 1318 -45 1446 -32 1626 0
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-4c" d="M 603 3500
-L 1178 3500
-L 1178 0
-L 603 0
-L 603 3500
+       <path id="TeXGyreHeros-Regular-43" d="M 979 0
+L 979 3354
+L 448 3354
+L 448 0
+L 979 0
 z
-M 603 4863
-L 1178 4863
-L 1178 4134
-L 603 4134
-L 603 4863
-z
-" transform="scale(0.015625)"/>
-       <path id="DejaVuSans-5c" d="M 2059 -325
-Q 1816 -950 1584 -1140
-Q 1353 -1331 966 -1331
-L 506 -1331
-L 506 -850
-L 844 -850
-Q 1081 -850 1212 -737
-Q 1344 -625 1503 -206
-L 1606 56
-L 191 3500
-L 800 3500
-L 1894 763
-L 2988 3500
-L 3597 3500
-L 2059 -325
+M 1050 3859
+L 1050 4525
+L 384 4525
+L 384 3859
+L 1050 3859
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-24" d="M 2188 4044
-L 1331 1722
-L 3047 1722
-L 2188 4044
-z
-M 1831 4666
-L 2547 4666
-L 4325 0
-L 3669 0
-L 3244 1197
-L 1141 1197
-L 716 0
-L 50 0
-L 1831 4666
-z
-" transform="scale(0.015625)"/>
-       <path id="DejaVuSans-28" d="M 628 4666
-L 3578 4666
-L 3578 4134
-L 1259 4134
-L 1259 2753
-L 3481 2753
-L 3481 2222
-L 1259 2222
-L 1259 531
-L 3634 531
-L 3634 0
-L 628 0
-L 628 4666
+       <path id="TeXGyreHeros-Regular-77" d="M 3059 3354
+L 2483 3354
+L 1555 742
+L 698 3354
+L 128 3354
+L 1261 -13
+L 1056 -544
+C 966 -781 858 -870 627 -870
+C 550 -870 461 -858 346 -832
+L 346 -1312
+C 454 -1370 563 -1395 704 -1395
+C 1082 -1395 1389 -1184 1568 -704
+L 3059 3354
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-b" d="M 1984 4856
-Q 1566 4138 1362 3434
-Q 1159 2731 1159 2009
-Q 1159 1288 1364 580
-Q 1569 -128 1984 -844
-L 1484 -844
-Q 1016 -109 783 600
-Q 550 1309 550 2009
-Q 550 2706 781 3412
-Q 1013 4119 1484 4856
-L 1984 4856
+       <path id="TeXGyreHeros-Regular-1c" d="M 4179 0
+L 2541 4666
+L 1773 4666
+L 109 0
+L 742 0
+L 1235 1402
+L 3034 1402
+L 3514 0
+L 4179 0
+z
+M 2867 1901
+L 1382 1901
+L 2150 4026
+L 2867 1901
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-4a" d="M 2906 1791
-Q 2906 2416 2648 2759
-Q 2391 3103 1925 3103
-Q 1463 3103 1205 2759
-Q 947 2416 947 1791
-Q 947 1169 1205 825
-Q 1463 481 1925 481
-Q 2391 481 2648 825
-Q 2906 1169 2906 1791
-z
-M 3481 434
-Q 3481 -459 3084 -895
-Q 2688 -1331 1869 -1331
-Q 1566 -1331 1297 -1286
-Q 1028 -1241 775 -1147
-L 775 -588
-Q 1028 -725 1275 -790
-Q 1522 -856 1778 -856
-Q 2344 -856 2625 -561
-Q 2906 -266 2906 331
-L 2906 616
-Q 2728 306 2450 153
-Q 2172 0 1784 0
-Q 1141 0 747 490
-Q 353 981 353 1791
-Q 353 2603 747 3093
-Q 1141 3584 1784 3584
-Q 2172 3584 2450 3431
-Q 2728 3278 2906 2969
-L 2906 3500
-L 3481 3500
-L 3481 434
+       <path id="TeXGyreHeros-Regular-32" d="M 3923 0
+L 3923 525
+L 1171 525
+L 1171 2125
+L 3712 2125
+L 3712 2650
+L 1171 2650
+L 1171 4141
+L 3808 4141
+L 3808 4666
+L 576 4666
+L 576 0
+L 3923 0
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-56" d="M 2834 3397
-L 2834 2853
-Q 2591 2978 2328 3040
-Q 2066 3103 1784 3103
-Q 1356 3103 1142 2972
-Q 928 2841 928 2578
-Q 928 2378 1081 2264
-Q 1234 2150 1697 2047
-L 1894 2003
-Q 2506 1872 2764 1633
-Q 3022 1394 3022 966
-Q 3022 478 2636 193
-Q 2250 -91 1575 -91
-Q 1294 -91 989 -36
-Q 684 19 347 128
-L 347 722
-Q 666 556 975 473
-Q 1284 391 1588 391
-Q 1994 391 2212 530
-Q 2431 669 2431 922
-Q 2431 1156 2273 1281
-Q 2116 1406 1581 1522
-L 1381 1569
-Q 847 1681 609 1914
-Q 372 2147 372 2553
-Q 372 3047 722 3315
-Q 1072 3584 1716 3584
-Q 2034 3584 2315 3537
-Q 2597 3491 2834 3397
+       <path id="TeXGyreHeros-Regular-56" d="M 1862 -1357
+C 1299 -442 986 634 986 1658
+C 986 2675 1299 3757 1862 4666
+L 1510 4666
+C 870 3827 467 2662 467 1658
+C 467 646 870 -518 1510 -1357
+L 1862 -1357
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-46" d="M 3122 3366
-L 3122 2828
-Q 2878 2963 2633 3030
-Q 2388 3097 2138 3097
-Q 1578 3097 1268 2742
-Q 959 2388 959 1747
-Q 959 1106 1268 751
-Q 1578 397 2138 397
-Q 2388 397 2633 464
-Q 2878 531 3122 666
-L 3122 134
-Q 2881 22 2623 -34
-Q 2366 -91 2075 -91
-Q 1284 -91 818 406
-Q 353 903 353 1747
-Q 353 2603 823 3093
-Q 1294 3584 2113 3584
-Q 2378 3584 2631 3529
-Q 2884 3475 3122 3366
+       <path id="TeXGyreHeros-Regular-3c" d="M 3130 550
+L 3130 3354
+L 2637 3354
+L 2637 2867
+C 2368 3264 2042 3450 1613 3450
+C 762 3450 186 2733 186 1645
+C 186 589 781 -96 1568 -96
+C 1990 -96 2285 83 2637 506
+L 2637 282
+C 2637 -608 2272 -947 1651 -947
+C 1229 -947 902 -794 838 -384
+L 294 -384
+C 352 -1018 845 -1395 1632 -1395
+C 2682 -1395 3130 -928 3130 550
+z
+M 2586 1658
+C 2586 858 2240 397 1677 397
+C 1094 397 742 864 742 1677
+C 742 2483 1101 2957 1670 2957
+C 2246 2957 2586 2470 2586 1658
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-c" d="M 513 4856
-L 1013 4856
-Q 1481 4119 1714 3412
-Q 1947 2706 1947 2009
-Q 1947 1309 1714 600
-Q 1481 -109 1013 -844
-L 513 -844
-Q 928 -128 1133 580
-Q 1338 1288 1338 2009
-Q 1338 2731 1133 3434
-Q 928 4138 513 4856
+       <path id="TeXGyreHeros-Regular-63" d="M 2938 941
+C 2938 1440 2656 1690 1990 1850
+L 1478 1971
+C 1043 2074 858 2214 858 2451
+C 858 2758 1133 2957 1568 2957
+C 1997 2957 2227 2771 2240 2419
+L 2803 2419
+C 2797 3078 2362 3450 1587 3450
+C 806 3450 301 3046 301 2426
+C 301 1901 570 1651 1363 1459
+L 1862 1338
+C 2234 1248 2381 1139 2381 896
+C 2381 582 2067 397 1600 397
+C 1120 397 851 512 781 1024
+L 218 1024
+C 243 250 678 -96 1555 -96
+C 2400 -96 2938 294 2938 941
+z
+" transform="scale(0.015625)"/>
+       <path id="TeXGyreHeros-Regular-2c" d="M 3053 1152
+L 2515 1152
+C 2426 614 2150 397 1696 397
+C 1107 397 755 851 755 1645
+C 755 2483 1101 2957 1683 2957
+C 2131 2957 2413 2694 2477 2227
+L 3014 2227
+C 2950 3046 2438 3450 1690 3450
+C 787 3450 198 2758 198 1645
+C 198 563 774 -96 1683 -96
+C 2483 -96 2989 384 3053 1152
+z
+" transform="scale(0.015625)"/>
+       <path id="TeXGyreHeros-Regular-57" d="M 1638 1651
+C 1638 2662 1235 3827 595 4666
+L 243 4666
+C 806 3750 1120 2675 1120 1651
+C 1120 634 806 -448 243 -1357
+L 595 -1357
+C 1235 -518 1638 646 1638 1651
 z
 " transform="scale(0.015625)"/>
       </defs>
-      <use xlink:href="#DejaVuSans-30"/>
-      <use xlink:href="#DejaVuSans-52" transform="translate(86.28125 0)"/>
-      <use xlink:href="#DejaVuSans-47" transform="translate(147.46875 0)"/>
-      <use xlink:href="#DejaVuSans-48" transform="translate(210.953125 0)"/>
-      <use xlink:href="#DejaVuSans-4f" transform="translate(272.484375 0)"/>
-      <use xlink:href="#DejaVuSans-3" transform="translate(300.265625 0)"/>
-      <use xlink:href="#DejaVuSans-12" transform="translate(332.046875 0)"/>
-      <use xlink:href="#DejaVuSans-3" transform="translate(365.734375 0)"/>
-      <use xlink:href="#DejaVuSans-52" transform="translate(397.515625 0)"/>
-      <use xlink:href="#DejaVuSans-53" transform="translate(458.703125 0)"/>
-      <use xlink:href="#DejaVuSans-48" transform="translate(522.1875 0)"/>
-      <use xlink:href="#DejaVuSans-55" transform="translate(583.71875 0)"/>
-      <use xlink:href="#DejaVuSans-44" transform="translate(624.828125 0)"/>
-      <use xlink:href="#DejaVuSans-57" transform="translate(686.109375 0)"/>
-      <use xlink:href="#DejaVuSans-52" transform="translate(725.3125 0)"/>
-      <use xlink:href="#DejaVuSans-55" transform="translate(786.5 0)"/>
-      <use xlink:href="#DejaVuSans-3" transform="translate(827.609375 0)"/>
-      <use xlink:href="#DejaVuSans-47" transform="translate(859.390625 0)"/>
-      <use xlink:href="#DejaVuSans-44" transform="translate(922.875 0)"/>
-      <use xlink:href="#DejaVuSans-4c" transform="translate(984.15625 0)"/>
-      <use xlink:href="#DejaVuSans-4f" transform="translate(1011.9375 0)"/>
-      <use xlink:href="#DejaVuSans-5c" transform="translate(1039.71875 0)"/>
-      <use xlink:href="#DejaVuSans-3" transform="translate(1098.90625 0)"/>
-      <use xlink:href="#DejaVuSans-30" transform="translate(1130.6875 0)"/>
-      <use xlink:href="#DejaVuSans-24" transform="translate(1216.96875 0)"/>
-      <use xlink:href="#DejaVuSans-28" transform="translate(1285.375 0)"/>
-      <use xlink:href="#DejaVuSans-3" transform="translate(1348.5625 0)"/>
-      <use xlink:href="#DejaVuSans-55" transform="translate(1380.34375 0)"/>
-      <use xlink:href="#DejaVuSans-44" transform="translate(1421.453125 0)"/>
-      <use xlink:href="#DejaVuSans-57" transform="translate(1482.734375 0)"/>
-      <use xlink:href="#DejaVuSans-4c" transform="translate(1521.9375 0)"/>
-      <use xlink:href="#DejaVuSans-52" transform="translate(1549.71875 0)"/>
-      <use xlink:href="#DejaVuSans-3" transform="translate(1610.90625 0)"/>
-      <use xlink:href="#DejaVuSans-b" transform="translate(1642.6875 0)"/>
-      <use xlink:href="#DejaVuSans-4f" transform="translate(1681.703125 0)"/>
-      <use xlink:href="#DejaVuSans-52" transform="translate(1709.484375 0)"/>
-      <use xlink:href="#DejaVuSans-4a" transform="translate(1770.671875 0)"/>
-      <use xlink:href="#DejaVuSans-3" transform="translate(1834.15625 0)"/>
-      <use xlink:href="#DejaVuSans-56" transform="translate(1865.9375 0)"/>
-      <use xlink:href="#DejaVuSans-46" transform="translate(1918.03125 0)"/>
-      <use xlink:href="#DejaVuSans-44" transform="translate(1973.015625 0)"/>
-      <use xlink:href="#DejaVuSans-4f" transform="translate(2034.296875 0)"/>
-      <use xlink:href="#DejaVuSans-48" transform="translate(2062.078125 0)"/>
-      <use xlink:href="#DejaVuSans-c" transform="translate(2123.609375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-4b"/>
+      <use xlink:href="#TeXGyreHeros-Regular-52" transform="translate(83.296875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-30" transform="translate(138.890625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-33" transform="translate(194.484375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-49" transform="translate(250.078125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-68" transform="translate(272.28125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-67" transform="translate(300.078125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-68" transform="translate(327.875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-52" transform="translate(355.671875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-55" transform="translate(411.265625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-33" transform="translate(466.859375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-61" transform="translate(522.453125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-1d" transform="translate(555.25 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-6a" transform="translate(610.84375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-52" transform="translate(637.640625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-61" transform="translate(693.234375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-68" transform="translate(726.53125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-30" transform="translate(754.328125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-1d" transform="translate(809.921875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-43" transform="translate(865.515625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-49" transform="translate(887.71875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-77" transform="translate(909.421875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-68" transform="translate(959.421875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-4b" transform="translate(987.21875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-1c" transform="translate(1070.515625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-32" transform="translate(1137.21875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-68" transform="translate(1203.921875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-61" transform="translate(1231.71875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-1d" transform="translate(1264.515625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-6a" transform="translate(1320.109375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-43" transform="translate(1347.90625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-52" transform="translate(1370.109375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-68" transform="translate(1425.703125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-56" transform="translate(1453.5 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-49" transform="translate(1486.796875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-52" transform="translate(1509 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-3c" transform="translate(1564.59375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-68" transform="translate(1620.1875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-63" transform="translate(1647.984375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-2c" transform="translate(1697.984375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-1d" transform="translate(1747.984375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-49" transform="translate(1803.578125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-33" transform="translate(1825.78125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-57" transform="translate(1881.375 0)"/>
      </g>
     </g>
    </g>
@@ -691,414 +566,353 @@ L -3.5 0
 " style="stroke: #777777; stroke-width: 0.8"/>
       </defs>
       <g>
-       <use xlink:href="#maabd92bc28" x="61.308828" y="17.536303" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#maabd92bc28" x="60.671344" y="17.535357" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_6">
       <!-- BANC -->
-      <g style="fill: #777777" transform="translate(23.326641 21.715014) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(23.386969 21.847357) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-25" d="M 1259 2228
-L 1259 519
-L 2272 519
-Q 2781 519 3026 730
-Q 3272 941 3272 1375
-Q 3272 1813 3026 2020
-Q 2781 2228 2272 2228
-L 1259 2228
+        <path id="TeXGyreHeros-Regular-23" d="M 3987 1331
+C 3987 1894 3731 2234 3136 2464
+C 3558 2662 3782 3008 3782 3482
+C 3782 4160 3283 4666 2400 4666
+L 506 4666
+L 506 0
+L 2611 0
+C 3450 0 3987 563 3987 1331
 z
-M 1259 4147
-L 1259 2741
-L 2194 2741
-Q 2656 2741 2882 2914
-Q 3109 3088 3109 3444
-Q 3109 3797 2882 3972
-Q 2656 4147 2194 4147
-L 1259 4147
+M 3187 3398
+C 3187 2925 2912 2656 2253 2656
+L 1101 2656
+L 1101 4141
+L 2253 4141
+C 2912 4141 3187 3872 3187 3398
 z
-M 628 4666
-L 2241 4666
-Q 2963 4666 3353 4366
-Q 3744 4066 3744 3513
-Q 3744 3084 3544 2831
-Q 3344 2578 2956 2516
-Q 3422 2416 3680 2098
-Q 3938 1781 3938 1306
-Q 3938 681 3513 340
-Q 3088 0 2303 0
-L 628 0
-L 628 4666
+M 3392 1325
+C 3392 877 3117 525 2554 525
+L 1101 525
+L 1101 2131
+L 2554 2131
+C 3117 2131 3392 1779 3392 1325
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-31" d="M 628 4666
-L 1478 4666
-L 3547 763
-L 3547 4666
-L 4159 4666
-L 4159 0
-L 3309 0
-L 1241 3903
-L 1241 0
-L 628 0
-L 628 4666
+        <path id="TeXGyreHeros-Regular-4d" d="M 4134 0
+L 4134 4666
+L 3571 4666
+L 3571 851
+L 1133 4666
+L 486 4666
+L 486 0
+L 1050 0
+L 1050 3782
+L 3462 0
+L 4134 0
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-26" d="M 4122 4306
-L 4122 3641
-Q 3803 3938 3442 4084
-Q 3081 4231 2675 4231
-Q 1875 4231 1450 3742
-Q 1025 3253 1025 2328
-Q 1025 1406 1450 917
-Q 1875 428 2675 428
-Q 3081 428 3442 575
-Q 3803 722 4122 1019
-L 4122 359
-Q 3791 134 3420 21
-Q 3050 -91 2638 -91
-Q 1578 -91 968 557
-Q 359 1206 359 2328
-Q 359 3453 968 4101
-Q 1578 4750 2638 4750
-Q 3056 4750 3426 4639
-Q 3797 4528 4122 4306
+        <path id="TeXGyreHeros-Regular-2b" d="M 4333 1702
+L 3718 1702
+C 3578 819 3206 410 2419 410
+C 1491 410 902 1120 902 2285
+C 902 3482 1466 4256 2368 4256
+C 3098 4256 3482 3930 3629 3219
+L 4237 3219
+C 4051 4243 3462 4781 2438 4781
+C 1024 4781 307 3642 307 2278
+C 307 915 1043 -115 2413 -115
+C 3552 -115 4192 486 4333 1702
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-25"/>
-       <use xlink:href="#DejaVuSans-24" transform="translate(68.609375 0)"/>
-       <use xlink:href="#DejaVuSans-31" transform="translate(137.015625 0)"/>
-       <use xlink:href="#DejaVuSans-26" transform="translate(211.828125 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-23"/>
+       <use xlink:href="#TeXGyreHeros-Regular-1c" transform="translate(64.703125 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-4d" transform="translate(131.40625 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-2b" transform="translate(203.109375 0)"/>
       </g>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_10">
       <g>
-       <use xlink:href="#maabd92bc28" x="61.308828" y="57.912485" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#maabd92bc28" x="60.671344" y="57.907847" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_7">
       <!-- CISO -->
-      <g style="fill: #777777" transform="translate(27.740391 62.091196) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(26.776344 62.219847) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-2c" d="M 628 4666
-L 1259 4666
-L 1259 0
-L 628 0
-L 628 4666
+        <path id="TeXGyreHeros-Regular-42" d="M 1235 0
+L 1235 4666
+L 640 4666
+L 640 0
+L 1235 0
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-36" d="M 3425 4513
-L 3425 3897
-Q 3066 4069 2747 4153
-Q 2428 4238 2131 4238
-Q 1616 4238 1336 4038
-Q 1056 3838 1056 3469
-Q 1056 3159 1242 3001
-Q 1428 2844 1947 2747
-L 2328 2669
-Q 3034 2534 3370 2195
-Q 3706 1856 3706 1288
-Q 3706 609 3251 259
-Q 2797 -91 1919 -91
-Q 1588 -91 1214 -16
-Q 841 59 441 206
-L 441 856
-Q 825 641 1194 531
-Q 1563 422 1919 422
-Q 2459 422 2753 634
-Q 3047 847 3047 1241
-Q 3047 1584 2836 1778
-Q 2625 1972 2144 2069
-L 1759 2144
-Q 1053 2284 737 2584
-Q 422 2884 422 3419
-Q 422 4038 858 4394
-Q 1294 4750 2059 4750
-Q 2388 4750 2728 4690
-Q 3069 4631 3425 4513
+        <path id="TeXGyreHeros-Regular-62" d="M 3974 1280
+C 3974 1856 3616 2278 2982 2451
+L 1811 2765
+C 1248 2912 1043 3098 1043 3456
+C 1043 3930 1459 4282 2086 4282
+C 2829 4282 3251 3942 3251 3334
+L 3814 3334
+C 3814 4250 3181 4781 2106 4781
+C 1082 4781 448 4218 448 3373
+C 448 2803 749 2445 1363 2285
+L 2522 1978
+C 3110 1824 3379 1587 3379 1222
+C 3379 710 2995 410 2189 410
+C 1306 410 870 851 870 1517
+L 307 1517
+C 307 416 1050 -115 2150 -115
+C 3334 -115 3974 448 3974 1280
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-32" d="M 2522 4238
-Q 1834 4238 1429 3725
-Q 1025 3213 1025 2328
-Q 1025 1447 1429 934
-Q 1834 422 2522 422
-Q 3209 422 3611 934
-Q 4013 1447 4013 2328
-Q 4013 3213 3611 3725
-Q 3209 4238 2522 4238
+        <path id="TeXGyreHeros-Regular-51" d="M 4749 2259
+C 4749 3763 3859 4781 2490 4781
+C 1152 4781 243 3757 243 2298
+C 243 838 1152 -115 2496 -115
+C 3866 -115 4749 890 4749 2259
 z
-M 2522 4750
-Q 3503 4750 4090 4092
-Q 4678 3434 4678 2328
-Q 4678 1225 4090 567
-Q 3503 -91 2522 -91
-Q 1538 -91 948 565
-Q 359 1222 359 2328
-Q 359 3434 948 4092
-Q 1538 4750 2522 4750
+M 4154 2272
+C 4154 1146 3482 410 2496 410
+C 1504 410 838 1146 838 2298
+C 838 3450 1504 4256 2490 4256
+C 3501 4256 4154 3450 4154 2272
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-26"/>
-       <use xlink:href="#DejaVuSans-2c" transform="translate(69.828125 0)"/>
-       <use xlink:href="#DejaVuSans-36" transform="translate(99.328125 0)"/>
-       <use xlink:href="#DejaVuSans-32" transform="translate(162.8125 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-2b"/>
+       <use xlink:href="#TeXGyreHeros-Regular-42" transform="translate(72.203125 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-62" transform="translate(100 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-51" transform="translate(166.703125 0)"/>
       </g>
      </g>
     </g>
     <g id="ytick_3">
      <g id="line2d_11">
       <g>
-       <use xlink:href="#maabd92bc28" x="61.308828" y="98.288668" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#maabd92bc28" x="60.671344" y="98.280337" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_8">
       <!-- IID -->
-      <g style="fill: #777777" transform="translate(39.348828 102.467379) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(39.613688 102.592337) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-27" d="M 1259 4147
-L 1259 519
-L 2022 519
-Q 2988 519 3436 956
-Q 3884 1394 3884 2338
-Q 3884 3275 3436 3711
-Q 2988 4147 2022 4147
-L 1259 4147
+        <path id="TeXGyreHeros-Regular-2f" d="M 4269 2336
+C 4269 3782 3552 4666 2368 4666
+L 570 4666
+L 570 0
+L 2368 0
+C 3546 0 4269 883 4269 2336
 z
-M 628 4666
-L 1925 4666
-Q 3281 4666 3915 4102
-Q 4550 3538 4550 2338
-Q 4550 1131 3912 565
-Q 3275 0 1925 0
-L 628 0
-L 628 4666
+M 3674 2330
+C 3674 1152 3187 525 2266 525
+L 1165 525
+L 1165 4141
+L 2266 4141
+C 3187 4141 3674 3520 3674 2330
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-2c"/>
-       <use xlink:href="#DejaVuSans-2c" transform="translate(29.5 0)"/>
-       <use xlink:href="#DejaVuSans-27" transform="translate(59 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-42"/>
+       <use xlink:href="#TeXGyreHeros-Regular-42" transform="translate(27.796875 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-2f" transform="translate(55.59375 0)"/>
       </g>
      </g>
     </g>
     <g id="ytick_4">
      <g id="line2d_12">
       <g>
-       <use xlink:href="#maabd92bc28" x="61.308828" y="138.664851" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#maabd92bc28" x="60.671344" y="138.652827" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_9">
       <!-- LDWP -->
-      <g style="fill: #777777" transform="translate(22.200859 142.843562) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(22.221656 142.964827) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-2f" d="M 628 4666
-L 1259 4666
-L 1259 531
-L 3531 531
-L 3531 0
-L 628 0
-L 628 4666
+        <path id="TeXGyreHeros-Regular-48" d="M 3411 0
+L 3411 525
+L 1107 525
+L 1107 4666
+L 512 4666
+L 512 0
+L 3411 0
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-3a" d="M 213 4666
-L 850 4666
-L 1831 722
-L 2809 4666
-L 3519 4666
-L 4500 722
-L 5478 4666
-L 6119 4666
-L 4947 0
-L 4153 0
-L 3169 4050
-L 2175 0
-L 1381 0
-L 213 4666
+        <path id="TeXGyreHeros-Regular-72" d="M 5946 4666
+L 5280 4666
+L 4422 877
+L 3360 4666
+L 2720 4666
+L 1683 877
+L 806 4666
+L 141 4666
+L 1338 0
+L 1990 0
+L 3034 3834
+L 4109 0
+L 4762 0
+L 5946 4666
 z
 " transform="scale(0.015625)"/>
-        <path id="DejaVuSans-33" d="M 1259 4147
-L 1259 2394
-L 2053 2394
-Q 2494 2394 2734 2622
-Q 2975 2850 2975 3272
-Q 2975 3691 2734 3919
-Q 2494 4147 2053 4147
-L 1259 4147
+        <path id="TeXGyreHeros-Regular-54" d="M 3949 3296
+C 3949 4173 3430 4666 2509 4666
+L 582 4666
+L 582 0
+L 1178 0
+L 1178 1978
+L 2643 1978
+C 3411 1978 3949 2522 3949 3296
 z
-M 628 4666
-L 2053 4666
-Q 2838 4666 3239 4311
-Q 3641 3956 3641 3272
-Q 3641 2581 3239 2228
-Q 2838 1875 2053 1875
-L 1259 1875
-L 1259 0
-L 628 0
-L 628 4666
+M 3328 3322
+C 3328 2810 2989 2502 2419 2502
+L 1178 2502
+L 1178 4141
+L 2419 4141
+C 2989 4141 3328 3834 3328 3322
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-2f"/>
-       <use xlink:href="#DejaVuSans-27" transform="translate(55.71875 0)"/>
-       <use xlink:href="#DejaVuSans-3a" transform="translate(132.71875 0)"/>
-       <use xlink:href="#DejaVuSans-33" transform="translate(231.59375 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-48"/>
+       <use xlink:href="#TeXGyreHeros-Regular-2f" transform="translate(55.59375 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-72" transform="translate(124.796875 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-54" transform="translate(219.203125 0)"/>
       </g>
      </g>
     </g>
     <g id="ytick_5">
      <g id="line2d_13">
       <g>
-       <use xlink:href="#maabd92bc28" x="61.308828" y="179.041033" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#maabd92bc28" x="60.671344" y="179.025317" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_10">
       <!-- TIDC -->
-      <g style="fill: #777777" transform="translate(28.194141 183.219744) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(28.008688 183.337317) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-37" d="M -19 4666
-L 3928 4666
-L 3928 4134
-L 2272 4134
-L 2272 0
-L 1638 0
-L 1638 4134
-L -19 4134
-L -19 4666
+        <path id="TeXGyreHeros-Regular-69" d="M 3795 4141
+L 3795 4666
+L 134 4666
+L 134 4141
+L 1670 4141
+L 1670 0
+L 2266 0
+L 2266 4141
+L 3795 4141
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-37"/>
-       <use xlink:href="#DejaVuSans-2c" transform="translate(61.078125 0)"/>
-       <use xlink:href="#DejaVuSans-27" transform="translate(90.578125 0)"/>
-       <use xlink:href="#DejaVuSans-26" transform="translate(167.578125 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-69"/>
+       <use xlink:href="#TeXGyreHeros-Regular-42" transform="translate(61.09375 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-2f" transform="translate(88.890625 0)"/>
+       <use xlink:href="#TeXGyreHeros-Regular-2b" transform="translate(161.09375 0)"/>
       </g>
      </g>
     </g>
     <g id="ytick_6">
      <g id="line2d_14">
       <g>
-       <use xlink:href="#maabd92bc28" x="61.308828" y="219.417216" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
+       <use xlink:href="#maabd92bc28" x="60.671344" y="219.397808" style="fill: #777777; stroke: #777777; stroke-width: 0.8"/>
       </g>
      </g>
      <g id="text_11">
       <!-- G -->
-      <g style="fill: #777777" transform="translate(45.785547 223.595927) scale(0.11 -0.11)">
+      <g style="fill: #777777" transform="translate(45.113688 223.709808) scale(0.11 -0.11)">
        <defs>
-        <path id="DejaVuSans-2a" d="M 3809 666
-L 3809 1919
-L 2778 1919
-L 2778 2438
-L 4434 2438
-L 4434 434
-Q 4069 175 3628 42
-Q 3188 -91 2688 -91
-Q 1594 -91 976 548
-Q 359 1188 359 2328
-Q 359 3472 976 4111
-Q 1594 4750 2688 4750
-Q 3144 4750 3555 4637
-Q 3966 4525 4313 4306
-L 4313 3634
-Q 3963 3931 3569 4081
-Q 3175 4231 2741 4231
-Q 1884 4231 1454 3753
-Q 1025 3275 1025 2328
-Q 1025 1384 1454 906
-Q 1884 428 2741 428
-Q 3075 428 3337 486
-Q 3600 544 3809 666
+        <path id="TeXGyreHeros-Regular-3b" d="M 4538 0
+L 4538 2464
+L 2592 2464
+L 2592 1939
+L 4013 1939
+L 4013 1811
+C 4013 979 3398 410 2547 410
+C 1491 410 877 1178 877 2317
+C 877 3462 1530 4256 2515 4256
+C 3226 4256 3738 3853 3866 3251
+L 4474 3251
+C 4307 4198 3590 4781 2522 4781
+C 1094 4781 282 3680 282 2285
+C 282 851 1158 -115 2419 -115
+C 3053 -115 3558 109 4013 614
+L 4160 0
+L 4538 0
 z
 " transform="scale(0.015625)"/>
        </defs>
-       <use xlink:href="#DejaVuSans-2a"/>
+       <use xlink:href="#TeXGyreHeros-Regular-3b"/>
       </g>
      </g>
     </g>
     <g id="text_12">
      <!-- Authority -->
-     <g style="fill: #777777" transform="translate(15.558281 146.354877) rotate(-90) scale(0.11 -0.11)">
+     <g style="fill: #777777" transform="translate(15.824 142.508229) rotate(-90) scale(0.11 -0.11)">
       <defs>
-       <path id="DejaVuSans-58" d="M 544 1381
-L 544 3500
-L 1119 3500
-L 1119 1403
-Q 1119 906 1312 657
-Q 1506 409 1894 409
-Q 2359 409 2629 706
-Q 2900 1003 2900 1516
-L 2900 3500
-L 3475 3500
-L 3475 0
-L 2900 0
-L 2900 538
-Q 2691 219 2414 64
-Q 2138 -91 1772 -91
-Q 1169 -91 856 284
-Q 544 659 544 1381
-z
-M 1991 3584
-L 1991 3584
+       <path id="TeXGyreHeros-Regular-6e" d="M 3085 0
+L 3085 3354
+L 2554 3354
+L 2554 1504
+C 2554 819 2195 371 1638 371
+C 1216 371 947 627 947 1030
+L 947 3354
+L 416 3354
+L 416 819
+C 416 262 832 -96 1485 -96
+C 1978 -96 2291 77 2605 518
+L 2605 0
+L 3085 0
 z
 " transform="scale(0.015625)"/>
-       <path id="DejaVuSans-4b" d="M 3513 2113
-L 3513 0
-L 2938 0
-L 2938 2094
-Q 2938 2591 2744 2837
-Q 2550 3084 2163 3084
-Q 1697 3084 1428 2787
-Q 1159 2491 1159 1978
-L 1159 0
-L 581 0
-L 581 4863
-L 1159 4863
-L 1159 2956
-Q 1366 3272 1645 3428
-Q 1925 3584 2291 3584
-Q 2894 3584 3203 3211
-Q 3513 2838 3513 2113
+       <path id="TeXGyreHeros-Regular-40" d="M 3110 0
+L 3110 2534
+C 3110 3098 2707 3450 2054 3450
+C 1581 3450 1293 3302 979 2893
+L 979 4666
+L 448 4666
+L 448 0
+L 979 0
+L 979 1850
+C 979 2534 1338 2982 1888 2982
+C 2266 2982 2579 2765 2579 2323
+L 2579 0
+L 3110 0
 z
 " transform="scale(0.015625)"/>
       </defs>
-      <use xlink:href="#DejaVuSans-24"/>
-      <use xlink:href="#DejaVuSans-58" transform="translate(68.40625 0)"/>
-      <use xlink:href="#DejaVuSans-57" transform="translate(131.78125 0)"/>
-      <use xlink:href="#DejaVuSans-4b" transform="translate(170.984375 0)"/>
-      <use xlink:href="#DejaVuSans-52" transform="translate(234.359375 0)"/>
-      <use xlink:href="#DejaVuSans-55" transform="translate(295.546875 0)"/>
-      <use xlink:href="#DejaVuSans-4c" transform="translate(336.65625 0)"/>
-      <use xlink:href="#DejaVuSans-57" transform="translate(364.4375 0)"/>
-      <use xlink:href="#DejaVuSans-5c" transform="translate(403.640625 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-1c"/>
+      <use xlink:href="#TeXGyreHeros-Regular-6e" transform="translate(65.703125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-6a" transform="translate(121.296875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-40" transform="translate(148.59375 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-52" transform="translate(204.1875 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-61" transform="translate(259.78125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-43" transform="translate(293.078125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-6a" transform="translate(315.28125 0)"/>
+      <use xlink:href="#TeXGyreHeros-Regular-77" transform="translate(343.078125 0)"/>
      </g>
     </g>
    </g>
    <g id="line2d_15">
-    <path d="M 311.379851 219.417216
-L 326.677251 219.417216
-" clip-path="url(#pe5618d0a0d)" style="fill: none; stroke: #d55e00; stroke-width: 3; stroke-linecap: square"/>
+    <path d="M 311.101501 219.397808
+L 326.42087 219.397808
+" clip-path="url(#p8b3a8e082d)" style="fill: none; stroke: #d55e00; stroke-width: 3; stroke-linecap: square"/>
    </g>
    <g id="line2d_16">
-    <path d="M 326.677251 214.572074
-L 326.677251 224.262358
-" clip-path="url(#pe5618d0a0d)" style="fill: none; stroke: #d55e00; stroke-width: 1.5; stroke-linecap: square"/>
+    <path d="M 326.42087 214.553109
+L 326.42087 224.242506
+" clip-path="url(#p8b3a8e082d)" style="fill: none; stroke: #d55e00; stroke-width: 1.5; stroke-linecap: square"/>
    </g>
    <g id="line2d_17">
-    <path d="M 221.973502 234.598661
-L 221.973502 7.2
-" clip-path="url(#pe5618d0a0d)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #777777"/>
+    <path d="M 221.566752 234.577864
+L 221.566752 7.2
+" clip-path="url(#p8b3a8e082d)" style="fill: none; stroke-dasharray: 3.7,1.6; stroke-dashoffset: 0; stroke: #777777"/>
    </g>
    <g id="patch_3">
-    <path d="M 61.308828 234.598661
-L 61.308828 7.2
+    <path d="M 60.671344 234.577864
+L 60.671344 7.2
 " style="fill: none; stroke: #777777; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="patch_4">
-    <path d="M 61.308828 234.598661
-L 505.19952 234.598661
+    <path d="M 60.671344 234.577864
+L 505.19952 234.577864
 " style="fill: none; stroke: #777777; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="PathCollection_1">
@@ -1115,31 +929,31 @@ C -1.926654 3.317391 -0.983399 3.708099 0 3.708099
 z
 " style="stroke: #0072b2"/>
     </defs>
-    <g clip-path="url(#pe5618d0a0d)">
-     <use xlink:href="#m0b4ff07de3" x="487.584521" y="17.536303" style="fill: #0072b2; stroke: #0072b2"/>
-     <use xlink:href="#m0b4ff07de3" x="135.284548" y="57.912485" style="fill: #0072b2; stroke: #0072b2"/>
-     <use xlink:href="#m0b4ff07de3" x="366.077708" y="98.288668" style="fill: #0072b2; stroke: #0072b2"/>
-     <use xlink:href="#m0b4ff07de3" x="169.563247" y="138.664851" style="fill: #0072b2; stroke: #0072b2"/>
-     <use xlink:href="#m0b4ff07de3" x="398.389228" y="179.041033" style="fill: #0072b2; stroke: #0072b2"/>
-     <use xlink:href="#m0b4ff07de3" x="311.379851" y="219.417216" style="fill: #0072b2; stroke: #0072b2"/>
+    <g clip-path="url(#p8b3a8e082d)">
+     <use xlink:href="#m0b4ff07de3" x="487.559224" y="17.535357" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m0b4ff07de3" x="134.753303" y="57.907847" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m0b4ff07de3" x="365.877911" y="98.280337" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m0b4ff07de3" x="169.08123" y="138.652827" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m0b4ff07de3" x="398.235834" y="179.025317" style="fill: #0072b2; stroke: #0072b2"/>
+     <use xlink:href="#m0b4ff07de3" x="311.101501" y="219.397808" style="fill: #0072b2; stroke: #0072b2"/>
     </g>
    </g>
    <g id="text_13">
     <!-- Parity -->
-    <g style="fill: #777777" transform="translate(226.563555 225.502714) scale(0.11 -0.11)">
-     <use xlink:href="#DejaVuSans-33"/>
-     <use xlink:href="#DejaVuSans-44" transform="translate(55.8125 0)"/>
-     <use xlink:href="#DejaVuSans-55" transform="translate(117.09375 0)"/>
-     <use xlink:href="#DejaVuSans-4c" transform="translate(158.203125 0)"/>
-     <use xlink:href="#DejaVuSans-57" transform="translate(185.984375 0)"/>
-     <use xlink:href="#DejaVuSans-5c" transform="translate(225.1875 0)"/>
+    <g style="fill: #777777" transform="translate(226.163398 225.482749) scale(0.11 -0.11)">
+     <use xlink:href="#TeXGyreHeros-Regular-54"/>
+     <use xlink:href="#TeXGyreHeros-Regular-1d" transform="translate(63.703125 0)"/>
+     <use xlink:href="#TeXGyreHeros-Regular-61" transform="translate(119.296875 0)"/>
+     <use xlink:href="#TeXGyreHeros-Regular-43" transform="translate(152.59375 0)"/>
+     <use xlink:href="#TeXGyreHeros-Regular-6a" transform="translate(174.796875 0)"/>
+     <use xlink:href="#TeXGyreHeros-Regular-77" transform="translate(202.59375 0)"/>
     </g>
    </g>
   </g>
  </g>
  <defs>
-  <clipPath id="pe5618d0a0d">
-   <rect x="61.308828" y="7.2" width="443.890692" height="227.398661"/>
+  <clipPath id="p8b3a8e082d">
+   <rect x="60.671344" y="7.2" width="444.528176" height="227.377864"/>
   </clipPath>
  </defs>
 </svg>

@@ -1,0 +1,47 @@
+{
+  "scope": [
+    "README.md",
+    "docs/",
+    "reports/",
+    "notebooks/release_results.ipynb"
+  ],
+  "patterns": {
+    "old_lightgbm_mape": "(?<![\\d.])3\\.29(?![\\d.])",
+    "old_naive_mape": "(?<![\\d.])11\\.05(?![\\d.])",
+    "old_prophet_mape": "(?<![\\d.])16\\.8(?![\\d.])",
+    "old_mean_correlation": "(?<![\\d.])0\\.484(?![\\d.])",
+    "old_spatial_penalty": "(?<![\\d.])5\\.5\\s*%",
+    "old_test_count": "\\b36\\s+(?:tests|pytest|automated|passing)\\b",
+    "old_verification_number": "\\b10\\.0\\.1\\b"
+  },
+  "scanned_files": [
+    "README.md",
+    "notebooks/release_results.ipynb",
+    "docs/.gitkeep",
+    "docs/dashboard_data_dictionary.md",
+    "docs/dashboard_data_model.md",
+    "docs/evaluation_spec.md",
+    "docs/freeze_scope.md",
+    "docs/grid_upgrade_roadmap.md",
+    "docs/implementation_audit.md",
+    "docs/literature_review.md",
+    "docs/measurement_definitions.md",
+    "docs/operator_definitions.md",
+    "docs/quality_audit.md",
+    "docs/reference_verification.csv",
+    "docs/references.md",
+    "docs/report.md",
+    "docs/screenshots/.gitkeep",
+    "docs/tableau_dashboard_build_plan.md",
+    "reports/California_Grid_Analytics_Report_Sileshi_Hirpa.pdf",
+    "reports/cover.tex",
+    "reports/fonts/GUST-FONT-LICENSE.txt",
+    "reports/fonts/README.md",
+    "reports/fonts/XCharter-LICENSE.txt",
+    "reports/fonts/manifest.json",
+    "reports/layout.tex",
+    "reports/report_body.md"
+  ],
+  "findings": [],
+  "note": "Checks superseded README accuracy/spatial/test claims and old section numbering. PDF text is extracted; binary fonts and local preview images are skipped. Historical snapshot counts and explicitly historical roadmap figures are retained. This is a targeted stale-claim scan, not validation of every number in every document."
+}

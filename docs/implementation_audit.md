@@ -31,12 +31,14 @@ Network PostgreSQL, live API operation, hosted CI and unattended uptime remain u
 
 ## Literature and bibliography
 
-The requested reviewed source is missing at its specified Downloads location. No literature-review wording was reconstructed and no edits to that missing text were made. The complete reference list cannot be enumerated or verified without it. The report uses a separate limited bibliography whose checks are logged in [reference_verification.csv](reference_verification.csv). All entries in that limited bibliography are verified through a publisher, Crossref or authoritative university index. Operational documentation is labeled gray literature.
+The literature review is now available in `docs/literature_review.md`. The release report condenses it to one PDF page and ends with four gaps and this project's responses. The README links to the shared [APA reference list](references.md); the web report and PDF read the same 24 entries. Each has a completed [verification record](reference_verification.csv), with authoritative source URLs, retrieval digests where available, and notes about dates or metadata differences. The expanded review's unidentified repository and preprint claims remain unverified search leads; they are not release findings.
 
-## Publication previews
+## Publication validation
 
-The PDF was rendered to PNG for local page inspection. Local preview files are in `reports/previews/`. README HTML and document-rendered PNG previews are labeled local. A GitHub-rendered screenshot is unverified. The release contains no claim of hosted rendering or CI success.
+The current publication pass supersedes the old font and pagination evidence above. XCharter body fonts and TeX Gyre Heros heading/figure fonts are vendored with licenses and SHA-256 digests under `reports/fonts/`. The PDF uses file-based fontspec loading. Every table is boxed to stay on one page. Figure captions are explicitly left aligned. Verification is a second-level subsection, numbered 10.1 in the PDF.
+
+The targeted stale-number scan is restricted to README.md, docs/, reports/ and notebooks/release_results.ipynb. It checks superseded README model, spatial and test-count claims and the old verification number. See [recorded result](../verification/stale_number_check.json) for the exact patterns and scanned files. Historical snapshot counts and explicitly historical roadmap figures are retained. This does not assert that every numeric claim in the expanded literature review has been independently validated.
 
 ## Remaining limits
 
-The reviewed literature source and original Prophet scoring runtime remain outstanding. CISO storage correction is unsupported by the observed dedicated battery field. Seasonal OASIS differences support demand-definition caveats and do not establish model superiority. No branch, tag, merge, release or About-panel update was published.
+The original Prophet scoring runtime remains unavailable and strict replay still differs only in its Prophet metrics. CISO storage correction remains unsupported by the observed dedicated battery field. Seasonal OASIS checks diagnose alignment and demand definitions; they do not establish model superiority. The expanded review contains unverified search leads beyond the release bibliography. No merge is authorized or performed.

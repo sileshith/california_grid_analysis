@@ -12,15 +12,15 @@ No adoption margin has been specified. The frozen comparison does not justify de
 
 ## Related work
 
-Seasonal naive forecasts and chronological evaluation provide a transparent benchmark ladder. Hyndman and Athanasopoulos (2021) explain why forecasting methods should be assessed against simple comparators using genuinely later observations. Here the operator forecast is the primary comparator, while a previous-week local-hour rule and a trailing moving average help interpret the learned candidate. The project retains per-authority errors because proportional summaries can obscure the size of MW differences.
+Load forecasting research favors clear baselines and careful use of weather and calendar information (Hong & Fan, 2016; Hyndman & Athanasopoulos, 2021). Gradient boosting performed well in GEFCom2012 (Ben Taieb & Hyndman, 2014). LightGBM (Ke et al., 2017) and Prophet (Taylor & Letham, 2018) provide practical model choices, but neither guarantees improvement over an operator with access to weather forecasts. This project uses no future observed weather and treats its archived comparison as retrospective because original publication vintages are unavailable.
 
-Künsch (1989) develops block resampling for dependent observations. The release applies contiguous delivery-day blocks jointly across authorities so the resampled comparison retains within-block temporal and cross-authority pairing. That methodological precedent does not verify this dataset's stationarity. Block-length sensitivity and the amount of usable history remain part of the interpretation.
+Accuracy measures affect the conclusion. Hyndman and Koehler (2006) explain problems with percentage errors near zero. Davydenko and Fildes (2013) motivate geometric-mean relative MAE, which gives small and large authorities equal proportional weight. Künsch (1989) supports resampling blocks of dependent observations; this release resamples delivery days jointly across authorities. Diebold and Mariano (1995) and Harvey et al. (1997) provide tests and a small-sample correction for additional comparisons. Those tests are recommendations for future analysis, not completed release evidence.
 
-EIA's Hourly Electric Grid Monitor documentation is operational gray literature. It describes a physical accounting dataset subject to reporting and adjustment conventions. CAISO's OASIS documentation distinguishes actual demand and market-process forecasts. Those sources motivate checking definitions before interpreting a lower model error as a forecasting advantage. The current bulk headers expose net battery-generation fields, but net output alone cannot identify simultaneous gross charging and discharging across a fleet.
+Data cleaning also changes what a forecast is judged against. Ruggles et al. (2020) screen and impute hourly electricity demand; de Chalendar and Benson (2021) reconcile electricity data using physical balances. These studies motivate checking demand definitions and revisions before interpreting a lower error as better forecasting. EIA monitor documentation and CAISO OASIS documentation supply the operational definitions. Their archived data do not establish what was available at forecast issue time.
 
-The event-history catalog is also gray literature. Its alert notices supply externally documented labels rather than a validation target constructed from the demand score itself. A small catalog limits any ranking comparison. A transmission-related watch may occur without unusually high demand, so missing a label can reveal a mechanism mismatch rather than a threshold error.
+Composite indicators require external validation and sensitivity checks (Nardo et al., 2008). Saito and Rehmsmeier (2015) motivate precision and recall for rare events, while Fagerland et al. (2013) compare paired binary tests. Here documented CAISO alerts supply independent labels, and both rankings receive the same review budget. The sparse event record does not support a detector-superiority claim. Paired-test recommendations do not imply that such a test has been run.
 
-See the [literature review](literature_review.md) for the full discussion.
+The longer literature review identifies four gaps, understood as findings of a narrative search rather than proof that no prior work exists. **First, operator benchmarking:** existing gray-literature comparisons narrow the novelty claim; this project contributes explicit issue-time assumptions, proportional scoring and dependence-aware intervals. **Second, revision consequences:** it traces how revised readings and revised peaks separately change a review queue. **Third, composite validation:** it compares a composite with demand alone against documented alerts at equal workload and reports the limits of sparse labels. **Fourth, small-authority coverage:** it reports BANC, LDWP, IID and TIDC separately alongside CISO, so a large system cannot conceal their errors.
 
 ## Data and provenance
 
@@ -44,33 +44,33 @@ The audit distinguishes missing calendar hours, observed nulls, zeros and confli
 
 ## Methodology: issue time and predictors
 
-The forecast issue is 12:00 Pacific on the day before delivery. UTC hour-ending keys identify intervals. Their Pacific start date defines the delivery day. This preserves the actual intervals on daylight-saving clock changes instead of forcing every day into a constant-length grid.
+The model issues its forecast at 12:00 Pacific on the day before delivery. Each hourly record is identified by the UTC time when its interval ends. Its delivery day is the Pacific date when that interval starts. Days therefore keep their actual number of hours when daylight-saving time changes.
 
-The availability assumption subtracts 1 hour from issue time before selecting recent observations. It is an assumption about reporting delay, not evidence that each archived observation was available in that version at that instant. Retrospective bulk revisions can enter historical predictors without vintage proof. The operator forecast is likewise an archived comparator whose original publication-time availability has not been established by the bulk file alone.
+To allow for reporting delay, the model uses recent readings only up to 1 hour before issue time. This is an assumption, not proof that the archived version was available then. Later bulk-file revisions may appear in historical model inputs. The archived operator forecast has the same limitation: the bulk file alone does not prove its original publication time.
 
-Calendar predictors encode delivery hour, weekday and issue-to-target horizon. Demand features include the comparable previous-week local time, a trailing mean and the last available reading at the cutoff. Weekly lookup handles ambiguous or nonexistent wall-clock times as unavailable. The learned models train on reported historical demand. The retrospective primary target is adjusted demand. The saved predictions permit alternative target scoring without retraining.
+The model uses delivery hour, weekday and the time from issue to delivery. Demand inputs include the same local hour in the previous week, a recent average and the last reading allowed by the cutoff. If the previous-week local time occurs twice or does not exist because the clocks change, that input is unavailable. Models learn from reported historical demand. Their main retrospective score uses adjusted demand. Saved forecasts can be scored against another demand version without training again.
 
-Training is restricted to outcomes before the earliest issue-time cutoff in the next evaluation window. The complete last validation delivery day is discarded because its outcomes would otherwise arrive after the first test issue. This prevents an obvious boundary leak but cannot restore missing publication vintages. A change to availability policy would require a new development experiment rather than a revision to the frozen result.
+Training uses only outcomes before the earliest permitted cutoff in the next evaluation window. The entire final validation delivery day is dropped because its outcomes would arrive after the first test forecast was issued. This prevents a boundary leak but cannot recover missing publication vintages. Changing the availability rule requires a new development experiment; it must not change the frozen result.
 
 ## Methodology: windows, selection and inference
 
-Candidate selection uses the chronological development window beginning 2025-01-01 and ending before 2025-04-01. The candidate pool is lightgbm, prophet, previous_week, moving_average. The frozen development selection chose lightgbm. Model rank is an observed result. No candidate is promoted by deleting unfavorable authority outcomes.
+Models are chosen using a development period from 2025-01-01 up to, but not including, 2025-04-01. The candidates are lightgbm, prophet, previous_week, moving_average. The frozen selection chose lightgbm. The ranking is an observed result; unfavorable authority results are kept.
 
-For each eligible authority and delivery day, the calculation averages absolute errors on identical matched target hours. It then averages daily MAE across common days. The authority ratio divides the candidate mean daily MAE by the operator mean daily MAE. G is the exponential of the mean log ratio across authorities. Each authority has equal proportional weight, and each eligible day has equal weight within an authority. This differs from pooling all MW errors, which would give large systems a larger influence.
+For each authority and delivery day, we average the size of the hourly errors, ignoring their sign. This is mean absolute error (MAE), measured in MW. Every method is scored on the same matched hours. We then average daily MAE over common eligible days and divide the model's value by the operator's value. Below 1 means the model has lower error. G combines the five authority ratios by taking the exponential of their average logarithm: their geometric mean. Each authority receives equal proportional weight and each eligible day receives equal weight within an authority. Pooling MW errors would instead favor large systems.
 
-Eligibility requires at least 90% of the actual delivery-day intervals with all comparator methods and the target observed. All authorities must have an eligible day for the joint panel. Undefined or nonpositive ratios prevent log-based inference. Coverage is reported beside the score so a favorable result cannot conceal selective exclusions.
+A day qualifies only if at least 90% of its actual intervals have an observed target and forecasts from every comparator. A day enters the joint comparison only when all authorities qualify. Undefined or nonpositive ratios stop the logarithm-based inference. We report coverage beside the score to make exclusions visible.
 
-The moving-block bootstrap resamples contiguous eligible delivery-day blocks jointly across authorities and recomputes the ratios and G. There are 2,000 replicates with seed 42. The upper bound uses the 95% quantile. Development loss autocorrelation selected 1-day blocks. The frozen block-length sensitivity is 1-day blocks: 1.571, 3-day blocks: 1.603, 7-day blocks: 1.637, 14-day blocks: 1.646. A bound above parity does not support the deployment claim.
+To estimate uncertainty, we repeatedly draw blocks of consecutive eligible delivery days, keeping authorities paired, and recalculate the ratios and G. This moving-block bootstrap uses 2,000 draws and random seed 42. The upper bound is the 95% quantile of those draws. Development-period error dependence selected 1-day blocks. The frozen checks with other block lengths give 1-day blocks: 1.571, 3-day blocks: 1.603, 7-day blocks: 1.637, 14-day blocks: 1.646. An upper bound above 1 does not support deployment.
 
 ## Methodology: revisions, events and definitions
 
-Post-freeze sensitivity holds the saved forecasts fixed and changes the target or alignment. Adjusted and reported demand are scored separately. At forecast time t, a negative shift uses demand at an earlier UTC hour. Endpoint loss can alter common eligible days, so each variant reports its own coverage. The shift is a diagnostic and does not decide the correct clock convention.
+The checks added after the freeze keep forecasts fixed and change the demand version or hour alignment. Reported and adjusted demand are scored separately. A negative shift pairs a forecast at UTC hour t with demand from an earlier hour. Losing hours at the ends can change which days qualify, so every version reports its own coverage. A shift is a diagnostic; it does not by itself establish the correct clock convention.
 
-The LDWP-only storage proxy adds the negative part of battery net generation to adjusted demand. Other authorities retain their original targets. CISO has no observed dedicated battery-generation values in the holdout bulk fields, so a CISO storage correction is unsupported. This removes net charging only when aggregate battery generation is negative. It cannot recover gross charging, does not handle simultaneous fleet charging and discharge, and does not subtract integrated, pumped or other storage. It is labeled exploratory. Official reporting instructions and implementation-specific definitions must be reconciled before treating it as a corrected target.
+For LDWP only, an exploratory storage calculation adds battery net generation when it is negative to adjusted demand. All other authorities keep their targets. The holdout files have no observed dedicated CISO battery values, so they cannot support a CISO storage correction. The calculation removes net charging only when total battery generation is negative. It cannot recover gross charging, separate simultaneous fleet charging and discharge, or subtract integrated, pumped or other storage. Official reporting instructions and the source's definitions must agree before this can be called a corrected target.
 
-OASIS actual and DAM reports are compared on interval-ending UTC keys. CA ISO-TAC maps to CISO and LADWP maps to LDWP. The seasonal comparison changes only these authorities' target and optionally their operator forecast. Other authorities retain their EIA values. Those sampled-week G values are compared with a sampled-week baseline, not with the full-window headline.
+OASIS actual demand and day-ahead-market (DAM) reports are matched by UTC interval-ending time. CA ISO-TAC maps to CISO; LADWP maps to LDWP. In the seasonal checks, only these authorities receive replacement targets and, optionally, replacement operator forecasts. Others retain EIA values. Seasonal G is compared with the baseline for those same sampled weeks, not the full-window headline.
 
-Event validation uses trailing observations for normalization. The day score is the maximum hourly score, and a daily coverage rule excludes sparse days. Demand-only and composite rules select the same review budget in each annual window under reported and adjusted demand. The composite weights demand normalization, import reliance and forecast surprise. These same-day inputs support retrospective screening, not a day-ahead alert claim. Catalog coverage is checked, missed labels are retained, and recall is undefined for a year without qualifying events.
+For event screening, normalization uses only trailing observations. A day's score is its highest hourly score; a daily coverage rule excludes sparse days. Within each annual window, demand-only and composite rankings select the same number of review days under both reported and adjusted demand. The composite combines normalized demand, import reliance and forecast surprise. These same-day inputs support retrospective screening, not a day-ahead alert claim. Catalog coverage is checked and missed alerts are retained. Recall is undefined in a year with no qualifying events.
 
 ## Results: frozen headline
 
@@ -147,32 +147,50 @@ Monitoring should track the most recent complete publication, expected authority
 
 ## References
 
-California Independent System Operator. (n.d.). *OASIS frequently asked questions* [Technical documentation, gray literature]. https://www.caiso.com/documents/oasis-frequently-asked-questions.pdf
-
-California Independent System Operator. (2026). *Grid emergencies history report: 1998 to present* [Operational history, gray literature]. https://www.caiso.com/documents/grid-emergencies-history-report-1998-to-present.pdf
-
-Hyndman, R. J., & Athanasopoulos, G. (2021). *Forecasting: Principles and practice* (3rd ed.). OTexts. https://otexts.com/fpp3/
-
-Künsch, H. R. (1989). The jackknife and the bootstrap for general stationary observations. *The Annals of Statistics, 17*(3), 1217-1241. https://doi.org/10.1214/aos/1176347265
-
-U.S. Energy Information Administration. (n.d.). *About the Hourly Electric Grid Monitor* [Technical documentation, gray literature]. https://www.eia.gov/electricity/930-content/about.html
-
 Ben Taieb, S., & Hyndman, R. J. (2014). A gradient boosting approach to the Kaggle load forecasting competition. *International Journal of Forecasting, 30*(2), 382-394. https://doi.org/10.1016/j.ijforecast.2013.07.005
 
-Diebold, F. X., & Mariano, R. S. (1995). Comparing Predictive Accuracy. *Journal of Business &amp; Economic Statistics, 13*(3), 253-263. https://doi.org/10.1080/07350015.1995.10524599
+California Independent System Operator. (n.d.-a). *Grid emergencies history report: Summary of restricted maintenance operations, Flex Alerts, transmission and energy emergencies issued from May 2022 to present*. https://www.caiso.com/documents/grid-emergencies-history-report-1998-to-present.pdf
 
-Granger, C. W. J. (1969). Investigating Causal Relations by Econometric Models and Cross-spectral Methods. *Econometrica, 37*(3), 424. https://doi.org/10.2307/1912791
+California Independent System Operator. (n.d.-b). *Open Access Same-time Information System (OASIS) frequently asked questions (FAQ)*. https://www.caiso.com/documents/oasis-frequently-asked-questions.pdf
+
+Davydenko, A., & Fildes, R. (2013). Measuring forecasting accuracy: The case of judgmental adjustments to SKU-level demand forecasts. *International Journal of Forecasting, 29*(3), 510-522. https://doi.org/10.1016/j.ijforecast.2012.09.002
+
+de Chalendar, J. A., & Benson, S. M. (2021). A physics-informed data reconciliation framework for real-time electricity and emissions tracking. *Applied Energy, 304*, Article 117761. https://doi.org/10.1016/j.apenergy.2021.117761
+
+Diebold, F. X., & Mariano, R. S. (1995). Comparing predictive accuracy. *Journal of Business & Economic Statistics, 13*(3), 253-263. https://doi.org/10.1080/07350015.1995.10524599
+
+Fagerland, M. W., Lydersen, S., & Laake, P. (2013). The McNemar test for binary matched-pairs data: Mid-p and asymptotic are better than exact conditional. *BMC Medical Research Methodology, 13*, Article 91. https://doi.org/10.1186/1471-2288-13-91
+
+Granger, C. W. J. (1969). Investigating causal relations by econometric models and cross-spectral methods. *Econometrica, 37*(3), 424-438. https://doi.org/10.2307/1912791
+
+Harvey, D., Leybourne, S., & Newbold, P. (1997). Testing the equality of prediction mean squared errors. *International Journal of Forecasting, 13*(2), 281-291. https://doi.org/10.1016/s0169-2070(96)00719-4
+
+Hong, T., & Fan, S. (2016). Probabilistic electric load forecasting: A tutorial review. *International Journal of Forecasting, 32*(3), 914-938. https://doi.org/10.1016/j.ijforecast.2015.11.011
 
 Hong, T., Pinson, P., & Fan, S. (2014). Global Energy Forecasting Competition 2012. *International Journal of Forecasting, 30*(2), 357-363. https://doi.org/10.1016/j.ijforecast.2013.07.001
 
 Hong, T., Pinson, P., Fan, S., Zareipour, H., Troccoli, A., & Hyndman, R. J. (2016). Probabilistic energy forecasting: Global Energy Forecasting Competition 2014 and beyond. *International Journal of Forecasting, 32*(3), 896-913. https://doi.org/10.1016/j.ijforecast.2016.02.001
 
+Hyndman, R. J., & Athanasopoulos, G. (2021). *Forecasting: Principles and practice* (3rd ed.). OTexts. https://otexts.com/fpp3/
+
 Hyndman, R. J., & Koehler, A. B. (2006). Another look at measures of forecast accuracy. *International Journal of Forecasting, 22*(4), 679-688. https://doi.org/10.1016/j.ijforecast.2006.03.001
 
-Makridakis, S., Spiliotis, E., & Assimakopoulos, V. (2020). The M4 Competition: 100,000 time series and 61 forecasting methods. *International Journal of Forecasting, 36*(1), 54-74. https://doi.org/10.1016/j.ijforecast.2019.04.014
+Ke, G., Meng, Q., Finley, T., Wang, T., Chen, W., Ma, W., Ye, Q., & Liu, T.-Y. (2017). LightGBM: A highly efficient gradient boosting decision tree. In I. Guyon, U. von Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, & R. Garnett (Eds.), *Advances in neural information processing systems* (Vol. 30). Curran Associates, Inc. https://proceedings.neurips.cc/paper_files/paper/2017/hash/6449f44a102fde848669bdd9eb6b76fa-Abstract.html
+
+Künsch, H. R. (1989). The jackknife and the bootstrap for general stationary observations. *The Annals of Statistics, 17*(3), 1217-1241. https://doi.org/10.1214/aos/1176347265
+
+Makridakis, S., Spiliotis, E., & Assimakopoulos, V. (2020). The M4 competition: 100,000 time series and 61 forecasting methods. *International Journal of Forecasting, 36*(1), 54-74. https://doi.org/10.1016/j.ijforecast.2019.04.014
 
 Makridakis, S., Spiliotis, E., & Assimakopoulos, V. (2022). M5 accuracy competition: Results, findings, and conclusions. *International Journal of Forecasting, 38*(4), 1346-1364. https://doi.org/10.1016/j.ijforecast.2021.11.013
 
-Saito, T., & Rehmsmeier, M. (2015). The Precision-Recall Plot Is More Informative than the ROC Plot When Evaluating Binary Classifiers on Imbalanced Datasets. *PLOS ONE, 10*(3), e0118432. https://doi.org/10.1371/journal.pone.0118432
+Nardo, M., Saisana, M., Saltelli, A., Tarantola, S., Hoffmann, A., & Giovannini, E. (2008). *Handbook on constructing composite indicators: Methodology and user guide*. OECD Publishing. https://doi.org/10.1787/9789264043466-en
 
-Wickramasuriya, S. L., Athanasopoulos, G., & Hyndman, R. J. (2019). Optimal Forecast Reconciliation for Hierarchical and Grouped Time Series Through Trace Minimization. *Journal of the American Statistical Association, 114*(526), 804-819. https://doi.org/10.1080/01621459.2018.1448825
+Ruggles, T. H., Farnham, D. J., Tong, D., & Caldeira, K. (2020). Developing reliable hourly electricity demand data through screening and imputation. *Scientific Data, 7*, Article 155. https://doi.org/10.1038/s41597-020-0483-x
+
+Saito, T., & Rehmsmeier, M. (2015). The precision-recall plot is more informative than the ROC plot when evaluating binary classifiers on imbalanced datasets. *PLOS ONE, 10*(3), e0118432. https://doi.org/10.1371/journal.pone.0118432
+
+Taylor, S. J., & Letham, B. (2018). Forecasting at scale. *The American Statistician, 72*(1), 37-45. https://doi.org/10.1080/00031305.2017.1380080
+
+U.S. Energy Information Administration. (n.d.). *About the Hourly Electric Grid Monitor*. https://www.eia.gov/electricity/930-content/about.html
+
+Wickramasuriya, S. L., Athanasopoulos, G., & Hyndman, R. J. (2019). Optimal forecast reconciliation for hierarchical and grouped time series through trace minimization. *Journal of the American Statistical Association, 114*(526), 804-819. https://doi.org/10.1080/01621459.2018.1448825

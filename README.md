@@ -60,7 +60,7 @@ The pipeline preserves revisions and separates frozen evaluation from post-freez
 
 ### Verification and further reading
 
-[Verification status](docs/report.md#verification-status)
+[Verification status](docs/report.md#verification-status) · [APA references](docs/references.md)
 
 [Employer PDF](reports/California_Grid_Analytics_Report_Sileshi_Hirpa.pdf) · [Full report](docs/report.md) · [Literature review](docs/literature_review.md) · [Implementation audit](docs/implementation_audit.md) · [Freeze scope](docs/freeze_scope.md) · [Tableau Public (historical dashboard)](https://public.tableau.com/app/profile/sileshi.hirpa1285/viz/CaliforniaGridStressMonitoringDashboard/ExecutiveOverview)
 
